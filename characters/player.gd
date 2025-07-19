@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+@onready var skin: Sprite2D = %skin
+
 signal player_action(player)
 
 
@@ -10,7 +12,7 @@ func _ready() -> void:
 
 
 var speed = 60
-
+var flip_h = false
 var can_act = true
 
 
@@ -20,6 +22,10 @@ func _physics_process(delta):
             "move_left", "move_right", "move_up", "move_down"
         )
         self.velocity = input_vector * speed
+        if velocity.x > 0:
+            flip_h = false
+        elif velocity.x < 0:
+            flip_h = true
         move_and_slide()
 
         if input_vector.length() > 0:
