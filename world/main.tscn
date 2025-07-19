@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://yl3cvf80okdl"]
+
+[ext_resource type="Script" uid="uid://h78jvel3mra1" path="res://world/main.gd" id="1_gjxf3"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_gjxf3")
+
+[node name="enemies" type="Node2D" parent="."]

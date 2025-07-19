@@ -1,6 +1,4 @@
 extends Node
-const ENEMY = preload("res://enemy.tscn")
-const MAIN = preload("res://main.tscn")
 
 static var images_data = {
     "small.png": {"texture": preload("res://resources/small.png"), "hframes": 16, "vframes": 110},
@@ -40,29 +38,34 @@ static var images_data = {
     {"texture": preload("res://resources/fallback.png"), "hframes": 16, "vframes": 256}
 }
 
+var config
+var monsters
+
 
 func _ready():
-    var config = Utils.load_json_config()
-    var monsters = Utils.process_config(config)
+    config = Utils.load_json_config()
+    monsters = Utils.process_config(config)
 
-    for i in range(0, 50):
-        var enemy = ENEMY.instantiate()
-        var enemy_data = monsters.pick_random()
 
-        var sprite = enemy.get_node("Sprite2D") as Sprite2D
-        var label = enemy.get_node("name") as Label
+func get_cdda_monster():
+    var enemy_data = monsters.pick_random()
 
-        var image_data = images_data[enemy_data.file_name]
-        sprite.texture = image_data.texture
-        sprite.hframes = image_data.hframes
-        sprite.vframes = image_data.vframes
-        sprite.frame = enemy_data.id
+    #var sprite = enemy.get_node("Sprite2D") as Sprite2D
+    #var label = enemy.get_node("name") as Label
 
-        if typeof(enemy_data.name) == TYPE_ARRAY:
-            label.text = enemy_data.name[0]
-        else:
-            label.text = enemy_data.name
+    var image_data = images_data[enemy_data.file_name]
+    #sprite.texture = image_data.texture
+    #sprite.hframes = image_data.hframes
+    #sprite.vframes = image_data.vframes
+    #sprite.frame = enemy_data.id
 
-        enemy.position = Vector2(i % 10 * 300 + 300, (i / 10) * 100 + 100)
+    var enemy_name
+    if typeof(enemy_data.name) == TYPE_ARRAY:
+        enemy_name = enemy_data.name[0]
 
-        get_tree().current_scene.add_child(enemy)
+        #enemy.position = Vector2(i % 10 * 300 + 300, (i / 10) * 100 + 100)
+    else:
+        enemy_name = enemy_data.name
+
+        #enemy.position = Vector2(i % 10 * 300 + 300, (i / 10) * 100 + 100)
+    return {"name": enemy_name, "image_data": image_data.merged({"frame": enemy_data.id})}
