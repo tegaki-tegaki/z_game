@@ -208,5 +208,4 @@ func get_cdda_monster():
         "offset_y": offset_y
     }
 
-    print(monster)
     return monster

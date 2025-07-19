@@ -3,17 +3,38 @@ extends CharacterBody2D
 
 signal player_action(player)
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
     pass  # Replace with function body.
 
-var speed = 50
+
+var speed = 60
+
+var can_act = true
+
 
 func _physics_process(delta):
-    var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-    self.velocity = input_vector * speed
-    move_and_slide()
+    if can_act:
+        var input_vector = Input.get_vector(
+            "move_left", "move_right", "move_up", "move_down"
+        )
+        self.velocity = input_vector * speed
+        move_and_slide()
 
-    if input_vector.length() > 0:
+        if input_vector.length() > 0:
+            T.update(delta)
+            player_action.emit(self)
+
+        var attempt_fire = Input.is_action_just_pressed("fire_weapon")
+        if attempt_fire:
+            var disable_act_timer = get_tree().create_timer(0.2)
+            disable_act_timer.timeout.connect(enable_act)
+            can_act = false
+    else:
         T.update(delta)
         player_action.emit(self)
+
+
+func enable_act():
+    can_act = true

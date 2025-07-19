@@ -6,28 +6,31 @@ var has_target = false
 var target: Vector2 = Vector2()
 var speed = 50
 
+
 func _ready() -> void:
     T.time_updated.connect(act)
     var player: Player = get_tree().root.get_node("main/%player")
     if player:
         player.player_action.connect(update_ai)
 
+
 # we will not use _process within enemies
 # they will move when player ticks time
 func act(delta):
     if has_target:
-      velocity = target.normalized() * speed
+        velocity = target.normalized() * speed
     else:
-      velocity = Vector2()
+        velocity = Vector2()
     if velocity.x > 0:
-      sprite_2d.flip_h = false
+        sprite_2d.flip_h = false
     else:
-      sprite_2d.flip_h = true
+        sprite_2d.flip_h = true
     move_and_slide()
 
+
 func update_ai(player: Player):
-  # if can see player -> move to
-  # if can't see but saw -> move to last seen
-  # if at current -> "see" strongest smell trail -> move to
-  target = player.position - position
-  has_target = true
+    # if can see player -> move to
+    # if can't see but saw -> move to last seen
+    # if at current -> "see" strongest smell trail -> move to
+    target = player.position - position
+    has_target = true
