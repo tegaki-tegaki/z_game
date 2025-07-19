@@ -12,7 +12,7 @@ static var images_data = {
     {"texture": preload("res://resources/human_body_plus.png"), "hframes": 16, "vframes": 38},
     "centered.png":
     {"texture": preload("res://resources/centered.png"), "hframes": 16, "vframes": 3},
-    "large.png": {"texture": preload("res://resources/large.png"), "hframes": 16, "vframes": 34},
+    "large.png": {"texture": preload("res://resources/large.png"), "hframes": 8, "vframes": 34},
     "large_ridden.png":
     {"texture": preload("res://resources/large_ridden.png"), "hframes": 3, "vframes": 2},
     "huge.png": {"texture": preload("res://resources/huge.png"), "hframes": 4, "vframes": 8},
@@ -59,10 +59,10 @@ func _ready():
         sprite.frame = enemy_data.id
 
         if typeof(enemy_data.name) == TYPE_ARRAY:
-          label.text = enemy_data.name[0]
+            label.text = enemy_data.name[0]
         else:
-          label.text = enemy_data.name
+            label.text = enemy_data.name
 
-        enemy.position = Vector2(i % 10 * 300 + 100, (i / 10) * 100 + 100)
+        enemy.position = Vector2(i % 10 * 300 + 300, (i / 10) * 100 + 100)
 
         get_tree().current_scene.add_child(enemy)
