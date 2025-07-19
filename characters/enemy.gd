@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var sprite_2d: Sprite2D = %Sprite2D
+
 var has_target = false
 var target: Vector2 = Vector2()
 var speed = 50
@@ -17,6 +19,10 @@ func act(delta):
       velocity = target.normalized() * speed
     else:
       velocity = Vector2()
+    if velocity.x > 0:
+      sprite_2d.flip_h = false
+    else:
+      sprite_2d.flip_h = true
     move_and_slide()
 
 func update_ai(player: Player):

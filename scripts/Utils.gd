@@ -59,10 +59,17 @@ static func filter_tile_data(tiles, target: String) -> Variant:
 # TODO: i don't like higher order functions...
 static func process_monsters(file):
     return func(monster):
-        if typeof(monster) != TYPE_DICTIONARY || typeof(monster.fg) != TYPE_FLOAT:
+        if (
+            typeof(monster) != TYPE_DICTIONARY
+            || typeof(monster.fg) != TYPE_FLOAT
+        ):
             # NOTE: probably a better way? (some have multiple ids map to one fg + vice versa)
             return null
-        return {"file_name": file, "name": monster.id, "id": get_image_id(file, monster.fg)}
+        return {
+            "file_name": file,
+            "name": monster.id,
+            "id": get_image_id(file, monster.fg),
+        }
 
 
 static func process_config(config):
@@ -70,14 +77,18 @@ static func process_config(config):
     for tile_data in config["tiles-new"]:
         var tiles = tile_data.tiles
         var monsters_chunk_raw = filter_tile_data(tiles, "mon_zombie")
-        var monsters_chunk = monsters_chunk_raw.map(process_monsters(tile_data.file))
+        var monsters_chunk = monsters_chunk_raw.map(
+            process_monsters(tile_data.file)
+        )
         monsters.append_array(monsters_chunk)
     monsters = monsters.filter(func(m): return m != null)
     return monsters
 
 
 static func load_json_config():
-    var file_json = FileAccess.get_file_as_string("res://resources/tile_config.json")
+    var file_json = FileAccess.get_file_as_string(
+        "res://resources/tile_config.json"
+    )
     var config = JSON.parse_string(file_json)
 
     if config:

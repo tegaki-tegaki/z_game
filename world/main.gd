@@ -10,6 +10,9 @@ func _ready() -> void:
         var enemy = ENEMY.instantiate()
         var sprite = enemy.get_node("Sprite2D") as Sprite2D
         var label = enemy.get_node("name") as Label
+        var collision_shape: CollisionShape2D = (
+            enemy.get_node("CollisionShape2D") as CollisionShape2D
+        )
 
         sprite.texture = monster.image_data.texture
         sprite.hframes = monster.image_data.hframes
@@ -18,8 +21,13 @@ func _ready() -> void:
 
         label.text = monster.name
 
+        var shape = CircleShape2D.new()
+        shape.radius = monster.size
+        collision_shape.shape = shape
+        collision_shape.position = Vector2(0.0, monster.offset_y)
+
         @warning_ignore("integer_division")
-        enemy.position = Vector2((i % 6) * 300 + 150, i / 6 * 100 + 100)
+        enemy.position = Vector2((i % 5) * 300, i / 5 * 100)
         enemies.add_child(enemy)
 
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://l0g83fpfov3a" path="res://characters/enemy.gd" id="1_nhupr"]
 [ext_resource type="Texture2D" uid="uid://cetyqld2c5vim" path="res://resources/human_body_plus.png" id="2_nhupr"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1ohc2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_nhupr"]
 radius = 6.08276
 
 [node name="enemy" type="CharacterBody2D"]
@@ -19,6 +19,7 @@ vframes = 38
 frame = 183
 
 [node name="name" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -32,4 +33,4 @@ text = "monster_name"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -9)
-shape = SubResource("CircleShape2D_1ohc2")
+shape = SubResource("CircleShape2D_nhupr")
