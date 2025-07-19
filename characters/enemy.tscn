@@ -1,18 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://br67pb7jflr3h"]
+[gd_scene load_steps=4 format=3 uid="uid://br67pb7jflr3h"]
 
 [ext_resource type="Script" uid="uid://l0g83fpfov3a" path="res://characters/enemy.gd" id="1_nhupr"]
-[ext_resource type="Texture2D" uid="uid://dfe37vbli1abh" path="res://resources/large.png" id="2_1ohc2"]
+[ext_resource type="Texture2D" uid="uid://cetyqld2c5vim" path="res://resources/human_body_plus.png" id="2_nhupr"]
 
-[node name="enemy" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ohc2"]
+radius = 6.08276
+
+[node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_nhupr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(0, -24)
-texture = ExtResource("2_1ohc2")
+texture = ExtResource("2_nhupr")
 hframes = 16
 vframes = 38
+frame = 183
 
 [node name="name" type="Label" parent="."]
 anchors_preset = 5
@@ -25,3 +29,7 @@ grow_horizontal = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 0.415686)
 text = "monster_name"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_1ohc2")

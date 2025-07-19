@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpm2jjq2n7wes"]
+[gd_scene load_steps=4 format=3 uid="uid://cpm2jjq2n7wes"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://characters/player.gd" id="1_dnjla"]
 [ext_resource type="Texture2D" uid="uid://bbci3y6ls612o" path="res://resources/human_body.png" id="2_3eadt"]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
+radius = 7.0
+
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dnjla")
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="skin" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -43,3 +48,7 @@ texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 607
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_3eadt")
