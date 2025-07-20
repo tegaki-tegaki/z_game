@@ -51,3 +51,9 @@ frame = 607
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3eadt")
+
+[node name="aim_marker" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -15)
+
+[node name="raycast" type="RayCast2D" parent="aim_marker"]

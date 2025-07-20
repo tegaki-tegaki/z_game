@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://l0g83fpfov3a" path="res://characters/enemy.gd" id="1_nhupr"]
 [ext_resource type="Texture2D" uid="uid://cetyqld2c5vim" path="res://resources/human_body_plus.png" id="2_nhupr"]
 [ext_resource type="PackedScene" uid="uid://dqfakbh5v10ky" path="res://components/health_component.tscn" id="3_ggbst"]
-[ext_resource type="Script" uid="uid://ciyub2l2yoc78" path="res://characters/hitbox_component.gd" id="4_ggbst"]
+[ext_resource type="Script" uid="uid://ciyub2l2yoc78" path="res://scripts/hitbox_component.gd" id="4_ggbst"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhupr"]
 radius = 6.08276

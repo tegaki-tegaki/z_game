@@ -28,9 +28,9 @@ func act(delta):
     move_and_slide()
 
 
-func update_ai(player: Player):
+func update_ai(player_state: PlayerState):
     # if can see player -> move to
     # if can't see but saw -> move to last seen
     # if at current -> "see" strongest smell trail -> move to
-    target = player.position - position
+    target = player_state.Player.position - position
     has_target = true
