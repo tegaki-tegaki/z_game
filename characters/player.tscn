@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpm2jjq2n7wes"]
+[gd_scene load_steps=4 format=3 uid="uid://cpm2jjq2n7wes"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://characters/player.gd" id="1_dnjla"]
 [ext_resource type="Texture2D" uid="uid://bbci3y6ls612o" path="res://resources/human_body.png" id="2_3eadt"]
-[ext_resource type="Script" uid="uid://o1wp5td2qqt8" path="res://scripts/root_direction_flip.gd" id="3_tory2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
 radius = 7.0
@@ -20,7 +19,6 @@ texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 542
-script = ExtResource("3_tory2")
 
 [node name="wear" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -32,7 +30,6 @@ texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 1926
-script = ExtResource("3_tory2")
 
 [node name="pants (example)" type="Sprite2D" parent="wear"]
 texture_filter = 1
@@ -40,7 +37,6 @@ texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 2294
-script = ExtResource("3_tory2")
 
 [node name="wield" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -52,7 +48,6 @@ texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 607
-script = ExtResource("3_tory2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3eadt")
