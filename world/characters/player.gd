@@ -40,7 +40,7 @@ func handle_actions(delta):
 
 
 var is_aiming = false
-var aim_spread: float
+var aim_spread := PI
 var aim_direction: Vector2
 
 
@@ -59,7 +59,7 @@ func handle_move(delta):
 
         if is_aiming:
             is_aiming = false
-            aim_spread = PI * 2
+        aim_spread = PI
         act(delta, PlayerState.ActionType.MOVE)
 
         return true
@@ -114,9 +114,10 @@ func fire_ammo(ammo: Ammo):
     var raycast = RayCast2D.new()
     var aim_target = %aim_marker.get_node("raycast").target_position as Vector2
     var random_spread = randf_range(-aim_spread/2, aim_spread/2)
+    print("bullet with spread: " + str(random_spread))
     raycast.position = %body.position + %aim_marker.position
     raycast.target_position = (aim_target.normalized()).rotated(random_spread)
-    raycast.target_position *= 800 # bullet / gun range?
+    raycast.target_position *= 800 # use bullet / gun range?
     get_tree().root.get_node("main/%bullets").add_child(raycast)
     
 
