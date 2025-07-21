@@ -106,3 +106,13 @@ static func calc_damage(rangedWeapon: RangedWeapon):
 
 static func kinetic_energy(ammo: Ammo):
     return 0.5 * ammo.bullet_mass_kg * (ammo.bullet_velocity_mps ** 2)
+
+static func get_raycast_colliders(raycast: RayCast2D):
+    var colliders = []
+    raycast.force_raycast_update()
+    while raycast.is_colliding():
+      var collider = raycast.get_collider()
+      colliders.append(collider)
+      raycast.add_exception(collider)
+      raycast.force_raycast_update()
+    return colliders

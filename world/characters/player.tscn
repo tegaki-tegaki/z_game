@@ -62,3 +62,4 @@ unique_name_in_owner = true
 position = Vector2(0, -15)
 
 [node name="raycast" type="RayCast2D" parent="aim_marker"]
+collision_mask = 2

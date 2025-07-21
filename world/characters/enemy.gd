@@ -1,3 +1,4 @@
+class_name Enemy
 extends CharacterBody2D
 
 @onready var sprite_2d: Sprite2D = %Sprite2D
@@ -5,6 +6,7 @@ extends CharacterBody2D
 var has_target = false
 var target: Vector2 = Vector2()
 var speed = 50
+var health = 1000
 
 
 func _ready() -> void:
@@ -34,3 +36,9 @@ func update_ai(player_state: PlayerState):
     # if at current -> "see" strongest smell trail -> move to
     target = player_state.Player.position - position
     has_target = true
+
+func damage(weapon: RangedWeapon, velocity: float):
+  var raw_damage = Utils.calc_damage(weapon)
+  health -= raw_damage * (velocity / weapon.ammo.bullet_velocity_mps)
+  if health <= 0:
+    self.queue_free()

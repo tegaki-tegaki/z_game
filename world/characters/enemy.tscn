@@ -9,6 +9,7 @@
 radius = 6.08276
 
 [node name="enemy" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_nhupr")
 
 [node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component")]

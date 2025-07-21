@@ -97,11 +97,11 @@ func handle_fire(delta):
         var ammo = wielded.ammo as Ammo
         
         if ammo && weapon.num_ammo:
+          # play fire sound
+          fire_ammo(ammo)
           weapon.num_ammo -= 1
           if weapon.num_ammo <= 0:
             wielded.ammo = null
-          # play fire sound
-          fire_ammo(ammo)
         else:
           # play click sound
           pass
@@ -114,12 +114,28 @@ func fire_ammo(ammo: Ammo):
     var raycast = RayCast2D.new()
     var aim_target = %aim_marker.get_node("raycast").target_position as Vector2
     var random_spread = randf_range(-aim_spread/2, aim_spread/2)
-    print("bullet with spread: " + str(random_spread))
     raycast.position = %body.position + %aim_marker.position
     raycast.target_position = (aim_target.normalized()).rotated(random_spread)
     raycast.target_position *= 800 # use bullet / gun range?
+    raycast.set_collision_mask_value(2, true)
+    raycast.hit_from_inside = true
     get_tree().root.get_node("main/%bullets").add_child(raycast)
-    
+  calculate_bullet_hits()
+  
+func calculate_bullet_hits():
+  var wielded = %wield.get_child(0) as RangedWeapon
+  var weapon = wielded.weapon as Weapon
+  var ammo = wielded.ammo as Ammo
+  var bullets = get_tree().root.get_node("main/%bullets")
+  
+  for bullet: RayCast2D in bullets.get_children():
+    var hits = Utils.get_raycast_colliders(bullet)
+    print("bullet " + bullet.name + " hit " + str(hits))
+    var velocity = ammo.bullet_velocity_mps
+    for hit: Enemy in hits:
+      hit.damage(wielded, velocity)
+      velocity -= 100 # TODO: something smarter
+    bullet.queue_free()
 
 func handle_reload(delta):
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
