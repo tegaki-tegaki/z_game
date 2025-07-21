@@ -93,8 +93,8 @@ func handle_fire(delta):
         act(delta, PlayerState.ActionType.FIRE)
         
         var wielded = %wield.get_child(0) as RangedWeapon
-        var weapon = wielded.weapon as Weapon
-        var ammo = wielded.ammo as Ammo
+        var weapon = wielded.weapon
+        var ammo = wielded.ammo
         
         if ammo && weapon.num_ammo:
           # play fire sound
@@ -124,8 +124,8 @@ func fire_ammo(ammo: Ammo):
   
 func calculate_bullet_hits():
   var wielded = %wield.get_child(0) as RangedWeapon
-  var weapon = wielded.weapon as Weapon
-  var ammo = wielded.ammo as Ammo
+  var weapon = wielded.weapon
+  var ammo = wielded.ammo
   var bullets = get_tree().root.get_node("main/%bullets")
   
   for bullet: RayCast2D in bullets.get_children():
@@ -143,7 +143,7 @@ func handle_reload(delta):
         disable_act(2)
         act(delta, PlayerState.ActionType.RELOAD)
         var wielded = %wield.get_child(0) as RangedWeapon
-        var weapon = wielded.weapon as Weapon
+        var weapon = wielded.weapon
 
         const _00_SHOT = preload("res://resources/ammo/00_shot.tres")
         wielded.ammo = _00_SHOT
