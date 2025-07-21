@@ -1,5 +1,7 @@
-extends Node
-class_name AmmoComponent
+extends Resource
+class_name Ammo
+
+@export var ammo_name: String
 
 ## raw individual bullet damage.
 ## Usually 1, this is "extra damage" beyond
@@ -24,6 +26,8 @@ class_name AmmoComponent
 
 enum AmmoType {SHELLS, _d902mm, _d907mm, _d457mm}
 @export var ammo_type: AmmoType 
+
+@export var texture: AtlasTexture
 
 func get_inventory_data():
     return {

@@ -68,7 +68,8 @@ func handle_move(delta):
 func handle_aim(delta):
     var attempt_aim = Input.is_action_pressed("aim_weapon")
     if attempt_aim:
-        var weapon = %wield.get_child(0) as WeaponComponent
+        var wielded = %wield.get_child(0) as RangedWeapon
+        var weapon = wielded.weapon
         act(delta, PlayerState.ActionType.AIM)
 
         if !is_aiming:
@@ -91,8 +92,9 @@ func handle_fire(delta):
         disable_act(0.2)
         act(delta, PlayerState.ActionType.FIRE)
         
-        var weapon = %wield.get_child(0) as WeaponComponent
-        var ammo = weapon.get_node("%ammo").get_child(0) as AmmoComponent
+        var wielded = %wield.get_child(0) as RangedWeapon
+        var weapon = wielded.weapon as Weapon
+        var ammo = wielded.ammo as Ammo
         
         if ammo && weapon.num_ammo:
           weapon.num_ammo -= 1
@@ -112,14 +114,11 @@ func handle_reload(delta):
     if attempt_reload:
         disable_act(2)
         act(delta, PlayerState.ActionType.RELOAD)
+        var wielded = %wield.get_child(0) as RangedWeapon
+        var weapon = wielded.weapon as Weapon
 
-        var weapon = %wield.get_child(0) as WeaponComponent
-        # var ammo = weapon.get_node("%ammo").get_child(0) as AmmoComponent
-        var ammo_node = weapon.get_node("%ammo")
-
-        const _00_SHOT = preload("res://world/ammo/00_shot.tscn")
-        var ammo = _00_SHOT.instantiate()
-        ammo_node.add_child(ammo)
+        const _00_SHOT = preload("res://resources/ammo/00_shot.tres")
+        wielded.ammo = _00_SHOT
         weapon.num_ammo = 2
 
         return true

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Ammo" load_steps=4 format=3 uid="uid://4jnb3ii5e0yn"]
+
+[ext_resource type="Script" uid="uid://bqnjiwvhba1oj" path="res://models/ammo.gd" id="1_rq0pq"]
+[ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="2_preh3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_preh3"]
+atlas = ExtResource("2_preh3")
+region = Rect2(320, 3264, 32, 32)
+
+[resource]
+script = ExtResource("1_rq0pq")
+ammo_name = "00 shot"
+bullet_extra_damage = 1.0
+num_bullets = 9
+bullet_volume_cm3 = 0.3081
+bullet_mass_kg = 0.0035
+cartridge_volume_cm3 = 20.0
+cartridge_mass_kg = 0.032
+bullet_velocity_mps = 400.0
+bullet_hardness_bhn = 0.0
+ammo_type = 0
+texture = SubResource("AtlasTexture_preh3")
+metadata/_custom_type_script = "uid://bqnjiwvhba1oj"

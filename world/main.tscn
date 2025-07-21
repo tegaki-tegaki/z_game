@@ -80,7 +80,7 @@ text = "ammo_compatible:"
 [node name="ammo_stats" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "weapon (shotgun)"
+text = "ammo (NONE): "
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
 layout_mode = 2
@@ -93,13 +93,9 @@ size_flags_horizontal = 0
 [node name="ammo_texture" type="TextureRect" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
 unique_name_in_owner = true
 layout_mode = 2
+stretch_mode = 2
 
-[node name="ammo_loaded" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
+[node name="num_ammo" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "loaded:"
-
-[node name="num_ammo_loaded" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "num_ammo_loaded:"
+text = "num_ammo:"

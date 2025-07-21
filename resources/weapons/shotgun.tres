@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://dhgf4p0fvg625"]
+
+[ext_resource type="Script" uid="uid://ccjrxjshlop02" path="res://models/weapon.gd" id="1_v4xi8"]
+
+[resource]
+script = ExtResource("1_v4xi8")
+weapon_name = "shotgun"
+gun_damage = 1.0
+max_num_ammo = 2
+num_ammo = 0
+fire_time_coefficient = 1.0
+aim_time_coefficient = 0.2
+start_aim_spread = 1.0
+best_aim_spread = 0.2
+compatible_ammo = 0
+metadata/_custom_type_script = "uid://ccjrxjshlop02"

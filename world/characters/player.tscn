@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpm2jjq2n7wes"]
+[gd_scene load_steps=7 format=3 uid="uid://cpm2jjq2n7wes"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Texture2D" uid="uid://bbci3y6ls612o" path="res://images/human_body.png" id="2_3eadt"]
-[ext_resource type="PackedScene" uid="uid://ktygege6rugy" path="res://world/weapons/shotgun.tscn" id="3_tory2"]
+[ext_resource type="PackedScene" uid="uid://ktygege6rugy" path="res://world/weapons/ranged_weapon.tscn" id="3_tory2"]
+[ext_resource type="Script" uid="uid://cms5a8w8pmmcd" path="res://world/weapons/ranged_weapon.gd" id="4_dd2yi"]
+[ext_resource type="Resource" uid="uid://dhgf4p0fvg625" path="res://resources/weapons/shotgun.tres" id="5_jj1hj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
 radius = 7.0
@@ -46,7 +48,9 @@ frame = 2294
 unique_name_in_owner = true
 position = Vector2(0, -15)
 
-[node name="shotgun" parent="wield" instance=ExtResource("3_tory2")]
+[node name="ranged_weapon" parent="wield" instance=ExtResource("3_tory2")]
+script = ExtResource("4_dd2yi")
+weapon = ExtResource("5_jj1hj")
 
 [node name="aim_marker" type="Node2D" parent="."]
 unique_name_in_owner = true
