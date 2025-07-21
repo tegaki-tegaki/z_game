@@ -10,7 +10,7 @@ static var offsets = {
 static var images_data = {
     "small.png":
     {
-        "texture": preload("res://resources/small.png"),
+        "texture": preload("res://images/small.png"),
         "hframes": 16,
         "vframes": 110,
         "size": sizes["normal"],
@@ -18,7 +18,7 @@ static var images_data = {
     },
     "normal.png":
     {
-        "texture": preload("res://resources/normal.png"),
+        "texture": preload("res://images/normal.png"),
         "hframes": 16,
         "vframes": 445,
         "size": sizes["normal"],
@@ -26,7 +26,7 @@ static var images_data = {
     },
     "tall.png":
     {
-        "texture": preload("res://resources/tall.png"),
+        "texture": preload("res://images/tall.png"),
         "hframes": 16,
         "vframes": 44,
         "size": sizes["normal"],
@@ -34,7 +34,7 @@ static var images_data = {
     },
     "human_body.png":
     {
-        "texture": preload("res://resources/human_body.png"),
+        "texture": preload("res://images/human_body.png"),
         "hframes": 16,
         "vframes": 167,
         "size": sizes["normal"],
@@ -42,7 +42,7 @@ static var images_data = {
     },
     "human_body_plus.png":
     {
-        "texture": preload("res://resources/human_body_plus.png"),
+        "texture": preload("res://images/human_body_plus.png"),
         "hframes": 16,
         "vframes": 38,
         "size": sizes["normal"],
@@ -50,7 +50,7 @@ static var images_data = {
     },
     "centered.png":
     {
-        "texture": preload("res://resources/centered.png"),
+        "texture": preload("res://images/centered.png"),
         "hframes": 16,
         "vframes": 3,
         "size": sizes["normal"],
@@ -58,7 +58,7 @@ static var images_data = {
     },
     "large.png":
     {
-        "texture": preload("res://resources/large.png"),
+        "texture": preload("res://images/large.png"),
         "hframes": 8,
         "vframes": 34,
         "size": sizes["large"],
@@ -66,7 +66,7 @@ static var images_data = {
     },
     "large_ridden.png":
     {
-        "texture": preload("res://resources/large_ridden.png"),
+        "texture": preload("res://images/large_ridden.png"),
         "hframes": 3,
         "vframes": 2,
         "size": sizes["large"],
@@ -74,7 +74,7 @@ static var images_data = {
     },
     "huge.png":
     {
-        "texture": preload("res://resources/huge.png"),
+        "texture": preload("res://images/huge.png"),
         "hframes": 4,
         "vframes": 8,
         "size": sizes["huge"],
@@ -82,7 +82,7 @@ static var images_data = {
     },
     "giant.png":
     {
-        "texture": preload("res://resources/giant.png"),
+        "texture": preload("res://images/giant.png"),
         "hframes": 4,
         "vframes": 22,
         "size": sizes["giant"],
@@ -90,7 +90,7 @@ static var images_data = {
     },
     "incomplete_small.png":
     {
-        "texture": preload("res://resources/incomplete_small.png"),
+        "texture": preload("res://images/incomplete_small.png"),
         "hframes": 16,
         "vframes": 1,
         "size": sizes["small"],
@@ -98,7 +98,7 @@ static var images_data = {
     },
     "incomplete.png":
     {
-        "texture": preload("res://resources/incomplete.png"),
+        "texture": preload("res://images/incomplete.png"),
         "hframes": 16,
         "vframes": 54,
         "size": sizes["normal"],
@@ -106,7 +106,7 @@ static var images_data = {
     },
     "incomplete_tall.png":
     {
-        "texture": preload("res://resources/incomplete_tall.png"),
+        "texture": preload("res://images/incomplete_tall.png"),
         "hframes": 16,
         "vframes": 1,
         "size": sizes["normal"],
@@ -114,7 +114,7 @@ static var images_data = {
     },
     "incomplete_body_plus.png":
     {
-        "texture": preload("res://resources/incomplete_body_plus.png"),
+        "texture": preload("res://images/incomplete_body_plus.png"),
         "hframes": 16,
         "vframes": 1,
         "size": sizes["normal"],
@@ -122,7 +122,7 @@ static var images_data = {
     },
     "incomplete_large.png":
     {
-        "texture": preload("res://resources/incomplete_large.png"),
+        "texture": preload("res://images/incomplete_large.png"),
         "hframes": 8,
         "vframes": 11,
         "size": sizes["large"],
@@ -130,7 +130,7 @@ static var images_data = {
     },
     "incomplete_giant.png":
     {
-        "texture": preload("res://resources/incomplete_giant.png"),
+        "texture": preload("res://images/incomplete_giant.png"),
         "hframes": 4,
         "vframes": 1,
         "size": sizes["giant"],
@@ -138,7 +138,7 @@ static var images_data = {
     },
     "fillerhoder.png":
     {
-        "texture": preload("res://resources/fillerhoder.png"),
+        "texture": preload("res://images/fillerhoder.png"),
         "hframes": 16,
         "vframes": 4,
         "size": sizes["normal"],
@@ -146,7 +146,7 @@ static var images_data = {
     },
     "filler.png":
     {
-        "texture": preload("res://resources/filler.png"),
+        "texture": preload("res://images/filler.png"),
         "hframes": 16,
         "vframes": 2,
         "size": sizes["normal"],
@@ -154,7 +154,7 @@ static var images_data = {
     },
     "filler_tall.png":
     {
-        "texture": preload("res://resources/filler_tall.png"),
+        "texture": preload("res://images/filler_tall.png"),
         "hframes": 1,
         "vframes": 1,
         "size": sizes["normal"],
@@ -162,7 +162,7 @@ static var images_data = {
     },
     "fillergiant.png":
     {
-        "texture": preload("res://resources/fillergiant.png"),
+        "texture": preload("res://images/fillergiant.png"),
         "hframes": 4,
         "vframes": 3,
         "size": sizes["giant"],
@@ -170,7 +170,7 @@ static var images_data = {
     },
     "fallback.png":
     {
-        "texture": preload("res://resources/fallback.png"),
+        "texture": preload("res://images/fallback.png"),
         "hframes": 16,
         "vframes": 256,
         "size": sizes["normal"],

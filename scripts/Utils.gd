@@ -87,9 +87,21 @@ static func process_config(config):
 
 static func load_json_config():
     var file_json = FileAccess.get_file_as_string(
-        "res://resources/tile_config.json"
+        "res://images/tile_config.json"
     )
     var config = JSON.parse_string(file_json)
 
     if config:
         return config
+
+
+static func calc_damage(weapon: WeaponComponent):
+    var ammo = weapon.get_node("%ammo").get_child(0) as AmmoComponent
+    if !ammo:
+      return 0
+    var bullet_extra_dmg = ammo.bullet_extra_damage
+    return weapon.gun_damage * bullet_extra_dmg * kinetic_energy(ammo)
+
+
+static func kinetic_energy(ammo: AmmoComponent):
+    return 0.5 * ammo.bullet_mass_kg * (ammo.bullet_velocity_mps ** 2)

@@ -1,5 +1,5 @@
 extends Node2D
-const ENEMY = preload("res://characters/enemy.tscn")
+const ENEMY = preload("res://world/characters/enemy.tscn")
 @onready var enemies: Node2D = $enemies
 
 

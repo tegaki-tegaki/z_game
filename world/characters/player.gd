@@ -1,0 +1,141 @@
+class_name Player
+extends CharacterBody2D
+
+@onready var skin: Sprite2D = %skin
+
+signal player_action(player)
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+    pass  # Replace with function body.
+
+
+var speed = 60
+var can_act = true
+
+
+func act(delta, action_type: PlayerState.ActionType):
+    T.update(delta)
+    player_action.emit(PlayerState.new(self, action_type))
+
+
+func _physics_process(delta):
+    if can_act:
+        handle_actions(delta)
+    else:
+        act(delta, PlayerState.ActionType.WAIT)
+    aim_marker()
+
+
+func handle_actions(delta):
+    if handle_move(delta):
+        return
+    if handle_aim(delta):
+        return
+    if handle_fire(delta):
+        return
+    if handle_reload(delta):
+        return
+
+
+var is_aiming = false
+var aim_spread: float
+var aim_direction: Vector2
+
+
+func handle_move(delta):
+    var input_vector = Input.get_vector(
+        "move_left", "move_right", "move_up", "move_down"
+    )
+
+    if input_vector.length() > 0:
+        velocity = input_vector * speed
+        if velocity.x > 0:
+            transform.x = Vector2(1.0, 0.0)
+        elif velocity.x < 0:
+            transform.x = Vector2(-1.0, 0.0)
+        move_and_slide()
+
+        if is_aiming:
+            is_aiming = false
+            aim_spread = PI * 2
+        act(delta, PlayerState.ActionType.MOVE)
+
+        return true
+
+
+func handle_aim(delta):
+    var attempt_aim = Input.is_action_pressed("aim_weapon")
+    if attempt_aim:
+        var weapon = %wield.get_child(0) as WeaponComponent
+        act(delta, PlayerState.ActionType.AIM)
+
+        if !is_aiming:
+            is_aiming = true
+            aim_spread = weapon.start_aim_spread
+
+        aim_spread = move_toward(
+            aim_spread,
+            weapon.best_aim_spread,
+            delta * weapon.aim_time_coefficient
+        )
+
+        return true
+    return false
+
+
+func handle_fire(delta):
+    var attempt_fire = Input.is_action_just_pressed("fire_weapon")
+    if attempt_fire:
+        disable_act(0.2)
+        act(delta, PlayerState.ActionType.FIRE)
+        
+        var weapon = %wield.get_child(0) as WeaponComponent
+        var ammo = weapon.get_node("%ammo").get_child(0) as AmmoComponent
+        
+        if ammo && weapon.num_ammo:
+          weapon.num_ammo -= 1
+          if weapon.num_ammo <= 0:
+            ammo.queue_free()
+          # play fire sound
+        else:
+          # play click sound
+          pass
+
+        return true
+    return false
+
+
+func handle_reload(delta):
+    var attempt_reload = Input.is_action_just_pressed("reload_weapon")
+    if attempt_reload:
+        disable_act(2)
+        act(delta, PlayerState.ActionType.RELOAD)
+
+        var weapon = %wield.get_child(0) as WeaponComponent
+        # var ammo = weapon.get_node("%ammo").get_child(0) as AmmoComponent
+        var ammo_node = weapon.get_node("%ammo")
+
+        const _00_SHOT = preload("res://world/ammo/00_shot.tscn")
+        var ammo = _00_SHOT.instantiate()
+        ammo_node.add_child(ammo)
+        weapon.num_ammo = 2
+
+        return true
+    return false
+
+
+func aim_marker():
+    var raycast = %aim_marker.get_node("raycast")
+    raycast.target_position = get_local_mouse_position() - %aim_marker.position
+
+
+func disable_act(duration_seconds: float):
+    var disable_act_timer = get_tree().create_timer(duration_seconds)
+    disable_act_timer.timeout.connect(enable_act)
+    can_act = false
+
+
+func enable_act():
+    can_act = true

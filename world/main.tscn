@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://yl3cvf80okdl"]
 
 [ext_resource type="Script" uid="uid://h78jvel3mra1" path="res://world/main.gd" id="1_gjxf3"]
-[ext_resource type="PackedScene" uid="uid://cpm2jjq2n7wes" path="res://characters/player.tscn" id="2_hyim0"]
+[ext_resource type="PackedScene" uid="uid://cpm2jjq2n7wes" path="res://world/characters/player.tscn" id="2_hyim0"]
 [ext_resource type="PackedScene" uid="uid://dldjrbdrv6itq" path="res://world/terrain.tscn" id="2_spvjk"]
-[ext_resource type="Script" uid="uid://cli7snpvqc4rp" path="res://world/debug.gd" id="3_4f7fj"]
+[ext_resource type="Script" uid="uid://cli7snpvqc4rp" path="res://scripts/debug.gd" id="3_4f7fj"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_gjxf3")
@@ -39,9 +39,10 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "game_time: "
 
-[node name="weapon stats" type="Label" parent="CanvasLayer/MarginContainer/debug"]
+[node name="weapon_stats" type="Label" parent="CanvasLayer/MarginContainer/debug"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "weapon (shotgun)"
+text = "weapon (NONE)"
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/debug"]
 layout_mode = 2
@@ -50,24 +51,55 @@ theme_override_constants/margin_left = 20
 [node name="indent" type="VBoxContainer" parent="CanvasLayer/MarginContainer/debug/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-script = ExtResource("3_4f7fj")
+
+[node name="aim_spread" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "aim_spread:"
 
 [node name="aim_time" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "aim_time:"
 
 [node name="fire_time" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "fire_time:"
 
 [node name="damage" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "damage:"
+text = "damage estimate (per bullet):"
 
-[node name="spread" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+[node name="ammo_compatible" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "spread:"
+text = "ammo_compatible:"
 
-[node name="recoil" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+[node name="ammo_stats" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "recoil:"
+text = "weapon (shotgun)"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="indent" type="VBoxContainer" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ammo_texture" type="TextureRect" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ammo_loaded" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "loaded:"
+
+[node name="num_ammo_loaded" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "num_ammo_loaded:"
