@@ -12,9 +12,11 @@ script = ExtResource("1_gjxf3")
 
 [node name="player" parent="." instance=ExtResource("2_hyim0")]
 unique_name_in_owner = true
-position = Vector2(576, 324)
 
 [node name="enemies" type="Node2D" parent="."]
+
+[node name="bullets" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

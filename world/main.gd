@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func debug_spawn_monster_grid():
-    for i in range(0, 50):
+    for i in range(0, 10):
         var monster = G.get_cdda_monster()
         var enemy = ENEMY.instantiate()
         var sprite = enemy.get_node("Sprite2D") as Sprite2D

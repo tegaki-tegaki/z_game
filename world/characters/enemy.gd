@@ -9,7 +9,7 @@ var speed = 50
 
 func _ready() -> void:
     T.time_updated.connect(act)
-    var player: Player = get_tree().root.get_node("main/%player")
+    var player: Player = get_tree().root.get_node("main/%player/%body")
     if player:
         player.player_action.connect(update_ai)
 

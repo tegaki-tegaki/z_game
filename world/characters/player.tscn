@@ -9,15 +9,20 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
 radius = 7.0
 
-[node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_dnjla")
+[node name="Player" type="Node"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="body" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(384, 272)
+script = ExtResource("1_dnjla")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
 shape = SubResource("CircleShape2D_3eadt")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="body"]
 
-[node name="skin" type="Sprite2D" parent="."]
+[node name="skin" type="Sprite2D" parent="body"]
 unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(0, -14)
@@ -26,29 +31,29 @@ hframes = 16
 vframes = 167
 frame = 542
 
-[node name="wear" type="Node2D" parent="."]
+[node name="wear" type="Node2D" parent="body"]
 unique_name_in_owner = true
 position = Vector2(0, -14)
 
-[node name="hoodie (example)" type="Sprite2D" parent="wear"]
+[node name="hoodie (example)" type="Sprite2D" parent="body/wear"]
 texture_filter = 1
 texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 1926
 
-[node name="pants (example)" type="Sprite2D" parent="wear"]
+[node name="pants (example)" type="Sprite2D" parent="body/wear"]
 texture_filter = 1
 texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 2294
 
-[node name="wield" type="Node2D" parent="."]
+[node name="wield" type="Node2D" parent="body"]
 unique_name_in_owner = true
 position = Vector2(0, -15)
 
-[node name="ranged_weapon" parent="wield" instance=ExtResource("3_tory2")]
+[node name="ranged_weapon" parent="body/wield" instance=ExtResource("3_tory2")]
 script = ExtResource("4_dd2yi")
 weapon = ExtResource("5_jj1hj")
 

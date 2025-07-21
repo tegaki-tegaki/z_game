@@ -18,9 +18,10 @@ func _process(delta: float) -> void:
   var wielded = %player.get_node("%wield").get_child(0) as RangedWeapon
   var weapon = wielded.weapon as Weapon
   var ammo = wielded.ammo as Ammo
+  var player = %player.get_node("%body") as Player
   game_time.text = "game_time: " + str(T.game_time)
   weapon_stats.text = "weapon (" + weapon.weapon_name + ")"
-  aim_spread.text = "aim_spread: " + str(%player.aim_spread)
+  aim_spread.text = "aim_spread: " + str(player.aim_spread)
   aim_time.text = "aim_time: " + str(weapon.aim_time_coefficient)
   fire_time.text = "fire_time: " + str(weapon.fire_time_coefficient)
   ammo_compatible.text = "ammo_compatible: " + str(weapon.compatible_ammo)
@@ -30,5 +31,6 @@ func _process(delta: float) -> void:
     ammo_texture.texture = ammo.texture
     ammo_stats.text = "ammo (" + ammo.ammo_name + ")"
   else:
+    ammo_texture.texture = null
     ammo_stats.text = "ammo (NONE)"
   num_ammo.text = "num_ammo: " + str(weapon.num_ammo) + "/" + str(weapon.max_num_ammo)

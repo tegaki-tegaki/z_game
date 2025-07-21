@@ -99,15 +99,26 @@ func handle_fire(delta):
         if ammo && weapon.num_ammo:
           weapon.num_ammo -= 1
           if weapon.num_ammo <= 0:
-            ammo.queue_free()
+            wielded.ammo = null
           # play fire sound
+          fire_ammo(ammo)
         else:
           # play click sound
           pass
 
         return true
     return false
-
+    
+func fire_ammo(ammo: Ammo):
+  for i in ammo.num_bullets:
+    var raycast = RayCast2D.new()
+    var aim_target = %aim_marker.get_node("raycast").target_position as Vector2
+    var random_spread = randf_range(-aim_spread/2, aim_spread/2)
+    raycast.position = %body.position + %aim_marker.position
+    raycast.target_position = (aim_target.normalized()).rotated(random_spread)
+    raycast.target_position *= 800 # bullet / gun range?
+    get_tree().root.get_node("main/%bullets").add_child(raycast)
+    
 
 func handle_reload(delta):
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
@@ -127,7 +138,8 @@ func handle_reload(delta):
 
 func aim_marker():
     var raycast = %aim_marker.get_node("raycast")
-    raycast.target_position = get_local_mouse_position() - %aim_marker.position
+    raycast.position = %body.position
+    raycast.target_position = get_global_mouse_position() - (raycast.position + %aim_marker.position)
 
 
 func disable_act(duration_seconds: float):
