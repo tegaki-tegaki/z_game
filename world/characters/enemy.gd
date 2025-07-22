@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 var has_target = false
 var target: Vector2 = Vector2()
-var speed = 50
+var speed = 65
 var health = 1000
 
 

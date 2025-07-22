@@ -8,7 +8,7 @@ signal player_action(player)
 @onready var bullets = get_tree().root.get_node("main/%bullets/raycasts")
 @onready var bullet_decals = get_tree().root.get_node("main/%bullets/decals")
 
-var speed = 60
+var speed = 80
 var stamina = 100
 var strength = 10
 var can_act = true
