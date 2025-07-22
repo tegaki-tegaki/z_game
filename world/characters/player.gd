@@ -142,6 +142,7 @@ func fire_ammo(ammo: Ammo):
             random_spread
         )
         raycast.target_position *= 2000  # use bullet / gun range?
+        raycast.set_collision_mask_value(1, false)
         raycast.set_collision_mask_value(2, true)
         # NOTE: displacement of aim_marker makes this less predictable?
         raycast.hit_from_inside = true
@@ -195,8 +196,8 @@ func handle_reload():
     if attempt_reload:
         var wielded = %wield.get_child(0) as RangedWeapon
         var weapon = wielded.weapon
-        disable_act(1 * weapon.reload_time_modifier)
         act(1.0, PlayerState.ActionType.RELOAD)
+        disable_act(1 * weapon.reload_time_modifier, 3.0)
 
         const _00_SHOT = preload("res://resources/ammo/00_shot.tres")
         wielded.ammo = _00_SHOT
@@ -226,11 +227,14 @@ func aim_marker():
     )
 
 
-func disable_act(duration_seconds: float):
-    var disable_act_timer = get_tree().create_timer(duration_seconds)
+func disable_act(duration_seconds: float, boost = 1.0):
+    print("disable_act( " + str(duration_seconds) + " , " + str(1/boost) + " )")
+    var disable_act_timer = get_tree().create_timer(duration_seconds * (1 / boost))
+    T.set_time_boost(boost)
     disable_act_timer.timeout.connect(enable_act)
     can_act = false
 
 
 func enable_act():
+    T.set_time_boost(1.0)
     can_act = true
