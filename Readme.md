@@ -10,3 +10,4 @@
   - bullets have basic visual decals
 - enemies
 - "stress free", time in game only passes when you "do stuff"
+- time_scale system can be boosted for "non-act" events, to speed up gameplay
