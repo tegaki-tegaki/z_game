@@ -19,11 +19,12 @@ var aim_direction: Vector2
 
 
 func _ready() -> void:
+    T.set_time_scale(0)
     set_aim_spread()
 
 
-func act(delta, action_type: PlayerState.ActionType):
-    T.update(delta)
+func act(time_scale, action_type: PlayerState.ActionType):
+    T.set_time_scale(time_scale)
     player_action.emit(PlayerState.new(self, action_type))
 
 
@@ -31,19 +32,20 @@ func _physics_process(delta):
     if can_act:
         handle_actions(delta)
     else:
-        act(delta, PlayerState.ActionType.WAIT)
+        act(1.0, PlayerState.ActionType.WAIT)
     handle_modes()
     aim_marker()
 
 
 func handle_actions(delta):
-    if handle_move(delta):
+    T.set_time_scale(0)
+    if handle_move():
         return
     if handle_aim(delta):
         return
-    if handle_fire(delta):
+    if handle_fire():
         return
-    if handle_reload(delta):
+    if handle_reload():
         return
 
 
@@ -55,7 +57,7 @@ func set_aim_spread():
         aim_spread = weapon.start_aim_spread
 
 
-func handle_move(delta):
+func handle_move():
     var input_vector = Input.get_vector(
         "move_left", "move_right", "move_up", "move_down"
     )
@@ -67,7 +69,6 @@ func handle_move(delta):
             transform.x = Vector2(1.0, 0.0)
         elif velocity.x < 0:
             transform.x = Vector2(-1.0, 0.0)
-        move_and_slide()
 
         if is_aiming:
             is_aiming = false
@@ -77,9 +78,12 @@ func handle_move(delta):
         if run_mode:
             delta_mod = clamp(delta_mod - inverse_lerp(0, 20, strength), 0.1, 1)
 
-        act(delta * delta_mod, PlayerState.ActionType.MOVE)
+        act(1.0 * delta_mod, PlayerState.ActionType.MOVE)
+
+        move_and_slide()
 
         return true
+    return false
 
 
 func handle_aim(delta):
@@ -87,7 +91,7 @@ func handle_aim(delta):
     if attempt_aim:
         var wielded = %wield.get_child(0) as RangedWeapon
         var weapon = wielded.weapon
-        act(delta, PlayerState.ActionType.AIM)
+        act(1.0, PlayerState.ActionType.AIM)
 
         if !is_aiming:
             is_aiming = true
@@ -101,11 +105,11 @@ func handle_aim(delta):
     return false
 
 
-func handle_fire(delta):
+func handle_fire():
     var attempt_fire = Input.is_action_just_pressed("fire_weapon")
     if attempt_fire:
         disable_act(0.2)
-        act(delta, PlayerState.ActionType.FIRE)
+        act(1.0, PlayerState.ActionType.FIRE)
 
         var wielded = %wield.get_child(0) as RangedWeapon
         var weapon = wielded.weapon
@@ -126,6 +130,7 @@ func handle_fire(delta):
 
 
 func fire_ammo(ammo: Ammo):
+    print("AMMO FIRED")
     for i in ammo.num_bullets:
         var aim_target = (
             %aim_marker.get_node("raycast").target_position as Vector2
@@ -136,7 +141,7 @@ func fire_ammo(ammo: Ammo):
         raycast.target_position = (aim_target.normalized()).rotated(
             random_spread
         )
-        raycast.target_position *= 800  # use bullet / gun range?
+        raycast.target_position *= 2000  # use bullet / gun range?
         raycast.set_collision_mask_value(2, true)
         # NOTE: displacement of aim_marker makes this less predictable?
         raycast.hit_from_inside = true
@@ -148,6 +153,7 @@ func calculate_bullet_hits():
     var wielded = %wield.get_child(0) as RangedWeapon
     var ammo = wielded.ammo
 
+
     for bullet_ray: RayCast2D in bullets.get_children():
         var hits = Utils.get_raycast_colliders(bullet_ray)
         print("bullet " + bullet_ray.name + " hit " + str(hits))
@@ -158,14 +164,14 @@ func calculate_bullet_hits():
             bullet_velocity -= 200  # TODO: something smarter
             if bullet_velocity <= 0:
                 zero_velocity_collider = hit
-                bullet_ray.remove_exception(hit)
+                bullet_ray.remove_exception(zero_velocity_collider)
         render_bullet(bullet_ray, zero_velocity_collider)
         bullet_ray.queue_free()
 
 
 func render_bullet(bullet_ray: RayCast2D, terminal_collider: CharacterBody2D):
     var origin_point = bullet_ray.position
-    var end_point = bullet_ray.target_position
+    var end_point = origin_point + bullet_ray.target_position
     if terminal_collider:
         bullet_ray.force_raycast_update()
         end_point = bullet_ray.get_collision_point()
@@ -184,13 +190,13 @@ func render_bullet(bullet_ray: RayCast2D, terminal_collider: CharacterBody2D):
     tween.tween_callback(line.queue_free)
 
 
-func handle_reload(delta):
+func handle_reload():
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
     if attempt_reload:
         var wielded = %wield.get_child(0) as RangedWeapon
         var weapon = wielded.weapon
         disable_act(1 * weapon.reload_time_modifier)
-        act(delta, PlayerState.ActionType.RELOAD)
+        act(1.0, PlayerState.ActionType.RELOAD)
 
         const _00_SHOT = preload("res://resources/ammo/00_shot.tres")
         wielded.ammo = _00_SHOT

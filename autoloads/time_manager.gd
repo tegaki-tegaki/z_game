@@ -1,9 +1,9 @@
 extends Node
 
-var game_time := 0.0  # seconds
+var time_scale := 0.0
 
-signal time_updated(delta)
+signal changed_time_scale()
 
-func update(delta):
-    game_time += delta
-    time_updated.emit(delta)
+func set_time_scale(new_time_scale: float):
+    time_scale = new_time_scale
+    changed_time_scale.emit(new_time_scale)

@@ -1,7 +1,5 @@
 extends VBoxContainer
 
-@onready var game_time: Label = %game_time
-
 @onready var weapon_stats: Label = %weapon_stats
 @onready var aim_spread: Label = %aim_spread
 @onready var aim_time: Label = %aim_time
@@ -19,7 +17,6 @@ func _process(delta: float) -> void:
   var weapon = wielded.weapon as Weapon
   var ammo = wielded.ammo as Ammo
   var player = %player.get_node("%body") as Player
-  game_time.text = "game_time: " + str(T.game_time)
   weapon_stats.text = "weapon (" + weapon.weapon_name + ")"
   aim_spread.text = "aim_spread: " + str(player.aim_spread)
   aim_time.text = "aim_time: " + str(weapon.aim_time_modifier)

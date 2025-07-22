@@ -10,19 +10,18 @@ var health = 1000
 
 
 func _ready() -> void:
-    T.time_updated.connect(act)
     var player: Player = get_tree().root.get_node("main/%player/%body")
     if player:
         player.player_action.connect(update_ai)
 
 
-# we will not use _process within enemies
-# they will move when player ticks time
-func act(delta):
+## [code]time_scale[/code] determines velocity
+func _physics_process(delta: float) -> void:
     if has_target:
-        velocity = target.normalized() * speed
+        velocity = target.normalized() * speed * T.time_scale
     else:
-        velocity = Vector2()
+        # TODO: something smarter (smells, idle behaviour... stuff)
+        velocity = Vector2(randf(), randf()).normalized() * speed * T.time_scale
     if velocity.x > 0:
         sprite_2d.flip_h = false
     else:
