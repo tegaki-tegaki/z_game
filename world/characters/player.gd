@@ -5,7 +5,9 @@ extends CharacterBody2D
 
 signal player_action(player)
 
-@onready var bullets = get_tree().root.get_node("main/%bullets")
+@onready var bullets = get_tree().root.get_node("main/%bullets/raycasts")
+@onready var bullet_decals = get_tree().root.get_node("main/%bullets/decals")
+
 var speed = 60
 var can_act = true
 
@@ -160,8 +162,8 @@ func render_bullet(bullet_ray: RayCast2D, terminal_collider: CharacterBody2D):
     line.add_point(origin_point)
     line.add_point(end_point)
 
-    bullets.add_child(line)
-    await get_tree().create_timer(1.0).timeout # PERF: timer per bullet
+    bullet_decals.add_child(line)
+    await get_tree().create_timer(1.0).timeout  # PERF: timer per bullet
     line.queue_free()
 
 
