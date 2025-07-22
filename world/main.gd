@@ -34,6 +34,7 @@ func debug_spawn_monster_grid():
         @warning_ignore("integer_division")
         enemy.position = Vector2((i % 5) * 300, i / 5 * 100)
         enemies.add_child(enemy)
+        
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -25,3 +25,5 @@ class_name Weapon
 @export var best_aim_spread: float
 
 @export var compatible_ammo: Ammo.AmmoType
+
+@export var sound_pool: SoundPool

@@ -104,6 +104,3 @@ text = "num_ammo:"
 
 [node name="audio" type="Node2D" parent="."]
 unique_name_in_owner = true
-
-[node name="gunshots" type="AudioStreamPlayer2D" parent="audio"]
-volume_db = 4.0

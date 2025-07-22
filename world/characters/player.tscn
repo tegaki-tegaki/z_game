@@ -59,6 +59,13 @@ position = Vector2(0, -15)
 script = ExtResource("4_dd2yi")
 weapon = ExtResource("5_jj1hj")
 
+[node name="audio" type="Node2D" parent="body"]
+unique_name_in_owner = true
+
+[node name="gunshot" type="AudioStreamPlayer2D" parent="body/audio"]
+
+[node name="reload" type="AudioStreamPlayer2D" parent="body/audio"]
+
 [node name="aim_marker" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -15)

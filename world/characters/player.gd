@@ -130,10 +130,7 @@ func handle_fire():
 
 func fire_ammo(ammo: Ammo):
     print("AMMO FIRED")
-    var sound = ammo.sound_pool.get_sound()
-    var audioplayer = get_tree().root.get_node("main/%audio/gunshots") as AudioStreamPlayer2D
-    audioplayer.stream = sound
-    audioplayer.play()
+    Utils.play_shot_sound(self, ammo.sound_pool.get_sound())
     
     for i in ammo.num_bullets:
         var aim_target = (
@@ -200,6 +197,7 @@ func handle_reload():
     if attempt_reload:
         var wielded = %wield.get_child(0) as RangedWeapon
         var weapon = wielded.weapon
+        Utils.play_reload_sound(self, weapon.sound_pool.get_sound())
         act(1.0, PlayerState.ActionType.RELOAD)
         disable_act(1 * weapon.reload_time_modifier, 3.0)
 

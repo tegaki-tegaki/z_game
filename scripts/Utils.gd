@@ -116,3 +116,13 @@ static func get_raycast_colliders(raycast: RayCast2D):
       raycast.add_exception(collider)
       raycast.force_raycast_update()
     return colliders
+
+static func play_shot_sound(node: Node, sound: AudioStream):
+    var audioplayer = node.get_node("%audio/gunshot") as AudioStreamPlayer2D
+    audioplayer.stream = sound
+    audioplayer.play()
+    
+static func play_reload_sound(node: Node, sound: AudioStream):
+    var audioplayer = node.get_node("%audio/reload") as AudioStreamPlayer2D
+    audioplayer.stream = sound
+    audioplayer.play()
