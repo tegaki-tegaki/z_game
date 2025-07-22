@@ -161,7 +161,7 @@ func calculate_bullet_hits():
         var bullet_velocity = ammo.bullet_velocity_mps
         var zero_velocity_collider = null
         for hit: Enemy in hits:
-            hit.damage(wielded, bullet_velocity)
+            hit.damage(wielded, bullet_velocity, bullet_ray.target_position)
             bullet_velocity -= 200  # TODO: something smarter
             if bullet_velocity <= 0:
                 zero_velocity_collider = hit
