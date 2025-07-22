@@ -116,7 +116,6 @@ func handle_fire():
         var ammo = wielded.ammo
 
         if ammo && weapon.num_ammo:
-            # play fire sound
             fire_ammo(ammo)
             weapon.num_ammo -= 1
             if weapon.num_ammo <= 0:
@@ -131,6 +130,11 @@ func handle_fire():
 
 func fire_ammo(ammo: Ammo):
     print("AMMO FIRED")
+    var sound = ammo.sound_pool.get_sound()
+    var audioplayer = get_tree().root.get_node("main/%audio/gunshots") as AudioStreamPlayer2D
+    audioplayer.stream = sound
+    audioplayer.play()
+    
     for i in ammo.num_bullets:
         var aim_target = (
             %aim_marker.get_node("raycast").target_position as Vector2
@@ -228,7 +232,6 @@ func aim_marker():
 
 
 func disable_act(duration_seconds: float, boost = 1.0):
-    print("disable_act( " + str(duration_seconds) + " , " + str(1/boost) + " )")
     var disable_act_timer = get_tree().create_timer(duration_seconds * (1 / boost))
     T.set_time_boost(boost)
     disable_act_timer.timeout.connect(enable_act)

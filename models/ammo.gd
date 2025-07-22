@@ -29,6 +29,8 @@ enum AmmoType {SHELLS, _d902mm, _d907mm, _d457mm}
 
 @export var texture: AtlasTexture
 
+@export var sound_pool: SoundPool
+
 func get_inventory_data():
     return {
         "volume": cartridge_volume_cm3,

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SoundPool" load_steps=7 format=3 uid="uid://dt3m88y04kudy"]
+
+[ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="1_ij6oq"]
+[ext_resource type="AudioStream" uid="uid://bmk41glg1s1qo" path="res://sounds/00shot/00shot1.ogg" id="2_vge5n"]
+[ext_resource type="AudioStream" uid="uid://dmce3ho2qmq4n" path="res://sounds/00shot/00shot2.ogg" id="3_fv3wq"]
+[ext_resource type="AudioStream" uid="uid://7nvec22xv8h3" path="res://sounds/00shot/00shot3.ogg" id="4_it68h"]
+[ext_resource type="AudioStream" uid="uid://c3r32ii8e3bj3" path="res://sounds/00shot/00shot4.ogg" id="5_33c5g"]
+[ext_resource type="AudioStream" uid="uid://b0gpimtk66ux3" path="res://sounds/00shot/00shot5.ogg" id="6_54emb"]
+
+[resource]
+script = ExtResource("1_ij6oq")
+sounds = Array[AudioStream]([ExtResource("2_vge5n"), ExtResource("3_fv3wq"), ExtResource("4_it68h"), ExtResource("5_33c5g"), ExtResource("6_54emb")])
+metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
