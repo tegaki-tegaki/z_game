@@ -9,12 +9,17 @@ signal player_action(player)
 @onready var bullet_decals = get_tree().root.get_node("main/%bullets/decals")
 
 var speed = 60
+var stamina = 100
+var strength = 10
 var can_act = true
 
+var is_aiming = false
+var aim_spread: float
+var aim_direction: Vector2
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
-    pass  # Replace with function body.
+    set_aim_spread()
 
 
 func act(delta, action_type: PlayerState.ActionType):
@@ -27,6 +32,7 @@ func _physics_process(delta):
         handle_actions(delta)
     else:
         act(delta, PlayerState.ActionType.WAIT)
+    handle_modes()
     aim_marker()
 
 
@@ -41,15 +47,19 @@ func handle_actions(delta):
         return
 
 
-var is_aiming = false
-var aim_spread := PI
-var aim_direction: Vector2
+func set_aim_spread():
+    var wielded = %wield.get_child(0) as RangedWeapon
+    var weapon = wielded.weapon
+    aim_spread = PI
+    if weapon:
+        aim_spread = weapon.start_aim_spread
 
 
 func handle_move(delta):
     var input_vector = Input.get_vector(
         "move_left", "move_right", "move_up", "move_down"
     )
+    var run_mode = Input.is_action_pressed("run_hold")
 
     if input_vector.length() > 0:
         velocity = input_vector * speed
@@ -61,8 +71,13 @@ func handle_move(delta):
 
         if is_aiming:
             is_aiming = false
-        aim_spread = PI
-        act(delta, PlayerState.ActionType.MOVE)
+        set_aim_spread()
+
+        var delta_mod = 1.0
+        if run_mode:
+            delta_mod = clamp(delta_mod - inverse_lerp(0, 20, strength), 0.1, 1)
+
+        act(delta * delta_mod, PlayerState.ActionType.MOVE)
 
         return true
 
@@ -76,12 +91,10 @@ func handle_aim(delta):
 
         if !is_aiming:
             is_aiming = true
-            aim_spread = weapon.start_aim_spread
+            set_aim_spread()
 
         aim_spread = move_toward(
-            aim_spread,
-            weapon.best_aim_spread,
-            delta * weapon.aim_time_coefficient
+            aim_spread, weapon.best_aim_spread, delta * weapon.aim_time_modifier
         )
 
         return true
@@ -158,25 +171,26 @@ func render_bullet(bullet_ray: RayCast2D, terminal_collider: CharacterBody2D):
         end_point = bullet_ray.get_collision_point()
     var line = Line2D.new()
 
-    line.width = 1.0
+    line.width = 0.5
     line.default_color = Color(1.0, 1.0, 0.6)
     line.add_point(origin_point)
     line.add_point(end_point)
 
     bullet_decals.add_child(line)
 
-    var tween = get_tree().create_tween() # PERF: tween per bullet
+    var tween = get_tree().create_tween()  # PERF: tween per bullet
     tween.parallel().tween_property(line, "modulate", Color.TRANSPARENT, 0.75)
     tween.parallel().tween_property(line, "width", 5.0, 0.75)
     tween.tween_callback(line.queue_free)
 
+
 func handle_reload(delta):
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
     if attempt_reload:
-        disable_act(2)
-        act(delta, PlayerState.ActionType.RELOAD)
         var wielded = %wield.get_child(0) as RangedWeapon
         var weapon = wielded.weapon
+        disable_act(1 * weapon.reload_time_modifier)
+        act(delta, PlayerState.ActionType.RELOAD)
 
         const _00_SHOT = preload("res://resources/ammo/00_shot.tres")
         wielded.ammo = _00_SHOT
@@ -184,6 +198,18 @@ func handle_reload(delta):
 
         return true
     return false
+
+
+# this is only for non-time behaviour
+func handle_modes():
+    var status = get_node("%status") as Node2D
+    status.position = %body.position
+    var run_mode = Input.is_action_pressed("run_hold")
+    var running = status.get_node("running") as Sprite2D
+    if run_mode:
+        running.visible = true
+    else:
+        running.visible = false
 
 
 func aim_marker():

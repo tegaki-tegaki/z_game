@@ -13,10 +13,12 @@ class_name Weapon
 @export var num_ammo: int
 
 ## mult with delta when firing (how fast the gun fires)
-@export var fire_time_coefficient: float
-
+@export var fire_time_modifier: float
 ## mult with delta when aiming (how quick it is to aim)
-@export var aim_time_coefficient: float
+@export var aim_time_modifier: float
+## modifier for reload_time
+@export var reload_time_modifier: float
+
 ## larger angle when starting to aim
 @export var start_aim_spread: float
 ## smallest angle after aiming, aka "steadiness" (current, regular -> careful -> precise)

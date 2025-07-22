@@ -22,8 +22,8 @@ func _process(delta: float) -> void:
   game_time.text = "game_time: " + str(T.game_time)
   weapon_stats.text = "weapon (" + weapon.weapon_name + ")"
   aim_spread.text = "aim_spread: " + str(player.aim_spread)
-  aim_time.text = "aim_time: " + str(weapon.aim_time_coefficient)
-  fire_time.text = "fire_time: " + str(weapon.fire_time_coefficient)
+  aim_time.text = "aim_time: " + str(weapon.aim_time_modifier)
+  fire_time.text = "fire_time: " + str(weapon.fire_time_modifier)
   ammo_compatible.text = "ammo_compatible: " + str(weapon.compatible_ammo)
   damage.text = "damage estimate (per bullet): " + str(Utils.calc_damage(wielded))
   

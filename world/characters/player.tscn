@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpm2jjq2n7wes"]
+[gd_scene load_steps=8 format=3 uid="uid://cpm2jjq2n7wes"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Texture2D" uid="uid://bbci3y6ls612o" path="res://images/human_body.png" id="2_3eadt"]
 [ext_resource type="PackedScene" uid="uid://ktygege6rugy" path="res://world/weapons/ranged_weapon.tscn" id="3_tory2"]
 [ext_resource type="Script" uid="uid://cms5a8w8pmmcd" path="res://world/weapons/ranged_weapon.gd" id="4_dd2yi"]
 [ext_resource type="Resource" uid="uid://dhgf4p0fvg625" path="res://resources/weapons/shotgun.tres" id="5_jj1hj"]
+[ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="6_jj1hj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
 radius = 7.0
@@ -63,3 +64,119 @@ position = Vector2(0, -15)
 
 [node name="raycast" type="RayCast2D" parent="aim_marker"]
 collision_mask = 2
+
+[node name="status" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(384, 264)
+
+[node name="crouch" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3091
+
+[node name="bad_poisoned" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3092
+
+[node name="bleeding" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3093
+
+[node name="cold" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3094
+
+[node name="deaf" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3095
+
+[node name="downed" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3096
+
+[node name="grabbed" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3097
+
+[node name="hot" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3098
+
+[node name="poisoned" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3100
+
+[node name="slimed" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3101
+
+[node name="wet" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3102
+
+[node name="winded" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3103
+
+[node name="prone" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3108
+
+[node name="running" type="Sprite2D" parent="status"]
+visible = false
+texture_filter = 1
+texture = ExtResource("6_jj1hj")
+hframes = 16
+vframes = 445
+frame = 3109
