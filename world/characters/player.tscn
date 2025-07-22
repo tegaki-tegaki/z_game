@@ -15,6 +15,7 @@ radius = 7.0
 [node name="body" type="CharacterBody2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(384, 272)
+motion_mode = 1
 script = ExtResource("1_dnjla")
 metadata/_edit_group_ = true
 
