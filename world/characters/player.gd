@@ -159,13 +159,16 @@ func render_bullet(bullet_ray: RayCast2D, terminal_collider: CharacterBody2D):
     var line = Line2D.new()
 
     line.width = 1.0
+    line.default_color = Color(1.0, 1.0, 0.6)
     line.add_point(origin_point)
     line.add_point(end_point)
 
     bullet_decals.add_child(line)
-    await get_tree().create_timer(1.0).timeout  # PERF: timer per bullet
-    line.queue_free()
 
+    var tween = get_tree().create_tween() # PERF: tween per bullet
+    tween.parallel().tween_property(line, "modulate", Color.TRANSPARENT, 0.75)
+    tween.parallel().tween_property(line, "width", 5.0, 0.75)
+    tween.tween_callback(line.queue_free)
 
 func handle_reload(delta):
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
