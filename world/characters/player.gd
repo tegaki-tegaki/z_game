@@ -5,14 +5,14 @@ extends CharacterBody2D
 
 signal player_action(player)
 
+@onready var bullets = get_tree().root.get_node("main/%bullets")
+var speed = 60
+var can_act = true
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
     pass  # Replace with function body.
-
-
-var speed = 60
-var can_act = true
 
 
 func act(delta, action_type: PlayerState.ActionType):
@@ -91,51 +91,79 @@ func handle_fire(delta):
     if attempt_fire:
         disable_act(0.2)
         act(delta, PlayerState.ActionType.FIRE)
-        
+
         var wielded = %wield.get_child(0) as RangedWeapon
         var weapon = wielded.weapon
         var ammo = wielded.ammo
-        
+
         if ammo && weapon.num_ammo:
-          # play fire sound
-          fire_ammo(ammo)
-          weapon.num_ammo -= 1
-          if weapon.num_ammo <= 0:
-            wielded.ammo = null
+            # play fire sound
+            fire_ammo(ammo)
+            weapon.num_ammo -= 1
+            if weapon.num_ammo <= 0:
+                wielded.ammo = null
         else:
-          # play click sound
-          pass
+            # play click sound
+            pass
 
         return true
     return false
-    
+
+
 func fire_ammo(ammo: Ammo):
-  for i in ammo.num_bullets:
-    var raycast = RayCast2D.new()
-    var aim_target = %aim_marker.get_node("raycast").target_position as Vector2
-    var random_spread = randf_range(-aim_spread/2, aim_spread/2)
-    raycast.position = %body.position + %aim_marker.position
-    raycast.target_position = (aim_target.normalized()).rotated(random_spread)
-    raycast.target_position *= 800 # use bullet / gun range?
-    raycast.set_collision_mask_value(2, true)
-    raycast.hit_from_inside = true
-    get_tree().root.get_node("main/%bullets").add_child(raycast)
-  calculate_bullet_hits()
-  
+    for i in ammo.num_bullets:
+        var aim_target = (
+            %aim_marker.get_node("raycast").target_position as Vector2
+        )
+        var random_spread = randf_range(-aim_spread / 2, aim_spread / 2)
+        var raycast = RayCast2D.new()
+        raycast.position = %body.position + %aim_marker.position
+        raycast.target_position = (aim_target.normalized()).rotated(
+            random_spread
+        )
+        raycast.target_position *= 800  # use bullet / gun range?
+        raycast.set_collision_mask_value(2, true)
+        # NOTE: displacement of aim_marker makes this less predictable?
+        raycast.hit_from_inside = true
+        bullets.add_child(raycast)
+    calculate_bullet_hits()
+
+
 func calculate_bullet_hits():
-  var wielded = %wield.get_child(0) as RangedWeapon
-  var weapon = wielded.weapon
-  var ammo = wielded.ammo
-  var bullets = get_tree().root.get_node("main/%bullets")
-  
-  for bullet: RayCast2D in bullets.get_children():
-    var hits = Utils.get_raycast_colliders(bullet)
-    print("bullet " + bullet.name + " hit " + str(hits))
-    var velocity = ammo.bullet_velocity_mps
-    for hit: Enemy in hits:
-      hit.damage(wielded, velocity)
-      velocity -= 100 # TODO: something smarter
-    bullet.queue_free()
+    var wielded = %wield.get_child(0) as RangedWeapon
+    var ammo = wielded.ammo
+
+    for bullet_ray: RayCast2D in bullets.get_children():
+        var hits = Utils.get_raycast_colliders(bullet_ray)
+        print("bullet " + bullet_ray.name + " hit " + str(hits))
+        var bullet_velocity = ammo.bullet_velocity_mps
+        var zero_velocity_collider = null
+        for hit: Enemy in hits:
+            hit.damage(wielded, bullet_velocity)
+            bullet_velocity -= 200  # TODO: something smarter
+            if bullet_velocity <= 0:
+                zero_velocity_collider = hit
+                bullet_ray.remove_exception(hit)
+        render_bullet(bullet_ray, zero_velocity_collider)
+        bullet_ray.queue_free()
+
+
+func render_bullet(bullet_ray: RayCast2D, terminal_collider: CharacterBody2D):
+    var origin_point = bullet_ray.position
+    var end_point = bullet_ray.target_position
+    if terminal_collider:
+        bullet_ray.force_raycast_update()
+        end_point = bullet_ray.get_collision_point()
+    var line = Line2D.new()
+
+    line.width = 1.0
+    line.add_point(origin_point)
+    line.add_point(end_point)
+
+    bullets.add_child(line)
+    await get_tree().create_timer(1.0).timeout # PERF: timer per bullet
+    line.queue_free()
+
 
 func handle_reload(delta):
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
@@ -156,7 +184,9 @@ func handle_reload(delta):
 func aim_marker():
     var raycast = %aim_marker.get_node("raycast")
     raycast.position = %body.position
-    raycast.target_position = get_global_mouse_position() - (raycast.position + %aim_marker.position)
+    raycast.target_position = (
+        get_global_mouse_position() - (raycast.position + %aim_marker.position)
+    )
 
 
 func disable_act(duration_seconds: float):
