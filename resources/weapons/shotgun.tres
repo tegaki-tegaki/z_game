@@ -1,19 +1,18 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://dhgf4p0fvg625"]
+[gd_resource type="Resource" script_class="RangedWeaponResource" load_steps=3 format=3 uid="uid://dhgf4p0fvg625"]
 
-[ext_resource type="Script" uid="uid://ccjrxjshlop02" path="res://models/weapon.gd" id="1_v4xi8"]
+[ext_resource type="Script" uid="uid://ccjrxjshlop02" path="res://models/ranged_weapon.gd" id="1_4rfis"]
 [ext_resource type="Resource" uid="uid://3ubr1e1ljaa3" path="res://resources/weapons/shotgun_sound.tres" id="2_4rfis"]
 
 [resource]
-script = ExtResource("1_v4xi8")
+script = ExtResource("1_4rfis")
 weapon_name = "shotgun"
-gun_damage = 1.0
+weapon_extra_damage = 1.0
 max_num_ammo = 2
-num_ammo = 0
-fire_time_modifier = 1.5
+compatible_ammo = 0
+attack_time_modifier = 2.0
 aim_time_modifier = 0.5
 reload_time_modifier = 2.0
 start_aim_spread = 1.0
 best_aim_spread = 0.2
-compatible_ammo = 0
 sound_pool = ExtResource("2_4rfis")
 metadata/_custom_type_script = "uid://ccjrxjshlop02"

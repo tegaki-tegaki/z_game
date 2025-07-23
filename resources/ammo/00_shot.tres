@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Ammo" load_steps=5 format=3 uid="uid://4jnb3ii5e0yn"]
+[gd_resource type="Resource" script_class="AmmoResource" load_steps=5 format=3 uid="uid://4jnb3ii5e0yn"]
 
 [ext_resource type="Script" uid="uid://bqnjiwvhba1oj" path="res://models/ammo.gd" id="1_rq0pq"]
 [ext_resource type="Resource" uid="uid://dt3m88y04kudy" path="res://resources/ammo/00_shot_sound.tres" id="2_ci2gl"]

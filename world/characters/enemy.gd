@@ -14,7 +14,7 @@ var damage_within_tick = 0.0
 
 
 func _ready() -> void:
-    var player: Player = get_tree().root.get_node("main/%player/%body")
+    var player: Player = get_tree().root.get_node("main/%player")
     if player:
         player.player_action.connect(update_ai)
 
@@ -42,9 +42,9 @@ func update_ai(player_state: PlayerState):
     target = player_state.Player.position - position
     has_target = true
 
-func damage(weapon: RangedWeapon, velocity: float, impact_vector: Vector2):
-  var raw_damage = Utils.calc_damage(weapon)
-  var damage = raw_damage * (velocity / weapon.ammo.bullet_velocity_mps)
+func damage(wielded: WieldedWeapon, velocity: float, impact_vector: Vector2):
+  var raw_damage = Combat.calc_damage(wielded)
+  var damage = raw_damage * (velocity / wielded.loaded_ammo.bullet_velocity_mps)
   health -= damage
   damage_within_tick += damage
   

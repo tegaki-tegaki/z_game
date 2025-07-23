@@ -1,28 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpm2jjq2n7wes"]
+[gd_scene load_steps=9 format=3 uid="uid://cpm2jjq2n7wes"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Texture2D" uid="uid://bbci3y6ls612o" path="res://images/human_body.png" id="2_3eadt"]
-[ext_resource type="PackedScene" uid="uid://ktygege6rugy" path="res://world/weapons/ranged_weapon.tscn" id="3_tory2"]
-[ext_resource type="Script" uid="uid://cms5a8w8pmmcd" path="res://world/weapons/ranged_weapon.gd" id="4_dd2yi"]
-[ext_resource type="Resource" uid="uid://dhgf4p0fvg625" path="res://resources/weapons/shotgun.tres" id="5_jj1hj"]
+[ext_resource type="PackedScene" uid="uid://ktygege6rugy" path="res://world/weapons/weapon.tscn" id="3_tory2"]
+[ext_resource type="Script" uid="uid://cms5a8w8pmmcd" path="res://scripts/wielded_weapon.gd" id="4_4b5yr"]
+[ext_resource type="Resource" uid="uid://dhgf4p0fvg625" path="res://resources/weapons/shotgun.tres" id="4_jj1hj"]
+[ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/combat_component.tscn" id="6_4b5yr"]
 [ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="6_jj1hj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
 radius = 7.0
 
-[node name="Player" type="Node"]
-
-[node name="body" type="CharacterBody2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(384, 272)
-motion_mode = 1
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dnjla")
-metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3eadt")
 
-[node name="Camera2D" type="Camera2D" parent="body"]
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="body" type="Node2D" parent="."]
+unique_name_in_owner = true
+metadata/_edit_group_ = true
 
 [node name="skin" type="Sprite2D" parent="body"]
 unique_name_in_owner = true
@@ -55,22 +54,21 @@ frame = 2294
 unique_name_in_owner = true
 position = Vector2(0, -15)
 
-[node name="ranged_weapon" parent="body/wield" instance=ExtResource("3_tory2")]
-script = ExtResource("4_dd2yi")
-weapon = ExtResource("5_jj1hj")
+[node name="shotgun" parent="body/wield" instance=ExtResource("3_tory2")]
+script = ExtResource("4_4b5yr")
+ranged = ExtResource("4_jj1hj")
 
-[node name="audio" type="Node2D" parent="body"]
+[node name="audio" type="Node2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(384, 272)
 
-[node name="gunshot" type="AudioStreamPlayer2D" parent="body/audio"]
+[node name="gunshot" type="AudioStreamPlayer2D" parent="audio"]
 
-[node name="reload" type="AudioStreamPlayer2D" parent="body/audio"]
+[node name="reload" type="AudioStreamPlayer2D" parent="audio"]
 
-[node name="aim_marker" type="Node2D" parent="."]
+[node name="AimComponent" type="RayCast2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -15)
-
-[node name="raycast" type="RayCast2D" parent="aim_marker"]
 collision_mask = 2
 
 [node name="status" type="Node2D" parent="."]
@@ -188,3 +186,6 @@ texture = ExtResource("6_jj1hj")
 hframes = 16
 vframes = 445
 frame = 3109
+
+[node name="CombatComponent" parent="." instance=ExtResource("6_4b5yr")]
+unique_name_in_owner = true

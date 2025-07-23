@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ktygege6rugy"]
+
+[node name="weapon" type="Node2D"]
+
+[node name="sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+hframes = 16
+vframes = 167
+frame = 607
+
+[node name="sprite_world" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+hframes = 16
+vframes = 445
+frame = 1687
