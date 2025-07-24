@@ -2,7 +2,7 @@ extends Node2D
 class_name HealthComponent
 
 @export var MAX_HEALTH := 1000.0
-@export var HealthBar: HealthBarComponent = null
+@export var health_bar: HealthBarComponent
 @onready var parent = get_parent()
 
 var health: float
@@ -33,7 +33,8 @@ func damage(raw_damage: float, impact_vector: Vector2):
 
     if health <= 0:
         blood_tilemap.set_cells_terrain_connect([standing_tile], 0, 2)
-        parent.queue_free()
+        parent.set_dead()
+        #parent.queue_free()
         
-    if HealthBar:
-        HealthBar.value = inverse_lerp(0.0, MAX_HEALTH, health)
+    if health_bar:
+        health_bar.value = inverse_lerp(0.0, MAX_HEALTH, health)

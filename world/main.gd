@@ -6,35 +6,35 @@ const ENEMY = preload("res://world/characters/enemy.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
     debug_spawn_monster_grid()
-    pass
 
 
 func debug_spawn_monster_grid():
+    var creatures = [
+        preload("res://resources/creatures/mon_zombie_brainless.tres"),
+        preload("res://resources/creatures/mon_zombie_runner.tres")
+    ]
     for i in range(0, 10):
-        var monster = G.get_cdda_monster()
+        # var monster = G.get_cdda_monster()
         var enemy = ENEMY.instantiate()
-        var sprite = enemy.get_node("Sprite2D") as Sprite2D
         var label = enemy.get_node("name") as Label
         var collision_shape: CollisionShape2D = (
-            enemy.get_node("%HitboxComponent") as CollisionShape2D
+            enemy.get_node("HitboxComponent") as CollisionShape2D
         )
 
-        sprite.texture = monster.image_data.texture
-        sprite.hframes = monster.image_data.hframes
-        sprite.vframes = monster.image_data.vframes
-        sprite.frame = monster.image_data.frame
+        var body = enemy.get_node("BodyComponent") as BodyComponent
+        
+        var creature = creatures.pick_random()
+        body.creature = creature
 
-        label.text = monster.name
+        label.text = creature.name
 
         var shape = CircleShape2D.new()
-        shape.radius = monster.size
+        shape.radius = creature.size
         collision_shape.shape = shape
-        collision_shape.position = Vector2(0.0, monster.offset_y)
 
         @warning_ignore("integer_division")
         enemy.position = Vector2((i % 5) * 300, i / 5 * 100)
         enemies.add_child(enemy)
-        
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

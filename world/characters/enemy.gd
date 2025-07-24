@@ -1,24 +1,30 @@
 class_name Enemy
 extends CharacterBody2D
 
-@onready var sprite_2d: Sprite2D = %Sprite2D
+@onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var aim_component: RayCast2D = $AimComponent
 @onready var wield: Node2D = $wield
+@onready var body_component: BodyComponent = $BodyComponent
+@onready var hitbox_component: CollisionShape2D = $HitboxComponent
 
 var has_target = false
 var target: Vector2 = Vector2()
-var speed = 65
+var speed
+var is_dead = false
 
 
 func _ready() -> void:
     var player: Player = get_tree().root.get_node("main/%player")
     if player:
         player.player_action.connect(update_ai)
+    speed = body_component.creature.speed
 
 
 ## [code]time_scale[/code] determines velocity
 func _physics_process(_delta: float) -> void:
+    if is_dead:
+        return
     if has_target:
         velocity = target.normalized() * speed * T.time_scale
         aim_component.target_position = (
@@ -27,16 +33,16 @@ func _physics_process(_delta: float) -> void:
     else:
         # TODO: something smarter (smells, idle behaviour... stuff)
         velocity = Vector2(randf(), randf()).normalized() * speed * T.time_scale
-    if velocity.x > 0:
-        sprite_2d.flip_h = false
-    else:
-        sprite_2d.flip_h = true
     move_and_slide()
 
 
 func damage(raw_damage: float, impact_vector: Vector2):
     health_component.damage(raw_damage, impact_vector)
 
+func set_dead():
+    is_dead = true
+    body_component.set_dead()
+    hitbox_component.disabled = true
 
 func update_ai(player_state: PlayerState):
     # if can see player -> move to

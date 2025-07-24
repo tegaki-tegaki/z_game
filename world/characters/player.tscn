@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlf3panc7yjcq"]
+[gd_scene load_steps=13 format=3 uid="uid://dlf3panc7yjcq"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Texture2D" uid="uid://bbci3y6ls612o" path="res://images/human_body.png" id="2_3eadt"]
+[ext_resource type="Script" uid="uid://k0tjfqdepcu5" path="res://scripts/body_component.gd" id="2_uw55b"]
+[ext_resource type="Resource" uid="uid://dvxsclte7nv1m" path="res://resources/creatures/human.tres" id="3_ovykn"]
 [ext_resource type="PackedScene" uid="uid://ktygege6rugy" path="res://world/weapons/weapon.tscn" id="3_tory2"]
 [ext_resource type="Script" uid="uid://cms5a8w8pmmcd" path="res://scripts/wielded_weapon.gd" id="4_4b5yr"]
 [ext_resource type="Resource" uid="uid://dhgf4p0fvg625" path="res://resources/weapons/shotgun.tres" id="4_jj1hj"]
@@ -21,12 +23,14 @@ shape = SubResource("CircleShape2D_3eadt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="body" type="Node2D" parent="."]
+[node name="BodyComponent" type="Node2D" parent="." node_paths=PackedStringArray("aim")]
 unique_name_in_owner = true
+script = ExtResource("2_uw55b")
+aim = NodePath("../AimComponent")
+creature = ExtResource("3_ovykn")
 metadata/_edit_group_ = true
 
-[node name="skin" type="Sprite2D" parent="body"]
-unique_name_in_owner = true
+[node name="base" type="Sprite2D" parent="BodyComponent"]
 texture_filter = 1
 position = Vector2(0, -14)
 texture = ExtResource("2_3eadt")
@@ -34,29 +38,29 @@ hframes = 16
 vframes = 167
 frame = 542
 
-[node name="wear" type="Node2D" parent="body"]
+[node name="wear" type="Node2D" parent="BodyComponent"]
 unique_name_in_owner = true
 position = Vector2(0, -14)
 
-[node name="hoodie (example)" type="Sprite2D" parent="body/wear"]
+[node name="hoodie (example)" type="Sprite2D" parent="BodyComponent/wear"]
 texture_filter = 1
 texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 1926
 
-[node name="pants (example)" type="Sprite2D" parent="body/wear"]
+[node name="pants (example)" type="Sprite2D" parent="BodyComponent/wear"]
 texture_filter = 1
 texture = ExtResource("2_3eadt")
 hframes = 16
 vframes = 167
 frame = 2294
 
-[node name="wield" type="Node2D" parent="body"]
+[node name="wield" type="Node2D" parent="BodyComponent"]
 unique_name_in_owner = true
 position = Vector2(0, -15)
 
-[node name="shotgun" parent="body/wield" instance=ExtResource("3_tory2")]
+[node name="shotgun" parent="BodyComponent/wield" instance=ExtResource("3_tory2")]
 script = ExtResource("4_4b5yr")
 ranged = ExtResource("4_jj1hj")
 
@@ -191,3 +195,4 @@ aim = NodePath("../AimComponent")
 [node name="HealthComponent" parent="." instance=ExtResource("8_db0l3")]
 
 [node name="AimComponent" parent="." instance=ExtResource("9_avm01")]
+position = Vector2(0, -15)

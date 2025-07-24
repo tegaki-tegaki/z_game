@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://t3phjnfkxvs3"]
+
+[ext_resource type="Script" uid="uid://k0tjfqdepcu5" path="res://scripts/body_component.gd" id="1_mtxy0"]
+[ext_resource type="Texture2D" uid="uid://cetyqld2c5vim" path="res://images/human_body_plus.png" id="2_sv6a1"]
+
+[node name="BodyComponent" type="Node2D"]
+script = ExtResource("1_mtxy0")
+
+[node name="base" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -24)
+texture = ExtResource("2_sv6a1")
+hframes = 16
+vframes = 38
+frame = 195

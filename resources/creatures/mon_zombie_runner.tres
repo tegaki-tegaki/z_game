@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CreatureResource" load_steps=2 format=3 uid="uid://o760l8ij6w06"]
+
+[ext_resource type="Script" uid="uid://b6gcuujxr28r" path="res://models/creature.gd" id="1_1q7a1"]
+
+[resource]
+script = ExtResource("1_1q7a1")
+sprite_texture = "human_body_plus.png"
+sprite_hframes = 16
+sprite_vframes = 38
+sprite_frame = 195
+sprite_corpse_texture = "human_body_plus.png"
+sprite_corpse_hframes = 16
+sprite_corpse_vframes = 38
+sprite_corpse_frame = 221
+size = 7.0
+speed = 80.0
+health = 1000.0
+name = "zombie runner"
+y_offset = 8.0
+metadata/_custom_type_script = "uid://b6gcuujxr28r"

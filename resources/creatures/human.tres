@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CreatureResource" load_steps=2 format=3 uid="uid://dvxsclte7nv1m"]
+
+[ext_resource type="Script" uid="uid://b6gcuujxr28r" path="res://models/creature.gd" id="1_e05ix"]
+
+[resource]
+script = ExtResource("1_e05ix")
+sprite_texture = "human_body.png"
+sprite_hframes = 16
+sprite_vframes = 167
+sprite_frame = 542
+sprite_corpse_texture = "human_body_plus.png"
+sprite_corpse_hframes = 16
+sprite_corpse_vframes = 38
+sprite_corpse_frame = 221
+size = 6.5
+speed = 80.0
+health = 1000.0
+name = "Human"
+y_offset = 0.0
+metadata/_custom_type_script = "uid://b6gcuujxr28r"
