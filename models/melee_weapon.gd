@@ -11,3 +11,13 @@ class_name MeleeWeaponResource
 @export var attack_time_modifier: float
 
 @export var sound_pool: SoundPool
+
+@export var sprite_texture: String
+@export var sprite_hframes: int
+@export var sprite_vframes: int
+@export var sprite_frame: int
+
+@export var sprite_world_texture: String
+@export var sprite_world_hframes: int
+@export var sprite_world_vframes: int
+@export var sprite_world_frame: int

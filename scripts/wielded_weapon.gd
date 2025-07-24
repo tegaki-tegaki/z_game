@@ -2,7 +2,6 @@
 extends Node2D
 class_name WieldedWeapon
 
-
 @export var ranged: RangedWeaponResource = null:
     set(value):
         ranged = value
@@ -11,9 +10,10 @@ class_name WieldedWeapon
     set(value):
         melee = value
         update_configuration_warnings()
-        
+
 var loaded_ammo: AmmoResource
 var loaded_ammo_num: int
+
 
 func _get_configuration_warnings():
     if ranged and melee:
@@ -30,6 +30,14 @@ func get_weapon():
         return melee
     print("only define one weapon")
 
+
 func _ready():
-    # set sprites from resource data
-    pass
+    var weapon = get_weapon()
+    %sprite.texture = load("res://images/" + weapon.sprite_texture)
+    %sprite.vframes = weapon.sprite_vframes
+    %sprite.hframes = weapon.sprite_hframes
+    %sprite.frame = weapon.sprite_frame
+    %sprite_world.texture = load("res://images/" + weapon.sprite_world_texture)
+    %sprite_world.vframes = weapon.sprite_world_vframes
+    %sprite_world.hframes = weapon.sprite_world_hframes
+    %sprite_world.frame = weapon.sprite_world_frame
