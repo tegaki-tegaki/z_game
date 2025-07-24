@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 @onready var sprite_2d: Sprite2D = %Sprite2D
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var aim_component: RayCast2D = $AimComponent
+@onready var wield: Node2D = $wield
 
 var has_target = false
 var target: Vector2 = Vector2()

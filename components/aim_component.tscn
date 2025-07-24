@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bari3duy8xdsa"]
+
+[ext_resource type="Script" uid="uid://nji1l8l4objd" path="res://scripts/aim_component.gd" id="1_utyv8"]
+
+[node name="AimComponent" type="RayCast2D"]
+position = Vector2(0, -14)
+collision_mask = 2
+script = ExtResource("1_utyv8")

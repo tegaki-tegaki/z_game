@@ -8,6 +8,7 @@ signal player_action(player)
 @onready var body: Node2D = %body
 @onready var bullets = C.bullets
 @onready var bullet_decals = C.bullet_decals
+@onready var aim_component: AimComponent = $AimComponent
 
 var speed = 80
 var stamina = 100
@@ -139,8 +140,8 @@ func handle_reload():
 
 # this is only for non-time behaviour
 func handle_modes():
-    var status = get_node("%status") as Node2D
-    status.position = %body.position
+    var status = %status as Node2D
+    status.position = body.position
     var run_mode = Input.is_action_pressed("run_hold")
     var running = status.get_node("running") as Sprite2D
     if run_mode:
@@ -150,8 +151,8 @@ func handle_modes():
 
 
 func aim_marker():
-    %AimComponent.target_position = (
-        get_local_mouse_position() - %AimComponent.position
+    aim_component.target_position = (
+        get_local_mouse_position() - aim_component.position
     )
 
 

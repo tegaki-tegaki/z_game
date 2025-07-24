@@ -1,11 +1,12 @@
 extends Node
 class_name CombatComponent
 
+@export var aim: AimComponent
+
 var aim_spread: float
 
 func get_aim_ray() -> RayCast2D:
-    var aim_ray = get_parent().get_node("%AimComponent") as RayCast2D
-    return aim_ray
+    return aim
     
 
 func get_wielded() -> WieldedWeapon:

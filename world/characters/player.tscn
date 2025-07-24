@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlf3panc7yjcq"]
+[gd_scene load_steps=11 format=3 uid="uid://dlf3panc7yjcq"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Texture2D" uid="uid://bbci3y6ls612o" path="res://images/human_body.png" id="2_3eadt"]
@@ -7,6 +7,8 @@
 [ext_resource type="Resource" uid="uid://dhgf4p0fvg625" path="res://resources/weapons/shotgun.tres" id="4_jj1hj"]
 [ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/combat_component.tscn" id="6_4b5yr"]
 [ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="6_jj1hj"]
+[ext_resource type="PackedScene" uid="uid://tccw1axb2hga" path="res://components/health_component.tscn" id="8_db0l3"]
+[ext_resource type="PackedScene" uid="uid://bari3duy8xdsa" path="res://components/aim_component.tscn" id="9_avm01"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
 radius = 7.0
@@ -65,11 +67,6 @@ position = Vector2(384, 272)
 [node name="gunshot" type="AudioStreamPlayer2D" parent="audio"]
 
 [node name="reload" type="AudioStreamPlayer2D" parent="audio"]
-
-[node name="AimComponent" type="RayCast2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, -15)
-collision_mask = 2
 
 [node name="status" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -187,5 +184,10 @@ hframes = 16
 vframes = 445
 frame = 3109
 
-[node name="CombatComponent" parent="." instance=ExtResource("6_4b5yr")]
+[node name="CombatComponent" parent="." node_paths=PackedStringArray("aim") instance=ExtResource("6_4b5yr")]
 unique_name_in_owner = true
+aim = NodePath("../AimComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("8_db0l3")]
+
+[node name="AimComponent" parent="." instance=ExtResource("9_avm01")]

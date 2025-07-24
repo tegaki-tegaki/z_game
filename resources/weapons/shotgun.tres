@@ -22,5 +22,5 @@ sprite_frame = 607
 sprite_world_texture = "normal.png"
 sprite_world_hframes = 16
 sprite_world_vframes = 445
-sprite_world_frame = 0
+sprite_world_frame = 1687
 metadata/_custom_type_script = "uid://ccjrxjshlop02"
