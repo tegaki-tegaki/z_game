@@ -17,10 +17,12 @@ var can_act = true
 var is_aiming = false
 var aim_direction: Vector2
 
+
 func _ready() -> void:
     T.set_time_scale(0)
     set_aim_spread()
-    
+
+
 func set_aim_spread():
     var wielded = combat.get_wielded()
     var weapon = wielded.get_weapon()
@@ -55,6 +57,7 @@ func handle_actions(delta):
     if handle_reload():
         return
 
+
 func handle_move():
     var input_vector = Input.get_vector(
         "move_left", "move_right", "move_up", "move_down"
@@ -88,7 +91,7 @@ func handle_aim(delta):
     var attempt_aim = Input.is_action_pressed("aim_weapon")
     if attempt_aim:
         var wielded = combat.get_wielded()
-        var weapon = wielded.get_weapon() 
+        var weapon = wielded.get_weapon()
 
         act(1.0, PlayerState.ActionType.AIM)
 
@@ -97,7 +100,9 @@ func handle_aim(delta):
             set_aim_spread()
 
         combat.aim_spread = move_toward(
-            combat.aim_spread, weapon.best_aim_spread, delta * weapon.aim_time_modifier
+            combat.aim_spread,
+            weapon.best_aim_spread,
+            delta * weapon.aim_time_modifier
         )
 
         return true
@@ -109,15 +114,16 @@ func handle_fire():
     if attempt_fire:
         disable_act(0.2)
         act(1.0, PlayerState.ActionType.FIRE)
-        Combat.trigger_weapon(self)
+        C.trigger_weapon(self)
         return true
     return false
+
 
 func handle_reload():
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
     if attempt_reload:
         var wielded = combat.get_wielded()
-        var weapon = wielded.get_weapon() 
+        var weapon = wielded.get_weapon()
 
         Utils.play_reload_sound(self, weapon.sound_pool.get_sound())
         act(1.0, PlayerState.ActionType.RELOAD)
@@ -145,7 +151,7 @@ func handle_modes():
 
 func aim_marker():
     %AimComponent.target_position = get_local_mouse_position()
-    
+
 
 func disable_act(duration_seconds: float, boost = 1.0):
     var disable_act_timer = get_tree().create_timer(

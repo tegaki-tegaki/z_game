@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpm2jjq2n7wes"]
+[gd_scene load_steps=9 format=3 uid="uid://dlf3panc7yjcq"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Texture2D" uid="uid://bbci3y6ls612o" path="res://images/human_body.png" id="2_3eadt"]

@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 G="*res://autoloads/resource_manager.gd"
 T="*res://autoloads/time_manager.gd"
-C="*res://autoloads/combat_state.gd"
+C="*res://autoloads/combat_manager.gd"
 
 [input]
 

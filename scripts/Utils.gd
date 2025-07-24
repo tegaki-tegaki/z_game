@@ -95,24 +95,27 @@ static func load_json_config():
         return config
 
 
-static func kinetic_energy(ammo: AmmoResource):
-    return 0.5 * ammo.bullet_mass_kg * (ammo.bullet_velocity_mps ** 2)
+static func kinetic_energy(ammo: AmmoResource, bullet_velocity: float):
+    return 0.5 * ammo.bullet_mass_kg * (bullet_velocity ** 2)
+
 
 static func get_raycast_colliders(raycast: RayCast2D):
     var colliders = []
     raycast.force_raycast_update()
     while raycast.is_colliding():
-      var collider = raycast.get_collider()
-      colliders.append(collider)
-      raycast.add_exception(collider)
-      raycast.force_raycast_update()
+        var collider = raycast.get_collider()
+        colliders.append(collider)
+        raycast.add_exception(collider)
+        raycast.force_raycast_update()
     return colliders
+
 
 static func play_shot_sound(node: Node, sound: AudioStream):
     var audioplayer = node.get_node("%audio/gunshot") as AudioStreamPlayer2D
     audioplayer.stream = sound
     audioplayer.play()
-    
+
+
 static func play_reload_sound(node: Node, sound: AudioStream):
     var audioplayer = node.get_node("%audio/reload") as AudioStreamPlayer2D
     audioplayer.stream = sound
