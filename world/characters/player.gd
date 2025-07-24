@@ -150,7 +150,9 @@ func handle_modes():
 
 
 func aim_marker():
-    %AimComponent.target_position = get_local_mouse_position()
+    %AimComponent.target_position = (
+        get_local_mouse_position() - %AimComponent.position
+    )
 
 
 func disable_act(duration_seconds: float, boost = 1.0):

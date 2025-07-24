@@ -13,6 +13,7 @@ unique_name_in_owner = true
 
 [node name="player" parent="." instance=ExtResource("2_hyim0")]
 unique_name_in_owner = true
+position = Vector2(638, 420)
 
 [node name="enemies" type="Node2D" parent="."]
 

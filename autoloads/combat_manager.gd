@@ -13,6 +13,14 @@ class DamageCalcData:
     func _init(_wielded: WieldedWeapon, _bullet_speed = null):
         wielded = _wielded
         bullet_speed = _bullet_speed
+        
+class Attack:
+    var raw_damage: float
+    var impact_vector: Vector2
+    
+    func _init(_raw_damage: float, _impact_vector: Vector2):
+        raw_damage = _raw_damage
+        impact_vector = _impact_vector
 
 
 ## Attempt to trigger [param shooter]'s wielded Weapon
