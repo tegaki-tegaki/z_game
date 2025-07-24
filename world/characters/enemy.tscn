@@ -1,20 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://br67pb7jflr3h"]
+[gd_scene load_steps=8 format=3 uid="uid://br67pb7jflr3h"]
 
 [ext_resource type="Script" uid="uid://l0g83fpfov3a" path="res://world/characters/enemy.gd" id="1_nhupr"]
 [ext_resource type="Texture2D" uid="uid://cetyqld2c5vim" path="res://images/human_body_plus.png" id="2_nhupr"]
 [ext_resource type="PackedScene" uid="uid://tccw1axb2hga" path="res://components/health_component.tscn" id="3_ggbst"]
-[ext_resource type="Script" uid="uid://4l3ot147wmiq" path="res://scripts/health_bar_component.gd" id="4_1yxxw"]
+[ext_resource type="PackedScene" uid="uid://ghoxid7434om" path="res://components/health_bar_component.tscn" id="3_rcv5e"]
 [ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/combat_component.tscn" id="5_rcv5e"]
 [ext_resource type="PackedScene" uid="uid://bari3duy8xdsa" path="res://components/aim_component.tscn" id="6_8hm70"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhupr"]
 radius = 6.08276
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7fd2r"]
-bg_color = Color(0.850158, 0.0932842, 2.88785e-07, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5p5d"]
-bg_color = Color(0.298467, 0.69736, 0.377423, 1)
 
 [node name="enemy" type="CharacterBody2D"]
 collision_layer = 2
@@ -49,27 +43,10 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 0.415686)
 text = "monster_name"
 
-[node name="HealthBarComponent" type="ProgressBar" parent="."]
+[node name="HealthBarComponent" parent="." instance=ExtResource("3_rcv5e")]
 unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(10, 4)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -5.0
-offset_right = 5.0
-offset_bottom = 4.0
-grow_horizontal = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_7fd2r")
-theme_override_styles/fill = SubResource("StyleBoxFlat_m5p5d")
-max_value = 1.0
-step = 0.001
-value = 0.55
-show_percentage = false
-script = ExtResource("4_1yxxw")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("HealthBar") instance=ExtResource("3_ggbst")]
-HealthBar = NodePath("../HealthBarComponent")
+[node name="HealthComponent" parent="." instance=ExtResource("3_ggbst")]
 
 [node name="CombatComponent" parent="." node_paths=PackedStringArray("aim") instance=ExtResource("5_rcv5e")]
 aim = NodePath("../AimComponent")

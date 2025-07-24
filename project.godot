@@ -21,6 +21,13 @@ G="*res://autoloads/resource_manager.gd"
 T="*res://autoloads/time_manager.gd"
 C="*res://autoloads/combat_manager.gd"
 
+[display]
+
+window/size/mode=2
+window/size/initial_position_type=4
+window/stretch/scale=2.0
+window/stretch/scale_mode="integer"
+
 [input]
 
 move_up={

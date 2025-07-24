@@ -10,6 +10,7 @@ var has_target = false
 var target: Vector2 = Vector2()
 var speed = 65
 
+
 func _ready() -> void:
     var player: Player = get_tree().root.get_node("main/%player")
     if player:
@@ -20,6 +21,9 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
     if has_target:
         velocity = target.normalized() * speed * T.time_scale
+        aim_component.target_position = (
+            target.normalized() * 50 - aim_component.position
+        )
     else:
         # TODO: something smarter (smells, idle behaviour... stuff)
         velocity = Vector2(randf(), randf()).normalized() * speed * T.time_scale
@@ -28,7 +32,8 @@ func _physics_process(_delta: float) -> void:
     else:
         sprite_2d.flip_h = true
     move_and_slide()
-    
+
+
 func damage(raw_damage: float, impact_vector: Vector2):
     health_component.damage(raw_damage, impact_vector)
 

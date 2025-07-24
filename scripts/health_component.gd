@@ -35,5 +35,5 @@ func damage(raw_damage: float, impact_vector: Vector2):
         blood_tilemap.set_cells_terrain_connect([standing_tile], 0, 2)
         parent.queue_free()
         
-    if HealthBarComponent:
+    if HealthBar:
         HealthBar.value = inverse_lerp(0.0, MAX_HEALTH, health)
