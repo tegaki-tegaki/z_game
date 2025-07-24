@@ -49,4 +49,4 @@ aim = NodePath("../AimComponent")
 unique_name_in_owner = true
 
 [node name="AimComponent" parent="." instance=ExtResource("6_8hm70")]
-position = Vector2(0, -22)
+position = Vector2(0, -15)

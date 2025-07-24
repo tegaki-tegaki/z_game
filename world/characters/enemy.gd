@@ -28,7 +28,7 @@ func _physics_process(_delta: float) -> void:
     if has_target:
         velocity = target.normalized() * speed * T.time_scale
         aim_component.target_position = (
-            target.normalized() * 50 - aim_component.position
+            (target - aim_component.position).normalized() * 50
         )
     else:
         # TODO: something smarter (smells, idle behaviour... stuff)
