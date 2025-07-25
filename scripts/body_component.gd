@@ -6,6 +6,7 @@ class_name BodyComponent
 @onready var base: Sprite2D = $base
 
 func _ready():
+    base.texture = creature.sprite
     position.y = creature.y_offset
     
 func _process(_delta: float):
@@ -15,7 +16,4 @@ func _process(_delta: float):
         transform.x = Vector2.LEFT
         
 func set_dead():
-    base.texture = load("res://images/" + creature.sprite_corpse_texture)
-    base.vframes = creature.sprite_corpse_vframes
-    base.hframes = creature.sprite_corpse_hframes
-    base.frame = creature.sprite_corpse_frame
+    base.texture = creature.sprite_corpse

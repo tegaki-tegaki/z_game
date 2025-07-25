@@ -34,9 +34,6 @@ metadata/_edit_group_ = true
 texture_filter = 1
 position = Vector2(0, -14)
 texture = ExtResource("2_3eadt")
-hframes = 16
-vframes = 167
-frame = 542
 
 [node name="wear" type="Node2D" parent="BodyComponent"]
 unique_name_in_owner = true

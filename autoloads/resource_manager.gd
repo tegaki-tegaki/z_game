@@ -216,18 +216,15 @@ static var images_data = {
     }
 }
 
-var gameobj_data: Dictionary = {}
+var gameobj_data: Dict = Dict.new()
 
 
 func _ready():
     var config = Utils.load_json_file("res://images/tile_config.json")
     process_config(config)
-    print("processed")
 
 
-static func get_gameobj_atlastexture(
-    creature_data: GameobjData, image_data
-) -> AtlasTexture:
+static func get_gameobj_atlastexture(creature_data, image_data) -> AtlasTexture:
     var texture = AtlasTexture.new()
     texture.atlas = image_data.texture
 
@@ -244,25 +241,28 @@ static func get_gameobj_atlastexture(
 func process_config(config):
     for tile_data in config["tiles-new"]:
         var tiles = tile_data.tiles
-        var tile_data_chunk_raw = filter_tile_data(tiles)
+        var tile_data_chunk_raw = tiles  # filter_tile_data(tiles)
         for tile_data_chunk in tile_data_chunk_raw:
             get_tile_to_gameobj_fn(gameobj_data, tile_data.file).call(
                 tile_data_chunk
             )
-            #print(gameobj_data.keys().size())
-            if gameobj_data.keys().size() == 10624:
-                print(gameobj_data.keys().size())
-                print("exists here")
-    print("empty here?")
+
 
 # TODO: can higher order function be reduced?
-static func get_tile_to_gameobj_fn(_gameobj_data: Dictionary, filename):
+static func get_tile_to_gameobj_fn(_gameobj_data: Dict, filename):
     return func(monster):
         var global_id = null
         if "fg" in monster:
-            if typeof(monster.fg) != TYPE_FLOAT:
+            if typeof(monster.fg) == TYPE_ARRAY:
+                if typeof(monster.fg[0]) == TYPE_FLOAT:
+                    global_id = monster.fg[0]
+                elif "sprite" in monster.fg[0]:
+                    global_id = monster.fg[0].sprite
+            elif typeof(monster.fg) == TYPE_FLOAT:
+                global_id = monster.fg
+            else:
                 return
-            global_id = monster.fg
+
         else:
             if typeof(monster.bg) != TYPE_FLOAT:
                 return
@@ -282,12 +282,12 @@ static func get_tile_to_gameobj_fn(_gameobj_data: Dictionary, filename):
 
         if typeof(monster.id) == TYPE_ARRAY:
             for id in monster.id:
-                _gameobj_data.set(
+                _gameobj_data.s(
                     id,
                     {"file": filename, "x_count": counts.x, "y_count": counts.y}
                 )
         else:
-            _gameobj_data.set(
+            _gameobj_data.s(
                 monster.id,
                 {"file": filename, "x_count": counts.x, "y_count": counts.y}
             )
@@ -317,28 +317,33 @@ static func find_tile_data(tiles, target: String) -> Variant:
     return null
 
 
+# TODO: might be fine without filtering if
+# i refactor from Dictionary -> class + array of classes
 static func filter_tile_data(tiles) -> Variant:
     var filtered = []
     for tile in tiles:
         if typeof(tile.id) == TYPE_STRING:
-            filtered.append(tile)
+            if (
+                tile.id.begins_with("mon_zombie")
+                || tile.id.begins_with("corpse_")
+            ):
+                filtered.append(tile)
         if typeof(tile.id) == TYPE_ARRAY:
             for id in tile.id:
-                filtered.append(tile)
+                if id.begins_with("mon_zombie") || id.begins_with("corpse_"):
+                    filtered.append(tile)
     return filtered
 
 
 ## [param name_id] is the unique ids used in tile_config.json
 ## eg. "mon_zombie_brainless"
 func get_creature_textures(name_id: String):
-    var creature_data = gameobj_data.get(name_id) as GameobjData
+    var creature_data = gameobj_data.g(name_id)
     var filename = creature_data.file
     var image_data = images_data[filename]
     var texture = get_gameobj_atlastexture(creature_data, image_data)
 
-    var corpse_creature_data = (
-        gameobj_data.get("corpse_" + name_id) as GameobjData
-    )
+    var corpse_creature_data = gameobj_data.g("corpse_" + name_id)
     var corpse_filename = creature_data.file
     var corpse_image_data = images_data[corpse_filename]
     var corpse_texture = get_gameobj_atlastexture(
@@ -356,8 +361,10 @@ class CreatureTextures:
         texture = _texture
         corpse_texture = _corpse_texture
 
-
-class GameobjData:
-    var file: String
-    var x_count: int
-    var y_count: int
+#class GameobjData:
+#var file: String
+#var x_count: int
+#var y_count: int
+#
+#class GameobjContainer:
+#var objects: Array[GameobjData]

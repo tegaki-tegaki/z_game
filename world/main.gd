@@ -23,11 +23,10 @@ func debug_spawn_monster_grid():
         var body = enemy.get_node("BodyComponent") as BodyComponent
 
         var creature = creatures.pick_random()
-        print(G.gameobj_data.keys().size())
         var textures = G.get_creature_textures(creature.name)
         creature.sprite = textures.texture
         creature.sprite_corpse = textures.corpse_texture
-        print(creature)
+
         body.creature = creature
 
         label.text = creature.name
