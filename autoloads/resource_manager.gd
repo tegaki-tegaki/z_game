@@ -228,8 +228,10 @@ static func get_gameobj_atlastexture(creature_data, image_data) -> AtlasTexture:
     var texture = AtlasTexture.new()
     texture.atlas = image_data.texture
 
-    var x = image_data.tile_size.x * creature_data.x_count
-    var y = image_data.tile_size.y * creature_data.y_count
+    var rand_colrow = creature_data.colrows.pick_random()
+
+    var x = image_data.tile_size.x * rand_colrow.x
+    var y = image_data.tile_size.y * rand_colrow.y
     var w = image_data.tile_size.x
     var h = image_data.tile_size.y
 
@@ -249,15 +251,18 @@ func process_config(config):
 
 
 # TODO: can higher order function be reduced?
+# this function has also grown too large and complicated
 static func get_tile_to_gameobj_fn(_gameobj_data: Dict, filename):
     return func(monster):
         var global_id = null
         if "fg" in monster:
             if typeof(monster.fg) == TYPE_ARRAY:
                 if typeof(monster.fg[0]) == TYPE_FLOAT:
-                    global_id = monster.fg[0]
+                    global_id = monster.fg
                 elif "sprite" in monster.fg[0]:
-                    global_id = monster.fg[0].sprite
+                    global_id = []
+                    for _fg in monster.fg:
+                        global_id.append(_fg.sprite)
             elif typeof(monster.fg) == TYPE_FLOAT:
                 global_id = monster.fg
             else:
@@ -275,25 +280,34 @@ static func get_tile_to_gameobj_fn(_gameobj_data: Dict, filename):
         var image_texture = image_data.texture as Texture2D
         var image_dim = image_texture.get_size()
         var tile_size = Vector2i(image_data.tile_size.x, image_data.tile_size.y)
-        var image_local_id = get_image_id(filename, global_id)
-        var counts = global_id_to_xy_counts(
-            image_dim, tile_size, image_local_id
-        )
+
+        var colrows = []
+
+        if typeof(global_id) == TYPE_ARRAY:
+            for id in global_id:
+                var image_local_id = get_image_id(filename, id)
+                var colrow = global_id_to_xy_colrow(
+                    image_dim, tile_size, image_local_id
+                )
+
+                colrows.append(colrow)
+
+        else:
+            var image_local_id = get_image_id(filename, global_id)
+            var colrow = global_id_to_xy_colrow(
+                image_dim, tile_size, image_local_id
+            )
+
+            colrows.append(colrow)
 
         if typeof(monster.id) == TYPE_ARRAY:
             for id in monster.id:
-                _gameobj_data.s(
-                    id,
-                    {"file": filename, "x_count": counts.x, "y_count": counts.y}
-                )
+                _gameobj_data.s(id, {"file": filename, "colrows": colrows})
         else:
-            _gameobj_data.s(
-                monster.id,
-                {"file": filename, "x_count": counts.x, "y_count": counts.y}
-            )
+            _gameobj_data.s(monster.id, {"file": filename, "colrows": colrows})
 
 
-static func global_id_to_xy_counts(
+static func global_id_to_xy_colrow(
     image_dim: Vector2i, tile_size: Vector2i, id: int
 ) -> Vector2i:
     var tiles_per_row = image_dim.x / tile_size.x
