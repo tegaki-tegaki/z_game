@@ -14,7 +14,6 @@ func debug_spawn_monster_grid():
         preload("res://resources/creatures/mon_zombie_runner.tres")
     ]
     for i in range(0, 10):
-        # var monster = G.get_cdda_monster()
         var enemy = ENEMY.instantiate()
         var label = enemy.get_node("name") as Label
         var collision_shape: CollisionShape2D = (
@@ -22,8 +21,13 @@ func debug_spawn_monster_grid():
         )
 
         var body = enemy.get_node("BodyComponent") as BodyComponent
-        
+
         var creature = creatures.pick_random()
+        print(G.gameobj_data.keys().size())
+        var textures = G.get_creature_textures(creature.name)
+        creature.sprite = textures.texture
+        creature.sprite_corpse = textures.corpse_texture
+        print(creature)
         body.creature = creature
 
         label.text = creature.name

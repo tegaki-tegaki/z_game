@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://br67pb7jflr3h"]
+[gd_scene load_steps=9 format=3 uid="uid://br67pb7jflr3h"]
 
 [ext_resource type="Script" uid="uid://l0g83fpfov3a" path="res://world/characters/enemy.gd" id="1_nhupr"]
 [ext_resource type="PackedScene" uid="uid://t3phjnfkxvs3" path="res://components/body_component.tscn" id="2_rcv5e"]
@@ -9,6 +9,8 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhupr"]
 radius = 6.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcv5e"]
 
 [node name="enemy" type="CharacterBody2D"]
 collision_layer = 2
@@ -50,3 +52,6 @@ unique_name_in_owner = true
 
 [node name="AimComponent" parent="." instance=ExtResource("6_8hm70")]
 position = Vector2(0, -15)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_rcv5e")

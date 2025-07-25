@@ -6,10 +6,6 @@ class_name BodyComponent
 @onready var base: Sprite2D = $base
 
 func _ready():
-    base.texture = load("res://images/" + creature.sprite_texture)
-    base.vframes = creature.sprite_vframes
-    base.hframes = creature.sprite_hframes
-    base.frame = creature.sprite_frame
     position.y = creature.y_offset
     
 func _process(_delta: float):

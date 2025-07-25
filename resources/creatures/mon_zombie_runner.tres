@@ -15,6 +15,6 @@ sprite_corpse_frame = 221
 size = 7.0
 speed = 80.0
 health = 1000.0
-name = "zombie runner"
+name = "mon_zombie_runner"
 y_offset = 8.0
 metadata/_custom_type_script = "uid://b6gcuujxr28r"
