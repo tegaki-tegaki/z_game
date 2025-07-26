@@ -5,7 +5,7 @@ signal player_action(player)
 
 @onready var skin: Sprite2D = %skin
 @onready var combat: CombatComponent = %CombatComponent
-@onready var base: Node2D = get_node("BodyComponent/base")
+@onready var body_component: BodyComponent = %BodyComponent
 @onready var bullets = C.bullets
 @onready var bullet_decals = C.bullet_decals
 @onready var aim_component: AimComponent = $AimComponent
@@ -20,9 +20,12 @@ var aim_direction: Vector2
 
 
 func _ready() -> void:
+    # this ready doesn't happen b4 child BodyComponent ready...
+    var textures = G.get_creature_textures(body_component.creature.name)
+    body_component.creature.sprite = textures.texture
+    body_component.creature.sprite_corpse = textures.corpse_texture
     T.set_time_scale(0)
     set_aim_spread()
-
 
 func set_aim_spread():
     var wielded = combat.get_wielded()
@@ -137,7 +140,7 @@ func handle_reload():
 # this is only for non-time behaviour
 func handle_modes():
     var status = %status as Node2D
-    status.position = base.position
+    status.position = body_component.base.position
     var run_mode = Input.is_action_pressed("run_hold")
     var running = status.get_node("running") as Sprite2D
     if run_mode:

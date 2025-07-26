@@ -33,7 +33,6 @@ metadata/_edit_group_ = true
 [node name="base" type="Sprite2D" parent="BodyComponent"]
 texture_filter = 1
 position = Vector2(0, -14)
-texture = ExtResource("2_3eadt")
 
 [node name="wear" type="Node2D" parent="BodyComponent"]
 unique_name_in_owner = true

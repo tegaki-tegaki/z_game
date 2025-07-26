@@ -216,7 +216,7 @@ static var images_data = {
     }
 }
 
-var gameobj_data: Dict = Dict.new()
+var gameobj_data = Dict.new()
 
 
 func _ready():
@@ -252,7 +252,7 @@ func process_config(config):
 
 # TODO: can higher order function be reduced?
 # this function has also grown too large and complicated
-static func get_tile_to_gameobj_fn(_gameobj_data: Dict, filename):
+static func get_tile_to_gameobj_fn(_gameobj_data, filename):
     return func(monster):
         var global_id = null
         if "fg" in monster:
@@ -302,9 +302,13 @@ static func get_tile_to_gameobj_fn(_gameobj_data: Dict, filename):
 
         if typeof(monster.id) == TYPE_ARRAY:
             for id in monster.id:
-                _gameobj_data.s(id, {"file": filename, "colrows": colrows})
+                _gameobj_data.set(
+                    id, {"file": filename, "colrows": colrows}
+                )
         else:
-            _gameobj_data.s(monster.id, {"file": filename, "colrows": colrows})
+            _gameobj_data.set(
+                monster.id, {"file": filename, "colrows": colrows}
+            )
 
 
 static func global_id_to_xy_colrow(
@@ -349,15 +353,24 @@ static func filter_tile_data(tiles) -> Variant:
     return filtered
 
 
+static var MISSING_CREATURE_DATA = {
+    "file": "incomplete.png", "colrows": [Vector2i(0, 0)]
+}
+
+
 ## [param name_id] is the unique ids used in tile_config.json
 ## eg. "mon_zombie_brainless"
 func get_creature_textures(name_id: String):
-    var creature_data = gameobj_data.g(name_id)
+    var creature_data = gameobj_data.get(name_id)
+    if !creature_data:
+        creature_data = MISSING_CREATURE_DATA
     var filename = creature_data.file
     var image_data = images_data[filename]
     var texture = get_gameobj_atlastexture(creature_data, image_data)
 
-    var corpse_creature_data = gameobj_data.g("corpse_" + name_id)
+    var corpse_creature_data = gameobj_data.get("corpse_" + name_id)
+    if !corpse_creature_data:
+        corpse_creature_data = MISSING_CREATURE_DATA
     var corpse_filename = creature_data.file
     var corpse_image_data = images_data[corpse_filename]
     var corpse_texture = get_gameobj_atlastexture(
