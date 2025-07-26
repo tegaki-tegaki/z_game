@@ -366,7 +366,7 @@ static var MISSING_CREATURE_DATA = {
 
 
 ## [param name_id] is the unique ids used in tile_config.json
-## eg. "mon_zombie_brainless"
+## eg. "mon_zombie_brainless", "overlay_male_mutation_SKIN_TAN"
 func get_creature_textures(name_id: String):
     var creature_data = gameobj_data.get(name_id)
     if !creature_data:
@@ -378,7 +378,7 @@ func get_creature_textures(name_id: String):
     var corpse_creature_data = gameobj_data.get("corpse_" + name_id)
     if !corpse_creature_data:
         corpse_creature_data = MISSING_CREATURE_DATA
-    var corpse_filename = creature_data.file
+    var corpse_filename = corpse_creature_data.file
     var corpse_image_data = images_data[corpse_filename]
     var corpse_texture = get_gameobj_atlastexture(
         corpse_creature_data, corpse_image_data
