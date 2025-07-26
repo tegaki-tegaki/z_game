@@ -3,8 +3,7 @@ class_name Player
 
 signal player_action(player)
 
-@onready var skin: Sprite2D = %skin
-@onready var combat: CombatComponent = %CombatComponent
+@onready var combat: CombatComponent = $CombatComponent
 @onready var bullets = C.bullets
 @onready var bullet_decals = C.bullet_decals
 @onready var aim_component: AimComponent = $AimComponent
@@ -23,6 +22,8 @@ func _ready() -> void:
 
 func set_aim_spread():
     var wielded = combat.get_wielded()
+    if !wielded:
+        return
     var weapon = wielded.get_weapon()
 
     combat.aim_spread = PI
@@ -69,12 +70,14 @@ func handle_move():
             is_aiming = false
         set_aim_spread()
 
-        var delta_mod = 1.0
+        var total_delta_mod = 1.0
+        var str_mod = total_delta_mod - inverse_lerp(0, 20, strength)
+        var mass_mod = get_mass()
         if run_mode:
-            delta_mod = clamp(delta_mod - inverse_lerp(0, 20, strength), 0.1, 1)
+            total_delta_mod = clamp(str_mod * mass_mod, 0.1, 1)
+        stamina -= velocity.length() * total_delta_mod
 
-        act(1.0 * delta_mod, PlayerState.ActionType.MOVE)
-
+        act(1.0 * total_delta_mod, PlayerState.ActionType.MOVE)
         move_and_slide()
 
         return true
@@ -116,7 +119,17 @@ func handle_fire():
 func handle_reload():
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
     if attempt_reload:
-        var wielded = combat.get_wielded()
+        var wielded = combat.get_wielded() as Weapon
+
+        if !wielded:
+            var WEAPON = preload("res://world/item_types/weapon.tscn")
+            var new_weapon = WEAPON.instantiate()
+            new_weapon.load_weapon(
+                preload("res://resources/weapons/shotgun.tres")
+            )
+            combat.set_wielded(new_weapon)
+
+        wielded = combat.get_wielded() as Weapon
         var weapon = wielded.get_weapon()
 
         Utils.play_reload_sound(self, weapon.sound_pool.get_sound())

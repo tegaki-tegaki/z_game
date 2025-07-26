@@ -10,4 +10,5 @@ health = 800.0
 name = "mon_zombie_brainless"
 y_offset = 8.0
 corpse_y_offset = 8.0
+mass_kg = 60.0
 metadata/_custom_type_script = "uid://b6gcuujxr28r"

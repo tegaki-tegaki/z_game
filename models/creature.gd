@@ -10,3 +10,4 @@ var sprite_corpse: AtlasTexture
 @export var name: String
 @export var y_offset: float
 @export var corpse_y_offset: float
+@export var mass_kg: float

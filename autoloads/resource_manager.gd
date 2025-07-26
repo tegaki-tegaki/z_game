@@ -360,7 +360,7 @@ static func filter_tile_data(tiles) -> Variant:
     return filtered
 
 
-static var MISSING_CREATURE_DATA = {
+static var MISSING_TEXTURE_DATA = {
     "file": "incomplete.png", "colrows": [Vector2i(0, 0)]
 }
 
@@ -370,14 +370,14 @@ static var MISSING_CREATURE_DATA = {
 func get_creature_textures(name_id: String):
     var creature_data = gameobj_data.get(name_id)
     if !creature_data:
-        creature_data = MISSING_CREATURE_DATA
+        creature_data = MISSING_TEXTURE_DATA
     var filename = creature_data.file
     var image_data = images_data[filename]
     var texture = get_gameobj_atlastexture(creature_data, image_data)
 
     var corpse_creature_data = gameobj_data.get("corpse_" + name_id)
     if !corpse_creature_data:
-        corpse_creature_data = MISSING_CREATURE_DATA
+        corpse_creature_data = MISSING_TEXTURE_DATA
     var corpse_filename = corpse_creature_data.file
     var corpse_image_data = images_data[corpse_filename]
     var corpse_texture = get_gameobj_atlastexture(
@@ -385,6 +385,17 @@ func get_creature_textures(name_id: String):
     )
 
     return CreatureTextures.new(texture, corpse_texture)
+
+
+func get_gameobj_texture(name_id: String) -> AtlasTexture:
+    var _gameobj_data = gameobj_data.get(name_id)
+    if !_gameobj_data:
+        _gameobj_data = MISSING_TEXTURE_DATA
+    var filename = _gameobj_data.file
+    var image_data = images_data[filename]
+    var texture = get_gameobj_atlastexture(_gameobj_data, image_data)
+
+    return texture
 
 
 class CreatureTextures:

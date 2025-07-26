@@ -10,4 +10,5 @@ health = 10000.0
 name = "mon_zombie_hulk"
 y_offset = -6.0
 corpse_y_offset = 10.0
+mass_kg = 1500.0
 metadata/_custom_type_script = "uid://b6gcuujxr28r"

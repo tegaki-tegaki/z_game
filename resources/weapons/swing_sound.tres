@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SoundPool" load_steps=8 format=3 uid="uid://brvysm7qskpai"]
+
+[ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="1_wp8bk"]
+[ext_resource type="AudioStream" uid="uid://pycpvujtr8di" path="res://sounds/swing/swing_1.ogg" id="2_cyc3a"]
+[ext_resource type="AudioStream" uid="uid://cmotss8t4t6lr" path="res://sounds/swing/swing_2.ogg" id="3_4dsvn"]
+[ext_resource type="AudioStream" uid="uid://d2lch56hodeux" path="res://sounds/swing/swing_3.ogg" id="4_6vcia"]
+[ext_resource type="AudioStream" uid="uid://bccaftqmha3hu" path="res://sounds/swing/swing_4.ogg" id="5_4dasr"]
+[ext_resource type="AudioStream" uid="uid://cbpmv7rccm2wu" path="res://sounds/swing/swing_5.ogg" id="6_2hl7s"]
+[ext_resource type="AudioStream" uid="uid://b04v5h4gqswk2" path="res://sounds/swing/swing_6.ogg" id="7_7gdww"]
+
+[resource]
+script = ExtResource("1_wp8bk")
+sounds = Array[AudioStream]([ExtResource("2_cyc3a"), ExtResource("3_4dsvn"), ExtResource("4_6vcia"), ExtResource("5_4dasr"), ExtResource("6_2hl7s"), ExtResource("7_7gdww")])
+metadata/_custom_type_script = "uid://dxcarwrlyhg8v"

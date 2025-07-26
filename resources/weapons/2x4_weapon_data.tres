@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WeaponDataResource" load_steps=2 format=3 uid="uid://bie0c7hdhv8fr"]
+
+[ext_resource type="Script" uid="uid://ceavvqpiw2r8r" path="res://models/weapon_data_resource.gd" id="1_fddgs"]
+
+[resource]
+script = ExtResource("1_fddgs")
+weapon_extra_damage = 1.0
+attack_time_modifier = 0.8
+metadata/_custom_type_script = "uid://ceavvqpiw2r8r"

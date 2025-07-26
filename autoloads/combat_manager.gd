@@ -1,23 +1,25 @@
 extends Node
 
 @onready var bullets = get_tree().root.get_node("main/%bullets/raycasts")
-@onready var bullet_decals = get_tree().root.get_node("main/%bullets/decals")
+@onready
+var bullet_decals = get_tree().root.get_node("main/%bullets/decals")
 
 
 # convention: *Data for data bundles
 # better than Dictionary (it kinda sucky in gdscript)
 class DamageCalcData:
-    var wielded: WieldedWeapon
+    var wielded: Weapon
     var bullet_speed
 
-    func _init(_wielded: WieldedWeapon, _bullet_speed = null):
+    func _init(_wielded: Weapon, _bullet_speed = null):
         wielded = _wielded
         bullet_speed = _bullet_speed
-        
+
+
 class Attack:
     var raw_damage: float
     var impact_vector: Vector2
-    
+
     func _init(_raw_damage: float, _impact_vector: Vector2):
         raw_damage = _raw_damage
         impact_vector = _impact_vector
@@ -80,7 +82,7 @@ func fire_ammo(shooter: Node2D, ammo: AmmoResource, aim_ray: RayCast2D):
 
 func calculate_bullet_hits(shooter: Node2D):
     var combat = shooter.get_node("CombatComponent") as CombatComponent
-    var wielded = combat.get_wielded() as WieldedWeapon
+    var wielded = combat.get_wielded() as Weapon
     var ammo = wielded.loaded_ammo
 
     for bullet_ray: RayCast2D in C.bullets.get_children():
@@ -104,7 +106,7 @@ func calculate_bullet_hits(shooter: Node2D):
 
 
 func calc_damage(data: DamageCalcData):
-    var wielded = data.wielded as WieldedWeapon
+    var wielded = data.wielded as Weapon
     # TODO: assumes ranged weapon... check both
     var weapon = wielded.get_weapon() as RangedWeaponResource
     var ammo = wielded.loaded_ammo as AmmoResource
@@ -117,13 +119,15 @@ func calc_damage(data: DamageCalcData):
 
     var bullet_extra_dmg = ammo.bullet_extra_damage
     return (
-        weapon.weapon_extra_damage
+        weapon.weapon_data.weapon_extra_damage
         * bullet_extra_dmg
         * Utils.kinetic_energy(ammo, bullet_velocity)
     )
 
 
-func render_bullet(bullet_ray: RayCast2D, terminal_collider: CharacterBody2D):
+func render_bullet(
+    bullet_ray: RayCast2D, terminal_collider: CharacterBody2D
+):
     var origin_point = bullet_ray.position
     var end_point = origin_point + bullet_ray.target_position
     if terminal_collider:
@@ -139,6 +143,8 @@ func render_bullet(bullet_ray: RayCast2D, terminal_collider: CharacterBody2D):
     bullet_decals.add_child(line)
 
     var tween = get_tree().create_tween()  # PERF: tween per bullet
-    tween.parallel().tween_property(line, "modulate", Color.TRANSPARENT, 0.75)
+    tween.parallel().tween_property(
+        line, "modulate", Color.TRANSPARENT, 0.75
+    )
     tween.parallel().tween_property(line, "width", 5.0, 0.75)
     tween.tween_callback(line.queue_free)

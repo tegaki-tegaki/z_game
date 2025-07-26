@@ -10,4 +10,5 @@ health = 1000.0
 name = "mon_zombie_runner"
 y_offset = 8.0
 corpse_y_offset = 8.0
+mass_kg = 65.0
 metadata/_custom_type_script = "uid://b6gcuujxr28r"
