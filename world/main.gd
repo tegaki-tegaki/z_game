@@ -11,9 +11,15 @@ func _ready() -> void:
     debug_spawn_enemy_rect(Rect2(Vector2(-1000, -250), cluster), 1)
     debug_spawn_enemy_rect(Rect2(Vector2(300, -2000), cluster), 1)
     debug_spawn_enemy_rect(Rect2(Vector2(0, 400), cluster), 1)
+    #debug_spawn_enemy_rect(
+        #Rect2(Vector2(-8000, -8000), Vector2(16000, 16000)), 0.001
+    #)
+    #debug_spawn_enemy_rect(
+        #Rect2(Vector2(8000, 0), Vector2(1000, 1000)), 0.2
+    #)
 
     var hulk = preload("res://resources/creatures/mon_zombie_hulk.tres")
-    spawn_enemy(Vector2(1000, -2000), hulk)
+    spawn_enemy(Vector2(100, -200), hulk)
 
 
 func spawn_player(location: Vector2):
@@ -47,7 +53,7 @@ func debug_spawn_enemy_rect(rect: Rect2, density: float):
             preload("res://resources/creatures/mon_zombie_runner.tres"),
             10.0
         ],
-        [preload("res://resources/creatures/mon_zombie_hulk.tres"), 1.0],
+        [preload("res://resources/creatures/mon_zombie_hulk.tres"), 0.01],
     ]
     var _only_creatures = creatures.map(func(c): return c[0])
     var occupant_size = ceil(
@@ -70,6 +76,7 @@ func debug_spawn_enemy_rect(rect: Rect2, density: float):
             rect.position.y, rect.position.y + rect.size.y
         )
         spawn_enemy(Vector2(rand_x, rand_y), creature)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

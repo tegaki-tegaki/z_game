@@ -53,3 +53,8 @@ static func weighted_random_pick(items: Array):
             return item[0]
 
     return items[-1][0]  # Fallback
+
+## returns a random unit vector
+static func rand_Vector2() -> Vector2:
+    var angle = randf() * TAU
+    return Vector2(cos(angle), sin(angle))

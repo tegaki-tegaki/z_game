@@ -53,3 +53,6 @@ unique_name_in_owner = true
 
 [node name="AimComponent" parent="." instance=ExtResource("6_8hm70")]
 position = Vector2(0, -15)
+
+[node name="timers" type="Node2D" parent="."]
+unique_name_in_owner = true
