@@ -10,10 +10,12 @@ extends VBoxContainer
 @onready var ammo_compatible: Label = %ammo_compatible
 @onready var num_ammo: Label = %num_ammo
 @onready var ammo_texture: TextureRect = %ammo_texture
+@onready var fps: Label = %FPS
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+    fps.text = "FPS: %s" % [Engine.get_frames_per_second()]
     var player = get_tree().root.get_node("main/player")
     if player:
         var combat = player.combat

@@ -224,7 +224,9 @@ func _ready():
     process_config(config)
 
 
-static func get_gameobj_atlastexture(creature_data, image_data) -> AtlasTexture:
+static func get_gameobj_atlastexture(
+    creature_data, image_data
+) -> AtlasTexture:
     var texture = AtlasTexture.new()
     texture.atlas = image_data.texture
 
@@ -279,7 +281,9 @@ static func get_tile_to_gameobj_fn(_gameobj_data, filename):
         var image_data = images_data[filename]
         var image_texture = image_data.texture as Texture2D
         var image_dim = image_texture.get_size()
-        var tile_size = Vector2i(image_data.tile_size.x, image_data.tile_size.y)
+        var tile_size = Vector2i(
+            image_data.tile_size.x, image_data.tile_size.y
+        )
 
         var colrows = []
 
@@ -348,7 +352,10 @@ static func filter_tile_data(tiles) -> Variant:
                 filtered.append(tile)
         if typeof(tile.id) == TYPE_ARRAY:
             for id in tile.id:
-                if id.begins_with("mon_zombie") || id.begins_with("corpse_"):
+                if (
+                    id.begins_with("mon_zombie")
+                    || id.begins_with("corpse_")
+                ):
                     filtered.append(tile)
     return filtered
 

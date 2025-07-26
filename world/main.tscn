@@ -37,6 +37,10 @@ layout_mode = 2
 size_flags_horizontal = 0
 script = ExtResource("3_4f7fj")
 
+[node name="FPS" type="Label" parent="CanvasLayer/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="weapon_stats" type="Label" parent="CanvasLayer/MarginContainer/debug"]
 unique_name_in_owner = true
 layout_mode = 2
