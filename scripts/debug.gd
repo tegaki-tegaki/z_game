@@ -14,36 +14,38 @@ extends VBoxContainer
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-    var combat = %player.combat
-    var wielded = combat.get_wielded() as WieldedWeapon
-    var weapon = wielded.get_weapon()
+    var player = get_tree().root.get_node("main/player")
+    if player:
+        var combat = player.combat
+        var wielded = combat.get_wielded() as WieldedWeapon
+        var weapon = wielded.get_weapon()
 
-    if weapon is RangedWeaponResource:
-        var ammo = wielded.loaded_ammo as AmmoResource
-        weapon_stats.text = "weapon (" + weapon.weapon_name + ")"
-        aim_spread.text = "aim_spread: " + str(combat.aim_spread)
-        aim_time.text = "aim_time: " + str(weapon.aim_time_modifier)
-        fire_time.text = "attack_time: " + str(weapon.attack_time_modifier)
-        ammo_compatible.text = (
-            "ammo_compatible: "
-            + str(AmmoResource.AmmoType.keys()[weapon.compatible_ammo])
-        )
-        damage.text = (
-            "damage estimate (per bullet): "
-            + str(C.calc_damage(C.DamageCalcData.new(wielded)))
-        )
+        if weapon is RangedWeaponResource:
+            var ammo = wielded.loaded_ammo as AmmoResource
+            weapon_stats.text = "weapon (" + weapon.weapon_name + ")"
+            aim_spread.text = "aim_spread: " + str(combat.aim_spread)
+            aim_time.text = "aim_time: " + str(weapon.aim_time_modifier)
+            fire_time.text = "attack_time: " + str(weapon.attack_time_modifier)
+            ammo_compatible.text = (
+                "ammo_compatible: "
+                + str(AmmoResource.AmmoType.keys()[weapon.compatible_ammo])
+            )
+            damage.text = (
+                "damage estimate (per bullet): "
+                + str(C.calc_damage(C.DamageCalcData.new(wielded)))
+            )
 
-        if ammo:
-            ammo_texture.texture = ammo.texture
-            ammo_stats.text = "ammo (" + ammo.ammo_name + ")"
-        else:
-            ammo_texture.texture = null
-            ammo_stats.text = "ammo (NONE)"
-        num_ammo.text = (
-            "num_ammo: "
-            + str(wielded.loaded_ammo_num)
-            + "/"
-            + str(weapon.max_num_ammo)
-        )
-    if weapon is MeleeWeaponResource:
-        pass
+            if ammo:
+                ammo_texture.texture = ammo.texture
+                ammo_stats.text = "ammo (" + ammo.ammo_name + ")"
+            else:
+                ammo_texture.texture = null
+                ammo_stats.text = "ammo (NONE)"
+            num_ammo.text = (
+                "num_ammo: "
+                + str(wielded.loaded_ammo_num)
+                + "/"
+                + str(weapon.max_num_ammo)
+            )
+        if weapon is MeleeWeaponResource:
+            pass

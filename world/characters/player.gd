@@ -20,12 +20,9 @@ var aim_direction: Vector2
 
 
 func _ready() -> void:
-    # this ready doesn't happen b4 child BodyComponent ready...
-    var textures = G.get_creature_textures(body_component.creature.name)
-    body_component.creature.sprite = textures.texture
-    body_component.creature.sprite_corpse = textures.corpse_texture
     T.set_time_scale(0)
     set_aim_spread()
+
 
 func set_aim_spread():
     var wielded = combat.get_wielded()

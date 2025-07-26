@@ -13,16 +13,22 @@ var target: Vector2 = Vector2()
 var speed
 var is_dead = false
 
+var player = null
+
+func get_player():
+    if !player:
+        var _player = get_tree().root.get_node("main/player")
+        if _player:
+            _player.player_action.connect(update_ai)
+            player = _player
 
 func _ready() -> void:
-    var player: Player = get_tree().root.get_node("main/%player")
-    if player:
-        player.player_action.connect(update_ai)
     speed = body_component.creature.speed
 
 
 ## [code]time_scale[/code] determines velocity
 func _physics_process(_delta: float) -> void:
+    get_player()
     if is_dead:
         return
     if has_target:
