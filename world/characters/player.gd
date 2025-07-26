@@ -1,18 +1,14 @@
-extends CharacterBody2D
+extends Character
 class_name Player
 
 signal player_action(player)
 
 @onready var skin: Sprite2D = %skin
 @onready var combat: CombatComponent = %CombatComponent
-@onready var body_component: BodyComponent = %BodyComponent
 @onready var bullets = C.bullets
 @onready var bullet_decals = C.bullet_decals
 @onready var aim_component: AimComponent = $AimComponent
 
-var speed = 80
-var stamina = 100
-var strength = 10
 var can_act = true
 
 var is_aiming = false
@@ -20,6 +16,7 @@ var aim_direction: Vector2
 
 
 func _ready() -> void:
+    super._ready()
     T.set_time_scale(0)
     set_aim_spread()
 
@@ -137,7 +134,7 @@ func handle_reload():
 # this is only for non-time behaviour
 func handle_modes():
     var status = %status as Node2D
-    status.position = body_component.base.position
+    status.position = body.base.position
     var run_mode = Input.is_action_pressed("run_hold")
     var running = status.get_node("running") as Sprite2D
     if run_mode:

@@ -1,9 +1,8 @@
 extends Node2D
 class_name HealthComponent
 
-@export var MAX_HEALTH := 1000.0
 @export var health_bar: HealthBarComponent
-@onready var parent = get_parent()
+@onready var parent = get_parent() as Character
 
 var health: float
 
@@ -12,7 +11,7 @@ var health: float
 var __damage_within_tick = 0.0
 
 func _ready():
-    health = MAX_HEALTH
+    health = parent.health
 
 func damage(raw_damage: float, impact_vector: Vector2):
     health -= raw_damage
@@ -37,4 +36,4 @@ func damage(raw_damage: float, impact_vector: Vector2):
         #parent.queue_free()
         
     if health_bar:
-        health_bar.value = inverse_lerp(0.0, MAX_HEALTH, health)
+        health_bar.value = inverse_lerp(0.0, parent.MAX_HEALTH, health)

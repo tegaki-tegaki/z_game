@@ -4,17 +4,10 @@
 
 [resource]
 script = ExtResource("1_drbxe")
-sprite_texture = "human_body_plus.png"
-sprite_hframes = 16
-sprite_vframes = 38
-sprite_frame = 183
-sprite_corpse_texture = "human_body_plus.png"
-sprite_corpse_hframes = 16
-sprite_corpse_vframes = 38
-sprite_corpse_frame = 181
 size = 7.0
 speed = 65.0
-health = 1000.0
+health = 800.0
 name = "mon_zombie_brainless"
 y_offset = 8.0
+corpse_y_offset = 8.0
 metadata/_custom_type_script = "uid://b6gcuujxr28r"

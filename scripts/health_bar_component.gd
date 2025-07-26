@@ -1,11 +1,11 @@
 class_name HealthBarComponent
 extends ProgressBar
 
-@export var body: BodyComponent
+@onready var parent: Character = $".."
 
 func _ready():
     value = 1.0
-    position += Vector2(0, body.creature.size)
+    position += Vector2(0, parent.creature.size)
     
 
 func _process(_delta: float):

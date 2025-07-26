@@ -9,3 +9,4 @@ var sprite_corpse: AtlasTexture
 @export var health: float
 @export var name: String
 @export var y_offset: float
+@export var corpse_y_offset: float

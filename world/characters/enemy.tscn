@@ -10,11 +10,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhupr"]
 radius = 6.5
 
-[node name="enemy" type="CharacterBody2D"]
+[node name="enemy" type="CharacterBody2D" node_paths=PackedStringArray("body", "hitbox_component", "health_component", "label")]
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_nhupr")
+body = NodePath("BodyComponent")
+hitbox_component = NodePath("HitboxComponent")
+health_component = NodePath("HealthComponent")
+label = NodePath("name")
 
 [node name="HitboxComponent" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_nhupr")
@@ -35,9 +39,8 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 0.415686)
 text = "monster_name"
 
-[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("3_rcv5e")]
+[node name="HealthBarComponent" parent="." instance=ExtResource("3_rcv5e")]
 unique_name_in_owner = true
-body = NodePath("../BodyComponent")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_ggbst")]
 health_bar = NodePath("../HealthBarComponent")

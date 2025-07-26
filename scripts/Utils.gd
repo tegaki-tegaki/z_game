@@ -25,7 +25,9 @@ static func get_raycast_colliders(raycast: RayCast2D):
 
 
 static func play_shot_sound(node: Node, sound: AudioStream):
-    var audioplayer = node.get_node("%audio/gunshot") as AudioStreamPlayer2D
+    var audioplayer = (
+        node.get_node("%audio/gunshot") as AudioStreamPlayer2D
+    )
     audioplayer.stream = sound
     audioplayer.play()
 
@@ -34,3 +36,20 @@ static func play_reload_sound(node: Node, sound: AudioStream):
     var audioplayer = node.get_node("%audio/reload") as AudioStreamPlayer2D
     audioplayer.stream = sound
     audioplayer.play()
+
+
+## [param items] must be like this: [ [item, weight], [item, weight] ]
+static func weighted_random_pick(items: Array):
+    var total_weight = 0.0
+    for item in items:
+        total_weight += item[1]
+
+    var random_value = randf() * total_weight
+    var cumulative = 0.0
+
+    for item in items:
+        cumulative += item[1]
+        if random_value < cumulative:
+            return item[0]
+
+    return items[-1][0]  # Fallback
