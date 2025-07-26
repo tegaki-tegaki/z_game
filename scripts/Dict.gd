@@ -25,8 +25,6 @@ func _hash(key) -> int:
 
 
 @warning_ignore("native_method_override")
-
-
 func set(key, value):
     if _size + 1 > int(_bucket_count * _load_factor):
         _resize()
@@ -44,8 +42,6 @@ func set(key, value):
 
 
 @warning_ignore("native_method_override")
-
-
 func get(key, default_value = null):
     var index = _hash(key)
     var bucket = _buckets[index]
