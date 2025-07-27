@@ -1,8 +1,9 @@
-extends Node2D
+extends Area2D
 class_name Item
 
 var resource: ItemResource
 @onready var sprite: Sprite2D = %sprite
+@onready var collision: CollisionShape2D = $CollisionShape2D
 
 var durability = 1.0
 
@@ -46,13 +47,15 @@ func drop(_wielder: Character):
 
 func wield(wielder: Character):
     _set_sprite_state(State.CHARACTER)
-    reparent(wielder.body.wielding)
-
+    reparent(wielder.body.wielding, false)
+    position = Vector2(0, 0)
+    collision.disabled = true
 
 func wear(wearer: Character):
     _set_sprite_state(State.CHARACTER)
-    reparent(wearer.body.wearing)
-
+    reparent(wearer.body.wearing, false)
+    position = Vector2(0, 0)
+    collision.disabled = true
 
 func insert(_inserter: Character, container: Item):
     _set_sprite_state(State.INSERTED)
@@ -73,3 +76,6 @@ func destroy():
 func disassemble():
     # spawn items
     pass
+    
+func get_mass():
+    return resource.mass_kg

@@ -24,20 +24,21 @@ func _process(_delta: float) -> void:
         position_.text = "position: %s" % [player.position]
         stamina.text = "stamina: %s" % [player.stamina]
         mass.text = "mass: %s kg" % [player.get_mass()]
-        var combat = player.combat
-        var wielded = combat.get_wielded() as Weapon
+        var interact = player.interact
+        var wielded = interact.get_wielded() as Weapon
         if wielded:
             var weapon = wielded.get_weapon()
 
             if weapon is RangedWeaponResource:
                 var ammo = wielded.loaded_ammo as AmmoResource
                 weapon_stats.text = "weapon (" + weapon.name + ")"
-                aim_spread.text = "aim_spread: " + str(combat.aim_spread)
+                aim_spread.text = "aim_spread: " + str(interact.aim_spread)
                 aim_time.text = (
                     "aim_time: " + str(weapon.aim_time_modifier)
                 )
                 fire_time.text = (
-                    "attack_time: " + str(weapon.weapon_data.attack_time_modifier)
+                    "attack_time: "
+                    + str(weapon.weapon_data.attack_time_modifier)
                 )
                 ammo_compatible.text = (
                     "ammo_compatible: "

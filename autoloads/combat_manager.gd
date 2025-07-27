@@ -4,21 +4,23 @@ extends Node
 @onready
 var bullet_decals = get_tree().root.get_node("main/%bullets/decals")
 
+
 ## Attempt to trigger [param shooter]'s wielded Weapon
 ##
 ## this is the "main combat entrypoint":
-## Combat -> CombatComponent (injected) -> other...
+## Combat -> InteractionComponent(injected) -> other...
 ## this anyone can try to call this passing in self, but
 ## it will fail if the calling object doesn't have a CombatComponent
 ## to provide this function with needed details.
-func trigger_weapon(shooter: Node2D):
-    var combat = shooter.get_node("CombatComponent") as CombatComponent
-    if !combat or !combat is CombatComponent:
-        print("Warning: bad CombatComponent for " + str(shooter))
+func trigger_weapon(shooter: Character):
+    var interact = shooter.interact as InteractionComponent
+
+    if !interact or !interact is InteractionComponent:
+        print("Warning: bad InteractionComponent for " + str(shooter))
         return
 
-    var aim_ray = combat.get_aim_ray()
-    var wielded = combat.get_wielded()
+    var aim_ray = interact.get_aim_ray()
+    var wielded = interact.get_wielded()
     if !wielded:
         return
     var weapon = wielded.get_weapon()
@@ -38,14 +40,14 @@ func trigger_weapon(shooter: Node2D):
         pass
 
 
-func fire_ammo(shooter: Node2D, ammo: AmmoResource, aim_ray: RayCast2D):
+func fire_ammo(shooter: Character, ammo: AmmoResource, aim_ray: RayCast2D):
     print("AMMO FIRED")
     Utils.play_shot_sound(shooter, ammo.sound_pool.get_sound())
-    var combat = shooter.get_node("CombatComponent") as CombatComponent
+    var interact = shooter.interact as InteractionComponent
 
     for i in ammo.num_bullets:
         var random_spread = randf_range(
-            -combat.aim_spread / 2, combat.aim_spread / 2
+            -interact.aim_spread / 2, interact.aim_spread / 2
         )
         var raycast = RayCast2D.new()
         raycast.position = shooter.position + aim_ray.position
@@ -61,9 +63,9 @@ func fire_ammo(shooter: Node2D, ammo: AmmoResource, aim_ray: RayCast2D):
     calculate_bullet_hits(shooter)
 
 
-func calculate_bullet_hits(shooter: Node2D):
-    var combat = shooter.get_node("CombatComponent") as CombatComponent
-    var wielded = combat.get_wielded() as Weapon
+func calculate_bullet_hits(shooter: Character):
+    var interact = shooter.interact as InteractionComponent
+    var wielded = interact.get_wielded() as Weapon
     var ammo = wielded.loaded_ammo
 
     for bullet_ray: RayCast2D in C.bullets.get_children():
@@ -129,6 +131,7 @@ func render_bullet(
     )
     tween.parallel().tween_property(line, "width", 5.0, 0.75)
     tween.tween_callback(line.queue_free)
+
 
 # convention: *Data for data bundles
 # better than Dictionary (it kinda sucky in gdscript)

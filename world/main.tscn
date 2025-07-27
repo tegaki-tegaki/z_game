@@ -119,3 +119,16 @@ text = "num_ammo:"
 
 [node name="audio" type="Node2D" parent="."]
 unique_name_in_owner = true
+
+[node name="debug_target" type="Node2D" parent="."]
+visible = false
+
+[node name="Line2D" type="Line2D" parent="debug_target"]
+points = PackedVector2Array(8, -8, -8, 8)
+width = 1.0
+
+[node name="Line2D2" type="Line2D" parent="debug_target"]
+position = Vector2(-0.25, 0.25)
+scale = Vector2(0.970588, 0.970588)
+points = PackedVector2Array(-7.98485, -8.5, 8.5, 7.98485)
+width = 1.0

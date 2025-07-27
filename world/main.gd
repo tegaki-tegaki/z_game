@@ -25,12 +25,10 @@ func _ready() -> void:
 
     var sweater = preload("res://resources/clothing/sweater.tres")
     spawn_item(Vector2(-80, 50), sweater)
-    
+
     var pants = preload("res://resources/clothing/cargo_pants.tres")
     spawn_item(Vector2(-80, 70), pants)
 
-    var hash = G.gameobj_data._hash("sweater")
-    print(hash)
 
 func spawn_player(location: Vector2):
     var player = PLAYER.instantiate()

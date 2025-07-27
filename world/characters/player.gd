@@ -3,7 +3,7 @@ class_name Player
 
 signal player_action(player)
 
-@onready var combat: CombatComponent = $CombatComponent
+@onready var interact: InteractionComponent = $InteractionComponent
 @onready var bullets = C.bullets
 @onready var bullet_decals = C.bullet_decals
 @onready var aim_component: AimComponent = $AimComponent
@@ -22,14 +22,14 @@ func _ready() -> void:
 
 
 func set_aim_spread():
-    combat.aim_spread = PI
+    interact.aim_spread = PI
 
-    var wielded = combat.get_wielded()
+    var wielded = interact.get_wielded()
     if !wielded:
         return
     var weapon = wielded.get_weapon()
     if weapon:
-        combat.aim_spread = weapon.start_aim_spread
+        interact.aim_spread = weapon.start_aim_spread
 
 
 func act(time_scale, action_type: PlayerState.ActionType):
@@ -57,7 +57,15 @@ func handle_actions(delta):
         return
     if handle_reload():
         return
+    if handle_wear_target():
+        return
 
+func handle_wear_target():
+    var attempt_wear = Input.is_action_just_pressed("wear_target")
+    if attempt_wear:
+        interact.wear_targeted()
+        return true
+    return false
 
 func handle_move():
     var input_vector = Input.get_vector(
@@ -89,7 +97,7 @@ func handle_move():
 func handle_aim(delta):
     var attempt_aim = Input.is_action_pressed("aim_weapon")
     if attempt_aim:
-        var wielded = combat.get_wielded()
+        var wielded = interact.get_wielded()
         if !wielded:
             return
         var weapon = wielded.get_weapon()
@@ -100,8 +108,8 @@ func handle_aim(delta):
             is_aiming = true
             set_aim_spread()
 
-        combat.aim_spread = move_toward(
-            combat.aim_spread,
+        interact.aim_spread = move_toward(
+            interact.aim_spread,
             weapon.best_aim_spread,
             delta * weapon.aim_time_modifier
         )
@@ -123,7 +131,7 @@ func handle_fire():
 func handle_reload():
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
     if attempt_reload:
-        var wielded = combat.get_wielded() as Weapon
+        var wielded = interact.get_wielded() as Weapon
 
         if !wielded:
             var WEAPON = preload("res://world/item_types/weapon.tscn")
@@ -131,9 +139,9 @@ func handle_reload():
             new_weapon.load_weapon(
                 preload("res://resources/weapons/shotgun.tres")
             )
-            combat.set_wielded(new_weapon)
+            interact.set_wielded(new_weapon)
 
-        wielded = combat.get_wielded() as Weapon
+        wielded = interact.get_wielded() as Weapon
         var weapon = wielded.get_weapon()
 
         Utils.play_reload_sound(self, weapon.sound_pool.get_sound())
@@ -165,7 +173,9 @@ func aim_marker():
         get_local_mouse_position() - aim_component.position
     )
 
+
 var camera_zoom = 1.0
+
 
 func zoom():
     var inputs = [
@@ -180,6 +190,7 @@ func zoom():
                 "zoom_in":
                     camera_zoom = move_toward(camera_zoom, 5.0, 0.5)
     camera.zoom = Vector2(camera_zoom, camera_zoom)
+
 
 func disable_act(duration_seconds: float, boost = 1.0):
     var disable_act_timer = get_tree().create_timer(

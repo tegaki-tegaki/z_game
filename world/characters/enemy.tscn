@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://t3phjnfkxvs3" path="res://components/body_component.tscn" id="2_rcv5e"]
 [ext_resource type="PackedScene" uid="uid://tccw1axb2hga" path="res://components/health_component.tscn" id="3_ggbst"]
 [ext_resource type="PackedScene" uid="uid://ghoxid7434om" path="res://components/health_bar_component.tscn" id="3_rcv5e"]
-[ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/combat_component.tscn" id="5_rcv5e"]
+[ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/interaction_component.tscn" id="5_rcv5e"]
 [ext_resource type="PackedScene" uid="uid://bari3duy8xdsa" path="res://components/aim_component.tscn" id="6_8hm70"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhupr"]
@@ -49,7 +49,7 @@ unique_name_in_owner = true
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_ggbst")]
 health_bar = NodePath("../HealthBarComponent")
 
-[node name="CombatComponent" parent="." node_paths=PackedStringArray("aim") instance=ExtResource("5_rcv5e")]
+[node name="InteractionComponent" parent="." node_paths=PackedStringArray("aim") instance=ExtResource("5_rcv5e")]
 aim = NodePath("../AimComponent")
 
 [node name="AimComponent" parent="." instance=ExtResource("6_8hm70")]

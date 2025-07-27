@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Script" uid="uid://k0tjfqdepcu5" path="res://scripts/body_component.gd" id="2_uw55b"]
 [ext_resource type="Resource" uid="uid://dvxsclte7nv1m" path="res://resources/creatures/human.tres" id="3_ovykn"]
-[ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/combat_component.tscn" id="6_4b5yr"]
+[ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/interaction_component.tscn" id="6_4b5yr"]
 [ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="6_jj1hj"]
 [ext_resource type="PackedScene" uid="uid://tccw1axb2hga" path="res://components/health_component.tscn" id="8_db0l3"]
 [ext_resource type="PackedScene" uid="uid://bari3duy8xdsa" path="res://components/aim_component.tscn" id="9_avm01"]
@@ -162,7 +162,7 @@ hframes = 16
 vframes = 445
 frame = 3109
 
-[node name="CombatComponent" parent="." node_paths=PackedStringArray("aim") instance=ExtResource("6_4b5yr")]
+[node name="InteractionComponent" parent="." node_paths=PackedStringArray("aim") instance=ExtResource("6_4b5yr")]
 aim = NodePath("../AimComponent")
 
 [node name="HealthComponent" parent="." instance=ExtResource("8_db0l3")]
