@@ -10,6 +10,7 @@ weapon_data = ExtResource("3_3s5wu")
 sound_pool = ExtResource("2_svvol")
 volume_cm3 = 8213.0
 mass_kg = 3.5
+type = 2
 name = "2x4"
 name_texture = "2x4"
 name_texture_on_person = "overlay_male_wielded_2x4"

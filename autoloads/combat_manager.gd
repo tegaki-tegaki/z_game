@@ -4,27 +4,6 @@ extends Node
 @onready
 var bullet_decals = get_tree().root.get_node("main/%bullets/decals")
 
-
-# convention: *Data for data bundles
-# better than Dictionary (it kinda sucky in gdscript)
-class DamageCalcData:
-    var wielded: Weapon
-    var bullet_speed
-
-    func _init(_wielded: Weapon, _bullet_speed = null):
-        wielded = _wielded
-        bullet_speed = _bullet_speed
-
-
-class Attack:
-    var raw_damage: float
-    var impact_vector: Vector2
-
-    func _init(_raw_damage: float, _impact_vector: Vector2):
-        raw_damage = _raw_damage
-        impact_vector = _impact_vector
-
-
 ## Attempt to trigger [param shooter]'s wielded Weapon
 ##
 ## this is the "main combat entrypoint":
@@ -40,6 +19,8 @@ func trigger_weapon(shooter: Node2D):
 
     var aim_ray = combat.get_aim_ray()
     var wielded = combat.get_wielded()
+    if !wielded:
+        return
     var weapon = wielded.get_weapon()
 
     if weapon is RangedWeaponResource:
@@ -148,3 +129,22 @@ func render_bullet(
     )
     tween.parallel().tween_property(line, "width", 5.0, 0.75)
     tween.tween_callback(line.queue_free)
+
+# convention: *Data for data bundles
+# better than Dictionary (it kinda sucky in gdscript)
+class DamageCalcData:
+    var wielded: Weapon
+    var bullet_speed
+
+    func _init(_wielded: Weapon, _bullet_speed = null):
+        wielded = _wielded
+        bullet_speed = _bullet_speed
+
+
+class Attack:
+    var raw_damage: float
+    var impact_vector: Vector2
+
+    func _init(_raw_damage: float, _impact_vector: Vector2):
+        raw_damage = _raw_damage
+        impact_vector = _impact_vector

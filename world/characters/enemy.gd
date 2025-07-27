@@ -1,9 +1,7 @@
 extends Character
 class_name Enemy
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var aim_component: RayCast2D = $AimComponent
-@onready var wield: Node2D = $wield
 @onready var timers: Node2D = %timers
 
 var has_target = false

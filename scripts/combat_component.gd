@@ -11,9 +11,7 @@ func get_aim_ray() -> RayCast2D:
 
 
 func get_wielded() -> Weapon:
-    var weapon = get_parent().get_node("BodyComponent/wielding").get_child(
-        0
-    )
+    var weapon = Utils.first(get_parent().get_node("BodyComponent/wielding"))
     # TODO: if empty => fists weapon
     return weapon
 

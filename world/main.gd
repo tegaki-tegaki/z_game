@@ -1,7 +1,9 @@
 extends Node2D
+const ITEM = preload("res://world/item_types/item.tscn")
 const ENEMY = preload("res://world/characters/enemy.tscn")
 const PLAYER = preload("res://world/characters/player.tscn")
 @onready var enemies: Node2D = $enemies
+@onready var items: Node2D = $items
 
 
 func _ready() -> void:
@@ -12,14 +14,17 @@ func _ready() -> void:
     debug_spawn_enemy_rect(Rect2(Vector2(300, -2000), cluster), 1)
     debug_spawn_enemy_rect(Rect2(Vector2(0, 400), cluster), 1)
     #debug_spawn_enemy_rect(
-        #Rect2(Vector2(-8000, -8000), Vector2(16000, 16000)), 0.001
+    #Rect2(Vector2(-8000, -8000), Vector2(16000, 16000)), 0.001
     #)
     #debug_spawn_enemy_rect(
-        #Rect2(Vector2(8000, 0), Vector2(1000, 1000)), 0.2
+    #Rect2(Vector2(8000, 0), Vector2(1000, 1000)), 0.2
     #)
 
     var hulk = preload("res://resources/creatures/mon_zombie_hulk.tres")
     spawn_enemy(Vector2(100, -200), hulk)
+
+    var sweater = preload("res://resources/clothing/sweater.tres")
+    spawn_item(Vector2(-80, 50), sweater)
 
 
 func spawn_player(location: Vector2):
@@ -39,6 +44,15 @@ func spawn_enemy(location: Vector2, creature: CreatureResource):
 
     enemy.position = location
     enemies.add_child(enemy)
+
+
+func spawn_item(location: Vector2, resource: ItemResource):
+    var item = ITEM.instantiate()
+
+    item.load_item(resource)
+
+    item.position = location
+    items.add_child(item)
 
 
 ## [param density] how much to fill the rect with enemies

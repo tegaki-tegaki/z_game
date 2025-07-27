@@ -7,6 +7,7 @@ signal player_action(player)
 @onready var bullets = C.bullets
 @onready var bullet_decals = C.bullet_decals
 @onready var aim_component: AimComponent = $AimComponent
+@onready var camera: Camera2D = $Camera2D
 
 var can_act = true
 
@@ -21,12 +22,12 @@ func _ready() -> void:
 
 
 func set_aim_spread():
+    combat.aim_spread = PI
+
     var wielded = combat.get_wielded()
     if !wielded:
         return
     var weapon = wielded.get_weapon()
-
-    combat.aim_spread = PI
     if weapon:
         combat.aim_spread = weapon.start_aim_spread
 
@@ -43,6 +44,7 @@ func _physics_process(delta):
         act(1.0, PlayerState.ActionType.WAIT)
     handle_modes()
     aim_marker()
+    zoom()
 
 
 func handle_actions(delta):
@@ -88,6 +90,8 @@ func handle_aim(delta):
     var attempt_aim = Input.is_action_pressed("aim_weapon")
     if attempt_aim:
         var wielded = combat.get_wielded()
+        if !wielded:
+            return
         var weapon = wielded.get_weapon()
 
         act(1.0, PlayerState.ActionType.AIM)
@@ -161,6 +165,21 @@ func aim_marker():
         get_local_mouse_position() - aim_component.position
     )
 
+var camera_zoom = 1.0
+
+func zoom():
+    var inputs = [
+        "zoom_in",
+        "zoom_out",
+    ]
+    for input in inputs:
+        if Input.is_action_just_pressed(input):
+            match input:
+                "zoom_out":
+                    camera_zoom = move_toward(camera_zoom, 0.5, 0.5)
+                "zoom_in":
+                    camera_zoom = move_toward(camera_zoom, 5.0, 0.5)
+    camera.zoom = Vector2(camera_zoom, camera_zoom)
 
 func disable_act(duration_seconds: float, boost = 1.0):
     var disable_act_timer = get_tree().create_timer(
@@ -174,3 +193,29 @@ func disable_act(duration_seconds: float, boost = 1.0):
 func enable_act():
     T.set_time_boost(1.0)
     can_act = true
+
+
+func unwield(item: Item):
+    var _item = item.resource as ItemResource
+    print("unwielding %s" % [_item.name])
+    set_aim_spread()
+    # time
+
+
+func wield(item: Item):
+    var _item = item.resource as ItemResource
+    print("wielding %s" % [_item.name])
+    set_aim_spread()
+    # time
+
+
+func wear(item: Item):
+    var _item = item.resource as ItemResource
+    print("wearing %s" % [_item.name])
+    # time
+
+
+func remove(item: Item):
+    var _item = item.resource as ItemResource
+    print("removing %s" % [_item.name])
+    # time

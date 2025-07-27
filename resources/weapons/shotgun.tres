@@ -7,15 +7,16 @@
 [resource]
 script = ExtResource("1_4rfis")
 weapon_data = ExtResource("3_eea6l")
-max_num_ammo = 2
+sound_pool = ExtResource("2_4rfis")
 compatible_ammo = 0
+max_num_ammo = 2
 aim_time_modifier = 0.5
 reload_time_modifier = 2.0
 start_aim_spread = 1.0
 best_aim_spread = 0.2
-sound_pool = ExtResource("2_4rfis")
 volume_cm3 = 2000.0
 mass_kg = 4.0
+type = 2
 name = "Shotgun 410"
 name_texture = "shotgun_410"
 name_texture_on_person = "overlay_wielded_shotgun_410"

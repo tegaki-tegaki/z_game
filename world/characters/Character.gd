@@ -43,7 +43,6 @@ func load_creature(creature_: CreatureResource):
 func get_mass() -> float:
     return body.get_mass()
 
-
 func damage(raw_damage: float, impact_vector: Vector2):
     health_component.damage(raw_damage, impact_vector)
 

@@ -10,6 +10,9 @@ script = ExtResource("1_gjxf3")
 [node name="terrain" parent="." instance=ExtResource("2_spvjk")]
 unique_name_in_owner = true
 
+[node name="items" type="Node2D" parent="."]
+unique_name_in_owner = true
+
 [node name="enemies" type="Node2D" parent="."]
 
 [node name="bullets" type="Node2D" parent="."]

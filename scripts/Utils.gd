@@ -54,7 +54,15 @@ static func weighted_random_pick(items: Array):
 
     return items[-1][0]  # Fallback
 
+
 ## returns a random unit vector
 static func rand_Vector2() -> Vector2:
     var angle = randf() * TAU
     return Vector2(cos(angle), sin(angle))
+
+
+## "safe" [code]get_child(0)[/code] , ie. doesn't throw error
+static func first(node: Node):
+    if node.get_child_count():
+        return node.get_child(0)
+    return null

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3 uid="uid://ddu4pxoywyhyg"]
+
+[ext_resource type="Script" uid="uid://bs6vowi6t07oj" path="res://models/item.gd" id="1_s726v"]
+
+[resource]
+script = ExtResource("1_s726v")
+volume_cm3 = 1000.0
+mass_kg = 0.2
+type = 1
+name = "Cargo Pants"
+name_texture = "pants_cargo"
+name_texture_on_person = "overlay_male_worn_pants_cargo"
+y_offset = 0.0
+y_offset_wielding = 0.0
+y_offset_wearing = 0.0
+metadata/_custom_type_script = "uid://bs6vowi6t07oj"
