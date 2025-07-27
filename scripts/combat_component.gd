@@ -1,6 +1,7 @@
 extends Node
 class_name CombatComponent
 
+@onready var parent: Character = $".."
 @export var aim: AimComponent
 
 var aim_spread: float
@@ -17,4 +18,5 @@ func get_wielded() -> Weapon:
 
 
 func set_wielded(weapon: Weapon):
-    get_parent().get_node("BodyComponent/wielding").add_child(weapon)
+    parent.get_node("BodyComponent/wielding").add_child(weapon)
+    weapon.wield(parent)
