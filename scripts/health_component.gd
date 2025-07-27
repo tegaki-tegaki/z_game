@@ -10,6 +10,9 @@ var health: float
 ## eg. if multiple shotgun bullets hit the same target.
 var __damage_within_tick = 0.0
 
+func _physics_process(delta: float) -> void:
+    __damage_within_tick = 0.0
+
 func _ready():
     health = parent.health
 
@@ -28,8 +31,8 @@ func damage(raw_damage: float, impact_vector: Vector2):
     if __damage_within_tick >= 1000:
         blood_tilemap.set_cells_terrain_connect([behind_tile], 0, 3)
     else:
-        blood_tilemap.set_cells_terrain_connect([behind_tile], 0, 1)
-
+        blood_tilemap.set_cells_terrain_connect([standing_tile], 0, 1)
+        
     if health <= 0:
         blood_tilemap.set_cells_terrain_connect([standing_tile], 0, 2)
         parent.set_dead()

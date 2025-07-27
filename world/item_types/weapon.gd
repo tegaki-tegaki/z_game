@@ -37,8 +37,3 @@ func get_mass() -> float:
     if melee:
         return melee.get_inventory_data().mass
     return 0.0
-
-
-func _ready():
-    var weapon = get_weapon()
-    %sprite.texture = weapon.texture

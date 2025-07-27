@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://3r6pitppcqac"]
+
+[ext_resource type="Script" uid="uid://kpmp631n02sm" path="res://world/item_types/clothing.gd" id="1_ntmh6"]
+[ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="2_sp8f4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k65cs"]
+
+[node name="clothing" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ntmh6")
+
+[node name="sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+texture = ExtResource("2_sp8f4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_k65cs")

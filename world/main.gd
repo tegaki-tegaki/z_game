@@ -1,5 +1,7 @@
 extends Node2D
 const ITEM = preload("res://world/item_types/item.tscn")
+const WEAPON = preload("res://world/item_types/weapon.tscn")
+const CLOTHING = preload("res://world/item_types/clothing.tscn")
 const ENEMY = preload("res://world/characters/enemy.tscn")
 const PLAYER = preload("res://world/characters/player.tscn")
 @onready var enemies: Node2D = $enemies
@@ -28,6 +30,9 @@ func _ready() -> void:
 
     var pants = preload("res://resources/clothing/cargo_pants.tres")
     spawn_item(Vector2(-80, 70), pants)
+    
+    var shotgun = preload("res://resources/weapons/shotgun.tres")
+    spawn_item(Vector2(-120, 70), shotgun)
 
 
 func spawn_player(location: Vector2):
@@ -50,9 +55,18 @@ func spawn_enemy(location: Vector2, creature: CreatureResource):
 
 
 func spawn_item(location: Vector2, resource: ItemResource):
-    var item = ITEM.instantiate()
-
-    item.load_item(resource)
+    var item
+    if resource is RangedWeaponResource || resource is MeleeWeaponResource:
+        item = WEAPON.instantiate()
+        item.load_weapon(resource)
+    elif resource is ClothingResource:
+        item = CLOTHING.instantiate()
+        item.load_clothing(resource)
+    elif resource is ItemResource:
+        item = ITEM.instantiate()
+        item.load_item(resource)
+    else:
+        print("spawn_item() tried to spawn non-item")
 
     item.position = location
     items.add_child(item)

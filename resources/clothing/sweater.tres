@@ -1,9 +1,27 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3 uid="uid://kdroospamal7"]
+[gd_resource type="Resource" script_class="ClothingResource" load_steps=5 format=3 uid="uid://djiebdwy3b66a"]
 
-[ext_resource type="Script" uid="uid://bs6vowi6t07oj" path="res://models/item.gd" id="1_apsmj"]
+[ext_resource type="Script" uid="uid://dogtxclenc0rs" path="res://models/body_part_data.gd" id="1_ui0n2"]
+[ext_resource type="Script" uid="uid://bkpn0w20vwqsi" path="res://models/clothing.gd" id="2_ks5kk"]
+
+[sub_resource type="Resource" id="Resource_05igk"]
+script = ExtResource("1_ui0n2")
+body_part = 3
+coverage = 100.0
+protection = 1.0
+warmth = 15.0
+metadata/_custom_type_script = "uid://dogtxclenc0rs"
+
+[sub_resource type="Resource" id="Resource_sct81"]
+script = ExtResource("1_ui0n2")
+body_part = 4
+coverage = 90.0
+protection = 1.0
+warmth = 15.0
+metadata/_custom_type_script = "uid://dogtxclenc0rs"
 
 [resource]
-script = ExtResource("1_apsmj")
+script = ExtResource("2_ks5kk")
+bodypart_data = Array[ExtResource("1_ui0n2")]([SubResource("Resource_05igk"), SubResource("Resource_sct81")])
 volume_cm3 = 1000.0
 mass_kg = 0.2
 type = 1
@@ -11,6 +29,5 @@ name = "Sweater"
 name_texture = "sweater"
 name_texture_character = "overlay_male_worn_sweater"
 y_offset = 0.0
-y_offset_wielding = 0.0
-y_offset_wearing = 0.0
-metadata/_custom_type_script = "uid://bs6vowi6t07oj"
+y_offset_character = 0.0
+metadata/_custom_type_script = "uid://bkpn0w20vwqsi"

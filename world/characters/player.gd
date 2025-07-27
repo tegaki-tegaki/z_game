@@ -57,13 +57,13 @@ func handle_actions(delta):
         return
     if handle_reload():
         return
-    if handle_wear_target():
+    if handle_equip_target():
         return
 
-func handle_wear_target():
-    var attempt_wear = Input.is_action_just_pressed("wear_target")
+func handle_equip_target():
+    var attempt_wear = Input.is_action_just_pressed("equip_target")
     if attempt_wear:
-        interact.wear_targeted()
+        interact.equip_targeted()
         return true
     return false
 
@@ -132,16 +132,8 @@ func handle_reload():
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
     if attempt_reload:
         var wielded = interact.get_wielded() as Weapon
-
         if !wielded:
-            var WEAPON = preload("res://world/item_types/weapon.tscn")
-            var new_weapon = WEAPON.instantiate()
-            new_weapon.load_weapon(
-                preload("res://resources/weapons/shotgun.tres")
-            )
-            interact.set_wielded(new_weapon)
-
-        wielded = interact.get_wielded() as Weapon
+            return
         var weapon = wielded.get_weapon()
 
         Utils.play_reload_sound(self, weapon.sound_pool.get_sound())

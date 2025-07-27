@@ -24,7 +24,8 @@ func set_wielded(weapon: Weapon):
     weapon.wield(parent)
 
 
-func wear_targeted():
+## try to wield target weapon, or wear target clothing
+func equip_targeted():
     var debug_target = get_tree().root.get_node("main/debug_target")
     var target = Vector2(
         parent.position + (aim.target_position + aim.position)
@@ -45,5 +46,8 @@ func wear_targeted():
 
     if item && item is Item:
         var distance = (parent.position - item.position).length()
-        if distance < 20:
-            item.wear(parent)
+        if distance < 25:
+            if item is Weapon:
+                item.wield(parent)
+            elif item is Clothing:
+                item.wear(parent)
