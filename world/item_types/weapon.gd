@@ -25,7 +25,7 @@ func load_weapon(weapon: ItemResource):
         melee = weapon
 
 
-func get_mass() -> float:
+func get_mass_() -> float:
     if ranged:
         var weapon_mass = ranged.get_inventory_data().mass
         var ammo_mass = 0.0

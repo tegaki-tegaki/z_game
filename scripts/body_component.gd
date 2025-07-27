@@ -7,6 +7,7 @@ class_name BodyComponent
 @onready var wearing: Node2D = $wearing
 @onready var wielding: Node2D = $wielding
 @onready var parent: Character = $".."
+var direction: G.Direction = G.Direction.RIGHT
 
 
 func _ready():
@@ -15,9 +16,11 @@ func _ready():
 
 func _process(_delta: float):
     if aim.target_position.x > 0:
-        transform.x = Vector2.RIGHT
+        direction = G.Direction.RIGHT
     elif aim.target_position.x < 0:
-        transform.x = Vector2.LEFT
+        direction = G.Direction.LEFT
+    if base:
+        base.flip_h = direction == G.Direction.LEFT
 
 
 func get_mass() -> float:
@@ -26,11 +29,11 @@ func get_mass() -> float:
 
     var wielding_mass = 0.0
     if wielded_:
-        wielding_mass += wielded_.get_mass()
+        wielding_mass += wielded_.get_mass_()
 
     var wearing_mass = 0.0
     for worn in wearing_:
-        wearing_mass += worn.get_mass()
+        wearing_mass += worn.get_mass_()
 
     return wielding_mass + wearing_mass + creature.mass_kg
 
@@ -45,7 +48,7 @@ func get_storage() -> float:
     var wearing_ = wearing.get_children()
     for worn in wearing_:
         wearing_storage += worn.get_storage()
-        
+
     return wielding_storage + wearing_storage
 
 
@@ -58,10 +61,13 @@ func get_used_storage() -> float:
             wearing_used_storage += item.get_volume()
 
     return wearing_used_storage
-    
-func store_item(item: Item) -> Item:
+
+
+func store_item(item: Item):
     var wearing_ = wearing.get_children()
     for worn: Item in wearing_:
-        if worn.get_storage() >= item.get_volume():
-            return worn
-    return null
+        var remaining_storage = (
+            worn.get_storage() - worn.get_used_storage()
+        )
+        if remaining_storage >= item.get_volume():
+            item.store(parent, worn)

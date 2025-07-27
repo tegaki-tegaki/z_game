@@ -1,12 +1,14 @@
-extends Area2D
+extends RigidBody2D
 class_name Item
 
-var resource: ItemResource
 @onready var sprite: Sprite2D = %sprite
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var contains: Node2D = $contains
 
+var resource: ItemResource
+var owner_: Character
 var durability = 1.0
+var flip_h: bool
 
 
 func _ready():
@@ -14,16 +16,21 @@ func _ready():
     name = resource.name
 
 
+func _process(_delta: float):
+    if owner_:
+        sprite.flip_h = owner_.body.direction == G.Direction.LEFT
+
+
 ## must load item upon instantiation, before adding to the tree
 func load_item(item: ItemResource):
     var texture = G.get_gameobj_texture(item.name_texture)
     item.texture = texture
-    
+
     var texture_character = G.get_gameobj_texture(
         item.name_texture_character
     )
     item.texture_character = texture_character
-    
+
     resource = item
 
 
@@ -44,28 +51,35 @@ func _set_sprite_state(state: State):
 
 func drop(wielder: Character):
     _set_sprite_state(State.WORLD)
-    reparent(get_tree().root.get_node("%items"), false)
-    position = wielder.position
     collision.disabled = false
+    reparent(get_tree().root.get_node("%items"))
+    owner = null
+    position = wielder.position
 
 
 func wield(wielder: Character):
     _set_sprite_state(State.CHARACTER)
-    reparent(wielder.body.wielding, false)
-    position = Vector2(0, 0)
     collision.disabled = true
+    reparent(wielder.body.wielding, false)
+    owner_ = wielder
+    position = Vector2(0, 0)
+
 
 func wear(wearer: Character):
     _set_sprite_state(State.CHARACTER)
+    collision.disabled = true
     reparent(wearer.body.wearing, false)
+    owner_ = wearer
     position = Vector2(0, 0)
-    collision.disabled = true
 
-func store(_inserter: Character, container: Item):
+
+func store(inserter: Character, container: Item):
     _set_sprite_state(State.INSERTED)
-    reparent(container.contains)
-    position = Vector2(0, 0)
     collision.disabled = true
+    reparent(container.contains, false)
+    owner_ = inserter
+    position = Vector2(0, 0)
+
 
 func damage(attack: C.Attack):
     durability -= attack.raw_damage
@@ -81,19 +95,23 @@ func destroy():
 func disassemble():
     # spawn items
     pass
-    
-func get_mass():
-    var mass = resource.mass_kg
+
+
+func get_mass_():
+    var mass_ = resource.mass_kg
     if contains:
         for item in contains.get_children():
-            mass += item.get_mass()
-    return mass
-    
+            mass_ += item.get_mass_()
+    return mass_
+
+
 func get_volume():
     return resource.volume_cm3
 
+
 func get_storage():
     return resource.storage_cm3
+
 
 func get_used_storage():
     var used_storage = 0.0

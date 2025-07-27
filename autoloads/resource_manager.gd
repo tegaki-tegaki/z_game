@@ -217,6 +217,7 @@ static var images_data = {
 }
 
 enum ItemTypes { ITEM, CLOTHING, WEAPON }
+enum Direction { RIGHT, LEFT }
 
 var gameobj_data = Dict.new()
 
