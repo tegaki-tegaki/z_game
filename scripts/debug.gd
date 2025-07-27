@@ -14,6 +14,7 @@ extends VBoxContainer
 @onready var position_: Label = %position
 @onready var stamina: Label = %stamina
 @onready var mass: Label = %mass
+@onready var storage: Label = %storage
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,6 +24,10 @@ func _process(_delta: float) -> void:
     if player:
         position_.text = "position: %s" % [player.position]
         stamina.text = "stamina: %s" % [player.stamina]
+        storage.text = (
+            "storage: %s / %s"
+            % [player.get_used_storage(), player.get_storage()]
+        )
         mass.text = "mass: %s kg" % [player.get_mass()]
         var interact = player.interact
         var wielded = interact.get_wielded() as Weapon

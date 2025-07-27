@@ -42,6 +42,13 @@ func load_creature(creature_: CreatureResource):
 ## the mass of everything you wear + wield + self
 func get_mass() -> float:
     return body.get_mass()
+    
+func get_storage() -> float:
+    return body.get_storage()
+    
+func get_used_storage() -> float:
+    return body.get_used_storage()
+
 
 func damage(raw_damage: float, impact_vector: Vector2):
     health_component.damage(raw_damage, impact_vector)

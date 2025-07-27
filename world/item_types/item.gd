@@ -4,6 +4,7 @@ class_name Item
 var resource: ItemResource
 @onready var sprite: Sprite2D = %sprite
 @onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var contains: Node2D = $contains
 
 var durability = 1.0
 
@@ -78,4 +79,18 @@ func disassemble():
     pass
     
 func get_mass():
-    return resource.mass_kg
+    var mass = resource.mass_kg
+    if contains:
+        for item in contains:
+            mass += item.get_mass()
+    return mass
+
+func get_storage():
+    return resource.storage_cm3
+
+func get_used_storage():
+    var used_storage = 0.0
+    if contains:
+        for item in contains:
+            used_storage += item.get_used_storage()
+    return used_storage

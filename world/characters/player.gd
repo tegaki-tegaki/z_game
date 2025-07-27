@@ -60,12 +60,14 @@ func handle_actions(delta):
     if handle_equip_target():
         return
 
+
 func handle_equip_target():
     var attempt_wear = Input.is_action_just_pressed("equip_target")
     if attempt_wear:
         interact.equip_targeted()
         return true
     return false
+
 
 func handle_move():
     var input_vector = Input.get_vector(
@@ -196,29 +198,3 @@ func disable_act(duration_seconds: float, boost = 1.0):
 func enable_act():
     T.set_time_boost(1.0)
     can_act = true
-
-
-func unwield(item: Item):
-    var _item = item.resource as ItemResource
-    print("unwielding %s" % [_item.name])
-    set_aim_spread()
-    # time
-
-
-func wield(item: Item):
-    var _item = item.resource as ItemResource
-    print("wielding %s" % [_item.name])
-    set_aim_spread()
-    # time
-
-
-func wear(item: Item):
-    var _item = item.resource as ItemResource
-    print("wearing %s" % [_item.name])
-    # time
-
-
-func remove(item: Item):
-    var _item = item.resource as ItemResource
-    print("removing %s" % [_item.name])
-    # time

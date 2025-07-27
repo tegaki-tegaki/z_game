@@ -11,6 +11,9 @@ var mass_kg: float
 enum ItemType { ITEM, CLOTHING, WEAPON, MEDICINE }
 @export var type: ItemType
 
+@export var storage_cm3: float
+@export var storage_length_cm: float
+
 ## UI name
 @export var name: String
 ## eg. shotgun_410, molle_pack
@@ -25,4 +28,9 @@ var texture_character: AtlasTexture
 
 
 func get_inventory_data():
-    return {"volume": volume_cm3, "mass": mass_kg}
+    return {
+        "volume": volume_cm3,
+        "mass": mass_kg,
+        "storage": storage_cm3,
+        "storage_length": storage_length_cm
+    }
