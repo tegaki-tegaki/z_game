@@ -19,3 +19,14 @@ texture = ExtResource("2_r7mg0")
 shape = SubResource("CircleShape2D_k65cs")
 
 [node name="contains" type="Node2D" parent="."]
+
+[node name="label" type="Label" parent="."]
+visible = false
+z_index = 1
+texture_filter = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 18.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 13
+text = "Sweater"

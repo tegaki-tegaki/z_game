@@ -11,7 +11,8 @@ signal player_action(player)
 
 var can_act = true
 
-var is_aiming = false
+enum Mode { AIMING, MOVING, INTERACT_STORE, INTERACT_EQUIP }
+var mode: Mode = Mode.MOVING
 var aim_direction: Vector2
 
 
@@ -42,7 +43,8 @@ func _physics_process(delta):
         handle_actions(delta)
     else:
         act(1.0, PlayerState.ActionType.WAIT)
-    handle_modes()
+    handle_status()
+    handle_interact()
     aim_marker()
     zoom()
 
@@ -57,26 +59,40 @@ func handle_actions(delta):
         return
     if handle_reload():
         return
-    if handle_equip_target():
-        return
-    if handle_store_target():
-        return
 
+func handle_interact():
+    handle_equip_target()
+    handle_store_target()
+    interact_marker()
+    
+var highlighted_item: Item
+    
+func interact_marker():
+    if [Mode.INTERACT_STORE, Mode.INTERACT_EQUIP].has(mode):
+        var item = interact.reachable_item()
+        if item:
+            if highlighted_item && item != highlighted_item:
+                highlighted_item.label.visible = false
+            highlighted_item = item
+            item.label.visible = true
+    else:
+        if highlighted_item:
+            highlighted_item.label.visible = false
+    
 
 func handle_equip_target():
-    var attempt_wear = Input.is_action_just_pressed("equip_target")
-    if attempt_wear:
-        interact.equip_targeted()
+    var attempt_equip = Input.is_action_just_pressed("equip_target")
+    if attempt_equip:
+        mode = Mode.INTERACT_EQUIP
         return true
     return false
     
 func handle_store_target():
-    var attempt_grab = Input.is_action_just_pressed("grab_target")
-    if attempt_grab:
-        interact.store_targeted()
+    var attempt_store = Input.is_action_just_pressed("grab_target")
+    if attempt_store:
+        mode = Mode.INTERACT_STORE
         return true
     return false
-
 
 func handle_move():
     var input_vector = Input.get_vector(
@@ -87,8 +103,7 @@ func handle_move():
     if input_vector.length() > 0:
         velocity = input_vector * speed
 
-        if is_aiming:
-            is_aiming = false
+        mode = Mode.MOVING
         set_aim_spread()
 
         var total_delta_mod = 1.0
@@ -108,6 +123,10 @@ func handle_move():
 func handle_aim(delta):
     var attempt_aim = Input.is_action_pressed("aim_weapon")
     if attempt_aim:
+        if !mode == Mode.AIMING:
+            mode = Mode.AIMING
+            set_aim_spread()
+            
         var wielded = interact.get_wielded()
         if !wielded:
             return
@@ -115,9 +134,6 @@ func handle_aim(delta):
 
         act(1.0, PlayerState.ActionType.AIM)
 
-        if !is_aiming:
-            is_aiming = true
-            set_aim_spread()
 
         interact.aim_spread = move_toward(
             interact.aim_spread,
@@ -132,10 +148,17 @@ func handle_aim(delta):
 func handle_fire():
     var attempt_fire = Input.is_action_just_pressed("fire_weapon")
     if attempt_fire:
-        disable_act(0.2)
-        act(1.0, PlayerState.ActionType.FIRE)
-        C.trigger_weapon(self)
-        return true
+        if mode == Mode.INTERACT_STORE:
+            interact.store_targeted()
+            return true
+        if mode == Mode.INTERACT_EQUIP:
+            interact.equip_targeted()
+            return true
+        elif mode == Mode.AIMING:
+            disable_act(0.2)
+            act(1.0, PlayerState.ActionType.FIRE)
+            C.trigger_weapon(self)
+            return true
     return false
 
 
@@ -160,7 +183,7 @@ func handle_reload():
 
 
 # this is only for non-time behaviour
-func handle_modes():
+func handle_status():
     var status = %status as Node2D
     status.position = body.base.position
     var run_mode = Input.is_action_pressed("run_hold")

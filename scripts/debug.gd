@@ -15,7 +15,7 @@ extends VBoxContainer
 @onready var stamina: Label = %stamina
 @onready var mass: Label = %mass
 @onready var storage: Label = %storage
-@onready var body_direction: Label = %body_direction
+@onready var mode: Label = %mode
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
     fps.text = "FPS: %s" % [Engine.get_frames_per_second()]
     var player = get_tree().root.get_node("main/player") as Node2D
     if player:
-        body_direction.text = "body_direction: %s" % [player.body.transform]
+        mode.text = "mode: %s" % [str(Player.Mode.keys()[player.mode])]
         position_.text = "position: %s" % [player.position]
         stamina.text = "stamina: %s" % [player.stamina]
         storage.text = (

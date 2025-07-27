@@ -4,6 +4,7 @@ class_name Item
 @onready var sprite: Sprite2D = %sprite
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var contains: Node2D = $contains
+@onready var label: Label = $label
 
 var resource: ItemResource
 var owner_: Character
@@ -14,12 +15,12 @@ var flip_h: bool
 func _ready():
     _set_sprite_state(State.WORLD)
     name = resource.name
+    label.text = resource.name
 
 
 func _process(_delta: float):
     if owner_:
         sprite.flip_h = owner_.body.direction == G.Direction.LEFT
-
 
 ## must load item upon instantiation, before adding to the tree
 func load_item(item: ItemResource):
