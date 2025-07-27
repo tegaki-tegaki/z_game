@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
         position_.text = "position: %s" % [player.position]
         stamina.text = "stamina: %s" % [player.stamina]
         storage.text = (
-            "storage: %s / %s"
+            "storage: %s / %s cm3"
             % [player.get_used_storage(), player.get_storage()]
         )
         mass.text = "mass: %s kg" % [player.get_mass()]

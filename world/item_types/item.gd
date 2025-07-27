@@ -11,6 +11,7 @@ var durability = 1.0
 
 func _ready():
     _set_sprite_state(State.WORLD)
+    name = resource.name
 
 
 ## must load item upon instantiation, before adding to the tree
@@ -41,9 +42,11 @@ func _set_sprite_state(state: State):
             sprite.visible = false
 
 
-func drop(_wielder: Character):
+func drop(wielder: Character):
     _set_sprite_state(State.WORLD)
-    reparent(get_tree().root.get_node("%items"))
+    reparent(get_tree().root.get_node("%items"), false)
+    position = wielder.position
+    collision.disabled = false
 
 
 func wield(wielder: Character):
@@ -58,10 +61,11 @@ func wear(wearer: Character):
     position = Vector2(0, 0)
     collision.disabled = true
 
-func insert(_inserter: Character, container: Item):
+func store(_inserter: Character, container: Item):
     _set_sprite_state(State.INSERTED)
-    reparent(container)
-
+    reparent(container.contains)
+    position = Vector2(0, 0)
+    collision.disabled = true
 
 func damage(attack: C.Attack):
     durability -= attack.raw_damage
@@ -81,9 +85,12 @@ func disassemble():
 func get_mass():
     var mass = resource.mass_kg
     if contains:
-        for item in contains:
+        for item in contains.get_children():
             mass += item.get_mass()
     return mass
+    
+func get_volume():
+    return resource.volume_cm3
 
 func get_storage():
     return resource.storage_cm3
@@ -91,6 +98,6 @@ func get_storage():
 func get_used_storage():
     var used_storage = 0.0
     if contains:
-        for item in contains:
-            used_storage += item.get_used_storage()
+        for item in contains.get_children():
+            used_storage += item.get_volume()
     return used_storage

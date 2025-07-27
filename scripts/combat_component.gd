@@ -23,9 +23,24 @@ func set_wielded(weapon: Weapon):
     parent.get_node("BodyComponent/wielding").add_child(weapon)
     weapon.wield(parent)
 
+## try to store targeted item
+func store_targeted():
+    var item = reachable_item() as Item
+    if item:
+        var container = parent.get_node("BodyComponent").store_item(item)
+        if container:
+            item.store(parent, container)
 
-## try to wield target weapon, or wear target clothing
+## try to wield targeted weapon, or wear targeted clothing
 func equip_targeted():
+    var item = reachable_item() as Item
+    if item is Weapon:
+        item.wield(parent)
+    elif item is Clothing:
+        item.wear(parent)
+
+enum InteractType { EQUIP, STORE }
+func reachable_item() -> Item:
     var debug_target = get_tree().root.get_node("main/debug_target")
     var target = Vector2(
         parent.position + (aim.target_position + aim.position)
@@ -44,10 +59,8 @@ func equip_targeted():
     var item = raycast.get_collider() as Item
     raycast.free()
 
-    if item && item is Item:
+    if item is Item:
         var distance = (parent.position - item.position).length()
         if distance < 25:
-            if item is Weapon:
-                item.wield(parent)
-            elif item is Clothing:
-                item.wear(parent)
+           return item
+    return null

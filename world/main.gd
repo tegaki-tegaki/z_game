@@ -26,13 +26,19 @@ func _ready() -> void:
     spawn_enemy(Vector2(100, -200), hulk)
 
     var sweater = preload("res://resources/clothing/sweater.tres")
-    spawn_item(Vector2(-80, 50), sweater)
+    spawn_item(Vector2(-70, 50), sweater)
+    spawn_item(Vector2(-70, 60), sweater)
+    spawn_item(Vector2(-70, 70), sweater)
 
     var pants = preload("res://resources/clothing/cargo_pants.tres")
     spawn_item(Vector2(-80, 70), pants)
-    
+    spawn_item(Vector2(-80, 80), pants)
+    spawn_item(Vector2(-80, 90), pants)
+
     var shotgun = preload("res://resources/weapons/shotgun.tres")
     spawn_item(Vector2(-120, 70), shotgun)
+    spawn_item(Vector2(-120, 80), shotgun)
+    spawn_item(Vector2(-120, 90), shotgun)
 
 
 func spawn_player(location: Vector2):

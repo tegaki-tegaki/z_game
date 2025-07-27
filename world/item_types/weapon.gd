@@ -37,11 +37,3 @@ func get_mass() -> float:
     if melee:
         return melee.get_inventory_data().mass
     return 0.0
-
-
-func get_storage_data() -> float:
-    if ranged:
-        return ranged.get_inventory_data()
-    if melee:
-        return melee.get_inventory_data()
-    return 0.0

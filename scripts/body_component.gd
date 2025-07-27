@@ -36,25 +36,32 @@ func get_mass() -> float:
 
 
 func get_storage() -> float:
-    var wielded_ = Utils.first(wielding) as Weapon
-    var wearing_ = wearing.get_children()
-
     var wielding_storage = 0.0
+    var wielded_ = Utils.first(wielding) as Weapon
     if wielded_:
         wielding_storage += wielded_.get_storage()
 
     var wearing_storage = 0.0
+    var wearing_ = wearing.get_children()
     for worn in wearing_:
         wearing_storage += worn.get_storage()
-
+        
     return wielding_storage + wearing_storage
 
 
 func get_used_storage() -> float:
-    var wearing_ = wearing.get_children()
-
     var wearing_used_storage = 0.0
+    var wearing_ = wearing.get_children()
     for worn: Item in wearing_:
-        wearing_used_storage += worn.get_used_storage()
+        var contents = worn.contains.get_children()
+        for item: Item in contents:
+            wearing_used_storage += item.get_volume()
 
     return wearing_used_storage
+    
+func store_item(item: Item) -> Item:
+    var wearing_ = wearing.get_children()
+    for worn: Item in wearing_:
+        if worn.get_storage() >= item.get_volume():
+            return worn
+    return null

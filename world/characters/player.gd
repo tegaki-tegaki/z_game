@@ -59,12 +59,21 @@ func handle_actions(delta):
         return
     if handle_equip_target():
         return
+    if handle_store_target():
+        return
 
 
 func handle_equip_target():
     var attempt_wear = Input.is_action_just_pressed("equip_target")
     if attempt_wear:
         interact.equip_targeted()
+        return true
+    return false
+    
+func handle_store_target():
+    var attempt_grab = Input.is_action_just_pressed("grab_target")
+    if attempt_grab:
+        interact.store_targeted()
         return true
     return false
 

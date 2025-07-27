@@ -17,3 +17,5 @@ texture = ExtResource("2_sp8f4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_k65cs")
+
+[node name="contains" type="Node2D" parent="."]
