@@ -20,7 +20,7 @@ func _clear_buckets():
 
 func _hash(key) -> int:
     # Simple hash function (could be improved)
-    var h = int(hash(key))
+    var h = hash(key)
     return abs(h) % _bucket_count
 
 
@@ -96,10 +96,13 @@ func _resize():
     _bucket_count *= 2
     _clear_buckets()
     _size = 0
-
+    
     for bucket in old_buckets:
         for entry in bucket:
-            set(entry.key, entry.value)
+            var index = _hash(entry.key)
+            _buckets[index].append(entry)
+            _size += 1
+    
 
 
 class Entry:
@@ -109,3 +112,6 @@ class Entry:
     func _init(_key, _value):
         key = _key
         value = _value
+    
+    func _duplicate():
+        return Entry.new(key, value)

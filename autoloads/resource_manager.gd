@@ -247,7 +247,7 @@ static func get_gameobj_atlastexture(
 func process_config(config):
     for tile_data in config["tiles-new"]:
         var tiles = tile_data.tiles
-        var tile_data_chunk_raw = tiles  # filter_tile_data(tiles)
+        var tile_data_chunk_raw = tiles  # filter_tile_data(tiles, "sweater")
         for tile_data_chunk in tile_data_chunk_raw:
             get_tile_to_gameobj_fn(gameobj_data, tile_data.file).call(
                 tile_data_chunk
@@ -257,27 +257,27 @@ func process_config(config):
 # TODO: can higher order function be reduced?
 # this function has also grown too large and complicated
 static func get_tile_to_gameobj_fn(_gameobj_data, filename):
-    return func(monster):
+    return func(tile_data):
         var global_id = null
-        if "fg" in monster:
-            if typeof(monster.fg) == TYPE_ARRAY:
-                if typeof(monster.fg[0]) == TYPE_FLOAT:
-                    global_id = monster.fg
-                elif "sprite" in monster.fg[0]:
+        if "fg" in tile_data:
+            if typeof(tile_data.fg) == TYPE_ARRAY:
+                if typeof(tile_data.fg[0]) == TYPE_FLOAT:
+                    global_id = tile_data.fg
+                elif "sprite" in tile_data.fg[0]:
                     global_id = []
-                    for _fg in monster.fg:
+                    for _fg in tile_data.fg:
                         global_id.append(_fg.sprite)
-            elif typeof(monster.fg) == TYPE_FLOAT:
-                global_id = monster.fg
+            elif typeof(tile_data.fg) == TYPE_FLOAT:
+                global_id = tile_data.fg
             else:
                 return
 
         else:
-            if typeof(monster.bg) != TYPE_FLOAT:
+            if typeof(tile_data.bg) != TYPE_FLOAT:
                 return
-            global_id = monster.bg
+            global_id = tile_data.bg
 
-        if typeof(monster) != TYPE_DICTIONARY:
+        if typeof(tile_data) != TYPE_DICTIONARY:
             return
 
         var image_data = images_data[filename]
@@ -306,14 +306,14 @@ static func get_tile_to_gameobj_fn(_gameobj_data, filename):
 
             colrows.append(colrow)
 
-        if typeof(monster.id) == TYPE_ARRAY:
-            for id in monster.id:
+        if typeof(tile_data.id) == TYPE_ARRAY:
+            for id in tile_data.id:
                 _gameobj_data.set(
                     id, {"file": filename, "colrows": colrows}
                 )
         else:
             _gameobj_data.set(
-                monster.id, {"file": filename, "colrows": colrows}
+                tile_data.id, {"file": filename, "colrows": colrows}
             )
 
 
@@ -343,21 +343,15 @@ static func find_tile_data(tiles, target: String) -> Variant:
 
 # TODO: might be fine without filtering if
 # i refactor from Dictionary -> class + array of classes
-static func filter_tile_data(tiles) -> Variant:
+static func filter_tile_data(tiles, prefix: String) -> Variant:
     var filtered = []
     for tile in tiles:
         if typeof(tile.id) == TYPE_STRING:
-            if (
-                tile.id.begins_with("mon_zombie")
-                || tile.id.begins_with("corpse_")
-            ):
+            if tile.id.begins_with(prefix):
                 filtered.append(tile)
         if typeof(tile.id) == TYPE_ARRAY:
             for id in tile.id:
-                if (
-                    id.begins_with("mon_zombie")
-                    || id.begins_with("corpse_")
-                ):
+                if id.begins_with(prefix):
                     filtered.append(tile)
     return filtered
 

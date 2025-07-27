@@ -42,5 +42,4 @@ func get_mass() -> float:
 
 func _ready():
     var weapon = get_weapon()
-
     %sprite.texture = weapon.texture

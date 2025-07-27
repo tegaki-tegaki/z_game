@@ -15,10 +15,12 @@ func _ready():
 func load_item(item: ItemResource):
     var texture = G.get_gameobj_texture(item.name_texture)
     item.texture = texture
-    var texture_on_person = G.get_gameobj_texture(
-        item.name_texture_on_person
+    
+    var texture_character = G.get_gameobj_texture(
+        item.name_texture_character
     )
-    item.texture = texture_on_person
+    item.texture_character = texture_character
+    
     resource = item
 
 

@@ -11,16 +11,16 @@ var mass_kg: float
 enum ItemType { ITEM, CLOTHING, WEAPON, MEDICINE }
 @export var type: ItemType
 
+## UI name
 @export var name: String
+## eg. shotgun_410, molle_pack
 @export var name_texture: String
-@export var name_texture_on_person: String
+## eg. overlay_wielded_shotgun_410, overlay_male_worn_molle_pack
+@export var name_texture_character: String
 
 @export var y_offset: float
-@export var y_offset_wielding: float
-@export var y_offset_wearing: float
-## eg. shotgun_410, molle_pack
+@export var y_offset_character: float
 var texture: AtlasTexture
-## eg. overlay_wielded_shotgun_410, overlay_male_worn_molle_pack
 var texture_character: AtlasTexture
 
 
