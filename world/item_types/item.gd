@@ -10,6 +10,7 @@ var resource: ItemResource
 var owner_: Character
 var durability = 1.0
 var flip_h: bool
+var fade_tween: Tween
 
 
 func _ready():
@@ -21,6 +22,7 @@ func _ready():
 func _process(_delta: float):
     if owner_:
         sprite.flip_h = owner_.body.direction == G.Direction.LEFT
+
 
 ## must load item upon instantiation, before adding to the tree
 func load_item(item: ItemResource):
@@ -120,3 +122,13 @@ func get_used_storage():
         for item in contains.get_children():
             used_storage += item.get_volume()
     return used_storage
+
+
+func display_label():
+    if fade_tween:
+        fade_tween.kill()
+    label.visible = true
+    label.modulate.a = 1.0
+    fade_tween = create_tween()
+    fade_tween.tween_property(label, "modulate:a", 0.0, 1.0)
+    fade_tween.tween_callback(func(): label.visible = false)
