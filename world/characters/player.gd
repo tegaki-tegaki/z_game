@@ -7,6 +7,8 @@ signal player_action(player)
 @onready var bullet_decals = C.bullet_decals
 @onready var camera: Camera2D = $Camera2D
 
+@export var damage_sounds: SoundPool
+
 var interact: InteractionComponent
 var aim_component: AimComponent
 
@@ -233,3 +235,8 @@ func disable_act(duration_seconds: float, boost = 1.0):
 func enable_act():
     T.set_time_boost(1.0)
     can_act = true
+
+
+func damage(raw_damage, impact_vector):
+    super.damage(raw_damage, impact_vector)
+    Utils.play_damage_sound(%audio/damage, damage_sounds.get_sound())

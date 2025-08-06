@@ -1,16 +1,24 @@
-[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=4 format=3 uid="uid://b1q400i27ghsd"]
+[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=5 format=3 uid="uid://b1q400i27ghsd"]
 
 [ext_resource type="Script" uid="uid://bt6ty8pqbtx52" path="res://models/melee_weapon.gd" id="1_rdo4k"]
 [ext_resource type="Resource" uid="uid://brvysm7qskpai" path="res://resources/weapons/swing_sound.tres" id="2_svvol"]
-[ext_resource type="Resource" uid="uid://bie0c7hdhv8fr" path="res://resources/weapons/2x4_weapon_data.tres" id="3_3s5wu"]
+[ext_resource type="Script" uid="uid://ceavvqpiw2r8r" path="res://models/weapon_data.gd" id="3_svvol"]
+
+[sub_resource type="Resource" id="Resource_3s5wu"]
+script = ExtResource("3_svvol")
+weapon_extra_damage = 1.0
+attack_time_modifier = 0.8
+metadata/_custom_type_script = "uid://ceavvqpiw2r8r"
 
 [resource]
 script = ExtResource("1_rdo4k")
-weapon_data = ExtResource("3_3s5wu")
+weapon_data = SubResource("Resource_3s5wu")
 sound_pool = ExtResource("2_svvol")
 volume_cm3 = 8213.0
 mass_kg = 3.5
 type = 2
+storage_cm3 = 0.0
+storage_length_cm = 0.0
 name = "2x4"
 name_texture = "2x4"
 name_texture_character = "overlay_male_wielded_2x4"

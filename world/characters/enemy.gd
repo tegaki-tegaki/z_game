@@ -51,7 +51,6 @@ func _ready() -> void:
 func trigger_attack():
     # TODO: try swing / sample Area2D collider
     if (player.position - position).length() < REACH:
-        print("attacked player: " + str(100))
         player.damage(100, player.position - position)
 
 

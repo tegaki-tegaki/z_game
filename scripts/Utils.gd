@@ -32,6 +32,12 @@ static func play_shot_sound(node: Node, sound: AudioStream):
     audioplayer.play()
 
 
+static func play_damage_sound(node: Node, sound: AudioStream):
+    var audioplayer = node.get_node("%audio/damage") as AudioStreamPlayer2D
+    audioplayer.stream = sound
+    audioplayer.play()
+
+
 static func play_reload_sound(node: Node, sound: AudioStream):
     var audioplayer = node.get_node("%audio/reload") as AudioStreamPlayer2D
     audioplayer.stream = sound
