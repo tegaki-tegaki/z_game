@@ -13,6 +13,7 @@ extends VBoxContainer
 @onready var fps: Label = %FPS
 @onready var position_: Label = %position
 @onready var stamina: Label = %stamina
+@onready var health: Label = %health
 @onready var mass: Label = %mass
 @onready var storage: Label = %storage
 @onready var mode: Label = %mode
@@ -26,6 +27,7 @@ func _process(_delta: float) -> void:
         mode.text = "mode: %s" % [str(Player.Mode.keys()[player.mode])]
         position_.text = "position: %s" % [player.position]
         stamina.text = "stamina: %s" % [player.stamina]
+        health.text = "health: %s" % [player.get_node("HealthComponent").health]
         storage.text = (
             "storage: %s / %s cm3"
             % [player.get_used_storage(), player.get_storage()]

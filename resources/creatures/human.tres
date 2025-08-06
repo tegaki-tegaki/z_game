@@ -8,6 +8,7 @@ size = 6.5
 speed = 80.0
 health = 1000.0
 name = "overlay_male_mutation_SKIN_TAN"
+corpse_name = "corpse_generic_human"
 y_offset = 0.0
 corpse_y_offset = 0.0
 mass_kg = 75.0

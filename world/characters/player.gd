@@ -39,7 +39,7 @@ func act(time_scale, action_type: PlayerState.ActionType):
 
 
 func _physics_process(delta):
-    if can_act:
+    if !is_dead && can_act:
         handle_actions(delta)
     else:
         act(1.0, PlayerState.ActionType.WAIT)

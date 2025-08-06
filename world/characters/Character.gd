@@ -24,9 +24,18 @@ func _ready():
 
 func load_creature(creature_: CreatureResource):
     creature = creature_
-    var textures = G.get_creature_textures(creature_.name)
-    creature.sprite = textures.texture
-    creature.sprite_corpse = textures.corpse_texture
+    var texture = G.get_gameobj_texture(creature_.name)
+    creature.sprite = texture
+
+    if creature_.corpse_name:
+        creature_.sprite_corpse = G.get_gameobj_texture(
+            creature_.corpse_name
+        )
+    else:
+        creature_.sprite_corpse = G.get_gameobj_texture(
+            "corpse_" + creature_.name
+        )
+
     MAX_HEALTH = creature_.health
     health = creature_.health
     speed = creature_.speed
@@ -42,10 +51,12 @@ func load_creature(creature_: CreatureResource):
 ## the mass of everything you wear + wield + self
 func get_mass() -> float:
     return body.get_mass()
-    
+
+
 func get_storage() -> float:
     return body.get_storage()
-    
+
+
 func get_used_storage() -> float:
     return body.get_used_storage()
 
