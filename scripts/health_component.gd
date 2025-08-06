@@ -1,5 +1,7 @@
-extends Node2D
 class_name HealthComponent
+extends Node2D
+
+const N = &"HealthComponent"
 
 @export var health_bar: HealthBarComponent
 @onready var parent = get_parent() as Character
@@ -10,11 +12,23 @@ var health: float
 ## eg. if multiple shotgun bullets hit the same target.
 var __damage_within_tick = 0.0
 
+
+func _enter_tree():
+    assert(owner is Character)
+    owner.set_meta(N, self)
+
+
+func _exit_tree():
+    owner.remove_meta(N)
+
+
 func _physics_process(delta: float) -> void:
     __damage_within_tick = 0.0
 
+
 func _ready():
     health = parent.health
+
 
 func damage(raw_damage: float, impact_vector: Vector2):
     health -= raw_damage
@@ -24,7 +38,9 @@ func damage(raw_damage: float, impact_vector: Vector2):
         get_tree().root.get_node("main/%terrain/blood") as TileMapLayer
     )
     var standing_tile = blood_tilemap.local_to_map(parent.position)
-    var behind_sample_vec = parent.position + (impact_vector.normalized() * 32)
+    var behind_sample_vec = (
+        parent.position + (impact_vector.normalized() * 32)
+    )
     var behind_tile = blood_tilemap.local_to_map(behind_sample_vec)
 
     # terrain 0 -> 3 blood intensity
@@ -32,11 +48,11 @@ func damage(raw_damage: float, impact_vector: Vector2):
         blood_tilemap.set_cells_terrain_connect([behind_tile], 0, 3)
     else:
         blood_tilemap.set_cells_terrain_connect([standing_tile], 0, 1)
-        
+
     if health <= 0:
         blood_tilemap.set_cells_terrain_connect([standing_tile], 0, 2)
         parent.set_dead()
         #parent.queue_free()
-        
+
     if health_bar:
         health_bar.value = inverse_lerp(0.0, parent.MAX_HEALTH, health)

@@ -1,8 +1,9 @@
 extends Character
 class_name Enemy
 
-@onready var aim_component: RayCast2D = $AimComponent
 @onready var timers: Node2D = %timers
+
+var aim_component: RayCast2D
 
 var has_target = false
 var target: Vector2 = Vector2()
@@ -29,6 +30,7 @@ func get_player():
 
 
 func _ready() -> void:
+    aim_component = get_meta(AimComponent.N)
     super._ready()
     _idle_timer = GameTimer.new()
     _idle_timer.timeout.connect(new_idle_target)

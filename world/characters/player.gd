@@ -3,11 +3,12 @@ class_name Player
 
 signal player_action(player)
 
-@onready var interact: InteractionComponent = $InteractionComponent
 @onready var bullets = C.bullets
 @onready var bullet_decals = C.bullet_decals
-@onready var aim_component: AimComponent = $AimComponent
 @onready var camera: Camera2D = $Camera2D
+
+var interact: InteractionComponent
+var aim_component: AimComponent
 
 var can_act = true
 
@@ -17,7 +18,10 @@ var aim_direction: Vector2
 
 
 func _ready() -> void:
+    aim_component = get_meta(AimComponent.N)
+    interact = get_meta(InteractionComponent.N)
     super._ready()
+
     T.set_time_scale(0)
     set_aim_spread()
 

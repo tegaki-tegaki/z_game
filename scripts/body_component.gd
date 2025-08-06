@@ -1,6 +1,8 @@
 extends Node2D
 class_name BodyComponent
 
+const N = &"BodyComponent"
+
 @export var aim: AimComponent
 @export var creature: CreatureResource
 @onready var base: Sprite2D = $base
@@ -8,6 +10,15 @@ class_name BodyComponent
 @onready var wielding: Node2D = $wielding
 @onready var parent: Character = $".."
 var direction: G.Direction = G.Direction.RIGHT
+
+
+func _enter_tree():
+    assert(owner is Character)
+    owner.set_meta(N, self)
+
+
+func _exit_tree():
+    owner.remove_meta(N)
 
 
 func _ready():

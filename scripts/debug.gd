@@ -27,7 +27,9 @@ func _process(_delta: float) -> void:
         mode.text = "mode: %s" % [str(Player.Mode.keys()[player.mode])]
         position_.text = "position: %s" % [player.position]
         stamina.text = "stamina: %s" % [player.stamina]
-        health.text = "health: %s" % [player.get_node("HealthComponent").health]
+        health.text = (
+            "health: %s" % [player.get_meta(HealthComponent.N).health]
+        )
         storage.text = (
             "storage: %s / %s cm3"
             % [player.get_used_storage(), player.get_storage()]
