@@ -15,6 +15,8 @@ func _ready():
 
 
 func _process(_delta: float):
+    if parent.is_dead:
+        return
     if aim.target_position.x > 0:
         direction = G.Direction.RIGHT
     elif aim.target_position.x < 0:

@@ -105,6 +105,8 @@ func update_ai(player_state: PlayerState):
     # if can see player -> move to
     # if can't see but saw -> move to last seen
     # if at current -> "see" strongest smell trail -> move to
+    if is_dead:
+        return
 
     var to_player = position - player.position
     if to_player.length() < 200:
@@ -122,3 +124,11 @@ func damage(raw_damage: float, impact_vector: Vector2):
     target = (position + (-1 * impact_vector.normalized()) * 200)
     has_target = true
     _attention_timer.start(5.0)
+    
+func set_dead():
+    super.set_dead()
+    has_target = false
+    _disable_attack()
+    _attention_timer.queue_free()
+    _attack_timer.queue_free()
+    # TODO: respawn timer?
