@@ -72,9 +72,13 @@ func handle_interact():
 
 
 func interact_marker():
+    var interact_target = get_tree().root.get_node("main/interact_target")
+    interact_target.visible = false
     if [Mode.INTERACT_STORE, Mode.INTERACT_EQUIP].has(mode):
         var item = interact.reachable_item()
         if item:
+            interact_target.position = item.position
+            interact_target.visible = true
             item.display_label()
 
 

@@ -51,8 +51,6 @@ enum InteractType { EQUIP, STORE }
 
 
 func reachable_item() -> Item:
-    var debug_target = get_tree().root.get_node("main/debug_target")
-
     var raycast = RayCast2D.new()
     raycast.collide_with_areas = true
     raycast.hit_from_inside = true
@@ -66,7 +64,6 @@ func reachable_item() -> Item:
     raycast.free()
 
     if item is Item:
-        debug_target.position = item.position
         var distance = (item.position - owner.position).length()
         if distance <= REACH_DISTANCE:
             return item
