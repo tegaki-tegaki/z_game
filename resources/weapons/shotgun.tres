@@ -1,8 +1,18 @@
-[gd_resource type="Resource" script_class="RangedWeaponResource" load_steps=5 format=3 uid="uid://dhgf4p0fvg625"]
+[gd_resource type="Resource" script_class="RangedWeaponResource" load_steps=11 format=3 uid="uid://dhgf4p0fvg625"]
 
 [ext_resource type="Script" uid="uid://ccjrxjshlop02" path="res://models/ranged_weapon.gd" id="1_4rfis"]
-[ext_resource type="Resource" uid="uid://3ubr1e1ljaa3" path="res://resources/weapons/shotgun_sound.tres" id="2_4rfis"]
+[ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="2_e0645"]
 [ext_resource type="Script" uid="uid://ceavvqpiw2r8r" path="res://models/weapon_data.gd" id="3_eea6l"]
+[ext_resource type="AudioStream" uid="uid://bedd1v84pu1ta" path="res://sounds/shotgun/pumpreload1.ogg" id="3_i2pkd"]
+[ext_resource type="AudioStream" uid="uid://dipd8chhoffyl" path="res://sounds/shotgun/pumpreload2.ogg" id="4_s8hbi"]
+[ext_resource type="AudioStream" uid="uid://coqk8xp4f4vgw" path="res://sounds/shotgun/pumpreload3.ogg" id="5_cnv33"]
+[ext_resource type="AudioStream" uid="uid://bfohc7hurnkyj" path="res://sounds/shotgun/pumpreload4.ogg" id="6_ceokf"]
+[ext_resource type="AudioStream" uid="uid://brafv4qohcta1" path="res://sounds/shotgun/pumpreload5.ogg" id="7_1jsc7"]
+
+[sub_resource type="Resource" id="Resource_jlnqt"]
+script = ExtResource("2_e0645")
+sounds = Array[AudioStream]([ExtResource("3_i2pkd"), ExtResource("4_s8hbi"), ExtResource("5_cnv33"), ExtResource("6_ceokf"), ExtResource("7_1jsc7")])
+metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
 
 [sub_resource type="Resource" id="Resource_ok5mh"]
 script = ExtResource("3_eea6l")
@@ -13,7 +23,7 @@ metadata/_custom_type_script = "uid://ceavvqpiw2r8r"
 [resource]
 script = ExtResource("1_4rfis")
 weapon_data = SubResource("Resource_ok5mh")
-sound_pool = ExtResource("2_4rfis")
+sound_pool = SubResource("Resource_jlnqt")
 compatible_ammo = 0
 max_num_ammo = 2
 aim_time_modifier = 0.5
