@@ -1,5 +1,5 @@
-extends Resource
 class_name CreatureResource
+extends Resource
 
 var sprite: AtlasTexture
 var sprite_corpse: AtlasTexture

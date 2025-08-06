@@ -1,5 +1,5 @@
-extends ItemResource
 class_name RangedWeaponResource
+extends ItemResource
 
 @export var weapon_data: WeaponDataResource
 @export var sound_pool: SoundPool

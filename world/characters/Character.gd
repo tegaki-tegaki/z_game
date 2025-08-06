@@ -1,5 +1,5 @@
-extends CharacterBody2D
 class_name Character
+extends CharacterBody2D
 
 @export var body: BodyComponent
 @export var hitbox_component: CollisionShape2D

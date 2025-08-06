@@ -1,5 +1,5 @@
-extends Resource
 class_name ItemResource
+extends Resource
 
 ## used in inventory & damage calculations. cubic centimeters
 @export_range(9e-99, 9e99, 0.0000001, "hide_slider", "suffix:cm3")

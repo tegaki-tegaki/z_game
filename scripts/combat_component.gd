@@ -1,5 +1,5 @@
-extends Node
 class_name InteractionComponent
+extends Node
 
 const N = &"CombatComponent"
 
@@ -8,6 +8,7 @@ const N = &"CombatComponent"
 const REACH_DISTANCE = 35.0
 
 var aim_spread: float
+
 
 func _enter_tree():
     assert(owner is Character)

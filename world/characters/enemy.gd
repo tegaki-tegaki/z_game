@@ -1,5 +1,5 @@
-extends Character
 class_name Enemy
+extends Character
 
 @onready var timers: Node2D = %timers
 

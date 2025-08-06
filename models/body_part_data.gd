@@ -1,5 +1,5 @@
-extends Resource
 class_name BodyPartData
+extends Resource
 
 enum BodyPart { HEAD, EYES, MOUTH, TORSO, ARMS, HANDS, LEGS, FEET }
 
