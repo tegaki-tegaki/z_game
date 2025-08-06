@@ -6,6 +6,8 @@ class_name InteractionComponent
 
 var aim_spread: float
 
+const REACH_DISTANCE = 35.0
+
 
 func get_aim_ray() -> RayCast2D:
     return aim
@@ -41,10 +43,6 @@ enum InteractType { EQUIP, STORE }
 
 func reachable_item() -> Item:
     var debug_target = get_tree().root.get_node("main/debug_target")
-    var target = Vector2(
-        parent.position + (aim.target_position + aim.position)
-    )
-    debug_target.position = target
 
     var raycast = RayCast2D.new()
     raycast.collide_with_areas = true
@@ -56,10 +54,11 @@ func reachable_item() -> Item:
     get_tree().root.get_node("main").add_child(raycast)
     raycast.force_raycast_update()
     var item = raycast.get_collider() as Item
+    #debug_target.position = Vector2(collision_point_rel) + parent.position
     raycast.free()
 
     if item is Item:
-        var distance = (parent.position - item.position).length()
-        if distance < 25:
+        var distance = (item.position - parent.position).length()
+        if distance <= REACH_DISTANCE:
             return item
     return null

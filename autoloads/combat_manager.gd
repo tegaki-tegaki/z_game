@@ -55,8 +55,8 @@ func fire_ammo(shooter: Character, ammo: AmmoResource, aim_ray: RayCast2D):
             (aim_ray.target_position.normalized()).rotated(random_spread)
         )
         raycast.target_position *= 2000  # use bullet / gun range?
-        raycast.set_collision_mask_value(1, false)
-        raycast.set_collision_mask_value(2, true)
+        raycast.set_collision_mask_value(1, false) # do not hit player
+        raycast.set_collision_mask_value(2, true) # do hit enemies
         # NOTE: displacement of aim_marker makes this less predictable?
         raycast.hit_from_inside = true
         bullets.add_child(raycast)
@@ -68,7 +68,7 @@ func calculate_bullet_hits(shooter: Character):
     var wielded = interact.get_wielded() as Weapon
     var ammo = wielded.loaded_ammo
 
-    for bullet_ray: RayCast2D in C.bullets.get_children():
+    for bullet_ray: RayCast2D in bullets.get_children():
         var hits = Utils.get_raycast_colliders(bullet_ray)
         print("bullet " + bullet_ray.name + " hit " + str(hits))
         var bullet_velocity = ammo.bullet_velocity_mps

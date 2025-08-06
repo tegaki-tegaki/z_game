@@ -12,9 +12,9 @@ func _ready() -> void:
     spawn_player(Vector2(0, 0))
 
     var cluster = Vector2(100, 100)
-    debug_spawn_enemy_rect(Rect2(Vector2(-1000, -250), cluster), 1)
-    debug_spawn_enemy_rect(Rect2(Vector2(300, -2000), cluster), 1)
-    debug_spawn_enemy_rect(Rect2(Vector2(0, 400), cluster), 1)
+    #debug_spawn_enemy_rect(Rect2(Vector2(-1000, -250), cluster), 1)
+    #debug_spawn_enemy_rect(Rect2(Vector2(300, -2000), cluster), 1)
+    #debug_spawn_enemy_rect(Rect2(Vector2(0, 400), cluster), 1)
     #debug_spawn_enemy_rect(
     #Rect2(Vector2(-8000, -8000), Vector2(16000, 16000)), 0.001
     #)
