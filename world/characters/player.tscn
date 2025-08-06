@@ -1,23 +1,33 @@
-[gd_scene load_steps=17 format=3 uid="uid://dlf3panc7yjcq"]
+[gd_scene load_steps=23 format=3 uid="uid://dlf3panc7yjcq"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="2_eb70n"]
 [ext_resource type="Script" uid="uid://k0tjfqdepcu5" path="res://scripts/body_component.gd" id="2_uw55b"]
-[ext_resource type="AudioStream" uid="uid://bn8d5sx7m5njn" path="res://sounds/hurt/hurt_1.ogg" id="3_nxsnn"]
 [ext_resource type="Resource" uid="uid://dvxsclte7nv1m" path="res://resources/creatures/human.tres" id="3_ovykn"]
-[ext_resource type="AudioStream" uid="uid://kmqy7pp7d0ao" path="res://sounds/hurt/hurt_2.ogg" id="4_2akar"]
-[ext_resource type="AudioStream" uid="uid://daripkarmit6k" path="res://sounds/hurt/hurt_3.ogg" id="5_w3lwe"]
+[ext_resource type="AudioStream" uid="uid://bn8d5sx7m5njn" path="res://sounds/player_hurt/hurt_1.ogg" id="3_yn745"]
+[ext_resource type="AudioStream" uid="uid://kmqy7pp7d0ao" path="res://sounds/player_hurt/hurt_2.ogg" id="4_nx8ku"]
+[ext_resource type="AudioStream" uid="uid://daripkarmit6k" path="res://sounds/player_hurt/hurt_3.ogg" id="5_mtixg"]
 [ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/interaction_component.tscn" id="6_4b5yr"]
+[ext_resource type="AudioStream" uid="uid://d0qif1sfuncck" path="res://sounds/player_hurt/hurt_4.ogg" id="6_aq4ew"]
 [ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="6_jj1hj"]
-[ext_resource type="AudioStream" uid="uid://d0qif1sfuncck" path="res://sounds/hurt/hurt_4.ogg" id="6_uxn3b"]
-[ext_resource type="AudioStream" uid="uid://tas3mww3svlx" path="res://sounds/hurt/hurt_5.ogg" id="7_yn745"]
+[ext_resource type="AudioStream" uid="uid://tas3mww3svlx" path="res://sounds/player_hurt/hurt_5.ogg" id="7_iq61g"]
 [ext_resource type="PackedScene" uid="uid://tccw1axb2hga" path="res://components/health_component.tscn" id="8_db0l3"]
-[ext_resource type="AudioStream" uid="uid://bt0vduu0o8b21" path="res://sounds/hurt/hurt_6.ogg" id="8_nx8ku"]
+[ext_resource type="AudioStream" uid="uid://bt0vduu0o8b21" path="res://sounds/player_hurt/hurt_6.ogg" id="8_tg27y"]
 [ext_resource type="PackedScene" uid="uid://bari3duy8xdsa" path="res://components/aim_component.tscn" id="9_avm01"]
+[ext_resource type="AudioStream" uid="uid://dvutbn4j27drs" path="res://sounds/player_death/death_1.ogg" id="9_yn745"]
+[ext_resource type="AudioStream" uid="uid://x8lbw4xerk5d" path="res://sounds/player_death/death_2.ogg" id="10_nx8ku"]
+[ext_resource type="AudioStream" uid="uid://cnreprajxvlv4" path="res://sounds/player_death/death_3.ogg" id="11_mtixg"]
+[ext_resource type="AudioStream" uid="uid://b5077o6shslh8" path="res://sounds/player_death/death_4.ogg" id="12_aq4ew"]
+[ext_resource type="AudioStream" uid="uid://bwulkeq44xsa" path="res://sounds/player_death/death_5.ogg" id="13_iq61g"]
 
 [sub_resource type="Resource" id="Resource_mtixg"]
 script = ExtResource("2_eb70n")
-sounds = Array[AudioStream]([ExtResource("3_nxsnn"), ExtResource("4_2akar"), ExtResource("5_w3lwe"), ExtResource("6_uxn3b"), ExtResource("7_yn745"), ExtResource("8_nx8ku")])
+sounds = Array[AudioStream]([ExtResource("3_yn745"), ExtResource("4_nx8ku"), ExtResource("5_mtixg"), ExtResource("6_aq4ew"), ExtResource("7_iq61g"), ExtResource("8_tg27y")])
+metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
+
+[sub_resource type="Resource" id="Resource_tg27y"]
+script = ExtResource("2_eb70n")
+sounds = Array[AudioStream]([ExtResource("9_yn745"), ExtResource("10_nx8ku"), ExtResource("11_mtixg"), ExtResource("12_aq4ew"), ExtResource("13_iq61g")])
 metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
@@ -26,6 +36,7 @@ radius = 7.0
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("body", "hitbox_component", "health_component")]
 script = ExtResource("1_dnjla")
 damage_sounds = SubResource("Resource_mtixg")
+death_sounds = SubResource("Resource_tg27y")
 body = NodePath("BodyComponent")
 hitbox_component = NodePath("CollisionShape2D")
 health_component = NodePath("HealthComponent")

@@ -42,7 +42,7 @@ func trigger_weapon(shooter: Character):
 
 func fire_ammo(shooter: Character, ammo: AmmoResource, aim_ray: RayCast2D):
     print("AMMO FIRED")
-    Utils.play_shot_sound(shooter, ammo.sound_pool.get_sound())
+    Utils.play_sound(shooter.get_node("%audio/gunshot"), ammo.sound_pool.get_sound())
     var interact = shooter.interact as InteractionComponent
 
     for i in ammo.num_bullets:

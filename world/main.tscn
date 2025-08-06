@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://yl3cvf80okdl"]
+[gd_scene load_steps=8 format=3 uid="uid://yl3cvf80okdl"]
 
 [ext_resource type="Script" uid="uid://h78jvel3mra1" path="res://world/main.gd" id="1_gjxf3"]
+[ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="2_cmo1i"]
 [ext_resource type="PackedScene" uid="uid://dldjrbdrv6itq" path="res://world/terrain.tscn" id="2_spvjk"]
 [ext_resource type="Script" uid="uid://cli7snpvqc4rp" path="res://scripts/debug.gd" id="3_4f7fj"]
 [ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="4_spvjk"]
+
+[sub_resource type="Resource" id="Resource_i1eo7"]
+script = ExtResource("2_cmo1i")
+sounds = Array[AudioStream]([])
+metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cmo1i"]
 atlas = ExtResource("4_spvjk")
@@ -11,6 +17,7 @@ region = Rect2(0, 6176, 32, 32)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_gjxf3")
+game_over = SubResource("Resource_i1eo7")
 
 [node name="terrain" parent="." instance=ExtResource("2_spvjk")]
 unique_name_in_owner = true
@@ -136,6 +143,10 @@ text = "num_ammo:"
 
 [node name="audio" type="Node2D" parent="."]
 unique_name_in_owner = true
+
+[node name="ambience" type="AudioStreamPlayer2D" parent="audio"]
+
+[node name="UI" type="AudioStreamPlayer2D" parent="audio"]
 
 [node name="debug_target" type="Node2D" parent="."]
 visible = false

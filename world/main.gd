@@ -7,6 +7,8 @@ const PLAYER = preload("res://world/characters/player.tscn")
 @onready var enemies: Node2D = $enemies
 @onready var items: Node2D = $items
 
+@export var game_over: SoundPool
+
 
 func _ready() -> void:
     spawn_player(Vector2(0, 0))
@@ -14,7 +16,7 @@ func _ready() -> void:
     var cluster = Vector2(100, 100)
     debug_spawn_enemy_rect(Rect2(Vector2(-1000, -250), cluster), 1)
     debug_spawn_enemy_rect(Rect2(Vector2(300, -2000), cluster), 1)
-    debug_spawn_enemy_rect(Rect2(Vector2(0, 400), cluster), 1)
+    debug_spawn_enemy_rect(Rect2(Vector2(0, 500), cluster), 1)
     #debug_spawn_enemy_rect(
     #Rect2(Vector2(-8000, -8000), Vector2(16000, 16000)), 0.001
     #)
@@ -23,7 +25,7 @@ func _ready() -> void:
     #)
 
     var hulk = preload("res://resources/creatures/mon_zombie_hulk.tres")
-    spawn_enemy(Vector2(100, -200), hulk)
+    spawn_enemy(Vector2(100, -400), hulk)
 
     var sweater = preload("res://resources/clothing/sweater.tres")
     spawn_item(Vector2(-70, 50), sweater)

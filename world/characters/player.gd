@@ -8,6 +8,7 @@ signal player_action(player)
 @onready var camera: Camera2D = $Camera2D
 
 @export var damage_sounds: SoundPool
+@export var death_sounds: SoundPool
 
 var interact: InteractionComponent
 var aim_component: AimComponent
@@ -175,7 +176,7 @@ func handle_reload():
             return
         var weapon = wielded.get_weapon()
 
-        Utils.play_reload_sound(self, weapon.sound_pool.get_sound())
+        Utils.play_sound(%audio/reload, weapon.sound_pool.get_sound())
         act(1.0, PlayerState.ActionType.RELOAD)
         disable_act(1 * weapon.reload_time_modifier, 3.0)
 
@@ -239,4 +240,9 @@ func enable_act():
 
 func damage(raw_damage, impact_vector):
     super.damage(raw_damage, impact_vector)
-    Utils.play_damage_sound(%audio/damage, damage_sounds.get_sound())
+    Utils.play_sound(%audio/damage, damage_sounds.get_sound())
+
+
+func set_dead():
+    super.set_dead()
+    Utils.play_sound(%audio/damage, death_sounds.get_sound())

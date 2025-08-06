@@ -23,10 +23,14 @@ static var REACH = 30.0
 
 func get_player():
     if !player:
-        var _player = get_tree().root.get_node("main/player")
-        if _player:
+        var _player = get_tree().root.get_node("main/player") as Player
+        if _player && !_player.is_dead:
             _player.player_action.connect(update_ai)
             player = _player
+    if player && player.is_dead:
+        var _player = player as Player
+        _player.player_action.disconnect(update_ai)
+        player = null
 
 
 func _ready() -> void:
@@ -50,8 +54,9 @@ func _ready() -> void:
 
 func trigger_attack():
     # TODO: try swing / sample Area2D collider
-    if (player.position - position).length() < REACH:
-        player.damage(100, player.position - position)
+    if player:
+        if (player.position - position).length() < REACH:
+            player.damage(100, player.position - position)
 
 
 func new_idle_target():
@@ -110,10 +115,10 @@ func update_ai(player_state: PlayerState):
         return
 
     var to_player = position - player.position
-    if to_player.length() < 200:
+    if to_player.length() < 400:
         target = player.position
         has_target = true
-        _attention_timer.start(5.0)
+        _attention_timer.start(10.0)
     if to_player.length() < REACH:
         _enable_attack()
     else:
@@ -122,10 +127,14 @@ func update_ai(player_state: PlayerState):
 
 func damage(raw_damage: float, impact_vector: Vector2):
     super.damage(raw_damage, impact_vector)
-    target = (position + (-1 * impact_vector.normalized()) * 200)
+    target = (
+        position
+        + (-1 * impact_vector.normalized()) * randf_range(200, 1500)
+    )
     has_target = true
-    _attention_timer.start(5.0)
-    
+    _attention_timer.start(15.0)
+
+
 func set_dead():
     super.set_dead()
     has_target = false
