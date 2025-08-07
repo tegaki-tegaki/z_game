@@ -152,7 +152,7 @@ func handle_aim(delta):
 
 
 func handle_fire():
-    var attempt_fire = Input.is_action_just_pressed("fire_weapon")
+    var attempt_fire = Input.is_action_pressed("fire_weapon")
     if attempt_fire:
         if mode == Mode.INTERACT_STORE:
             interact.store_targeted()
@@ -161,10 +161,15 @@ func handle_fire():
             interact.equip_targeted()
             return true
         if mode == Mode.AIMING or mode == Mode.MOVING:
-            disable_act(0.2)
-            act(1.0, PlayerState.ActionType.FIRE)
-            C.trigger_weapon(self)
-            return true
+            var wielded = interact.get_wielded() as Weapon
+            if !wielded:
+                return
+            var weapon = wielded.get_weapon() as RangedWeaponResource
+            if weapon:
+                disable_act(1.0 - weapon.weapon_data.attack_time_modifier)
+                act(1.0, PlayerState.ActionType.FIRE)
+                C.trigger_weapon(self)
+                return true
     return false
 
 
