@@ -39,8 +39,9 @@ func _ready() -> void:
 
     var shotgun = preload("res://resources/weapons/shotgun.tres")
     spawn_item(Vector2(-120, 70), shotgun)
-    spawn_item(Vector2(-120, 80), shotgun)
-    spawn_item(Vector2(-120, 90), shotgun)
+    
+    var mp5k = preload("res://resources/weapons/hk_mp5k.tres")
+    spawn_item(Vector2(-120, 80), mp5k)
 
 
 func spawn_player(location: Vector2):

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="RangedWeaponResource" load_steps=11 format=3 uid="uid://cg30nm2yln3xh"]
+
+[ext_resource type="Script" uid="uid://ccjrxjshlop02" path="res://models/ranged_weapon.gd" id="1_g23c8"]
+[ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="2_ed627"]
+[ext_resource type="AudioStream" uid="uid://c6fkghqga3a3a" path="res://sounds/smg/smg_1.ogg" id="3_g23c8"]
+[ext_resource type="AudioStream" uid="uid://dw4xerumy5is1" path="res://sounds/smg/smg_2.ogg" id="4_ed627"]
+[ext_resource type="AudioStream" uid="uid://c4s7drdtfv8pd" path="res://sounds/smg/smg_3.ogg" id="5_u3lnr"]
+[ext_resource type="AudioStream" uid="uid://b4nilocbbdrvo" path="res://sounds/smg/smg_4.ogg" id="6_ql5ny"]
+[ext_resource type="AudioStream" uid="uid://djoqc31px3hcw" path="res://sounds/smg/smg_5.ogg" id="7_n6dg7"]
+[ext_resource type="Script" uid="uid://ceavvqpiw2r8r" path="res://models/weapon_data.gd" id="8_v14bw"]
+
+[sub_resource type="Resource" id="Resource_jlnqt"]
+script = ExtResource("2_ed627")
+sounds = Array[AudioStream]([ExtResource("3_g23c8"), ExtResource("4_ed627"), ExtResource("5_u3lnr"), ExtResource("6_ql5ny"), ExtResource("7_n6dg7")])
+metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
+
+[sub_resource type="Resource" id="Resource_ok5mh"]
+script = ExtResource("8_v14bw")
+weapon_extra_damage = 1.0
+attack_time_modifier = 0.9
+metadata/_custom_type_script = "uid://ceavvqpiw2r8r"
+
+[resource]
+script = ExtResource("1_g23c8")
+weapon_data = SubResource("Resource_ok5mh")
+sound_pool = SubResource("Resource_jlnqt")
+compatible_ammo = 1
+max_num_ammo = 30
+aim_time_modifier = 0.9
+reload_time_modifier = 1.5
+start_aim_spread = 0.8
+best_aim_spread = 0.08
+volume_cm3 = 1000.0
+mass_kg = 2.0
+type = 2
+storage_cm3 = 0.0
+storage_length_cm = 0.0
+name = "mp5 (K)"
+name_texture = "hk_mp5k"
+name_texture_character = "overlay_wielded_hk_mp5k"
+y_offset = 0.0
+y_offset_character = 0.0
+metadata/_custom_type_script = "uid://ccjrxjshlop02"

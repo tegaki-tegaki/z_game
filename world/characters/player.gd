@@ -174,15 +174,21 @@ func handle_reload():
         var wielded = interact.get_wielded() as Weapon
         if !wielded:
             return
-        var weapon = wielded.get_weapon()
+        var weapon = wielded.get_weapon() as RangedWeaponResource
 
         Utils.play_sound(%audio/reload, weapon.sound_pool.get_sound())
         act(1.0, PlayerState.ActionType.RELOAD)
         disable_act(1 * weapon.reload_time_modifier, 3.0)
-
-        const _00_SHOT = preload("res://resources/ammo/00_shot.tres")
-        wielded.loaded_ammo = _00_SHOT
-        wielded.loaded_ammo_num = 2
+        
+        match weapon.compatible_ammo:
+            AmmoResource.AmmoType.SHELLS:
+                const ammo = preload("res://resources/ammo/00_shot.tres")
+                wielded.loaded_ammo = ammo
+                wielded.loaded_ammo_num = weapon.max_num_ammo
+            AmmoResource.AmmoType._d902mm:
+                const ammo = preload("res://resources/ammo/_d902mm.tres")
+                wielded.loaded_ammo = ammo
+                wielded.loaded_ammo_num = weapon.max_num_ammo
 
         return true
     return false

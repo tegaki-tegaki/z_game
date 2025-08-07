@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AmmoResource" load_steps=11 format=3 uid="uid://dkmq13aofvi86"]
+
+[ext_resource type="Script" uid="uid://bqnjiwvhba1oj" path="res://models/ammo.gd" id="1_8so2r"]
+[ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="2_tc4f4"]
+[ext_resource type="AudioStream" uid="uid://wqkm3n2ei1h0" path="res://sounds/9mm/9mm_1.ogg" id="3_8so2r"]
+[ext_resource type="AudioStream" uid="uid://bqwb3sriy2tu8" path="res://sounds/9mm/9mm_2.ogg" id="4_tc4f4"]
+[ext_resource type="AudioStream" uid="uid://dmdikfs1vs47l" path="res://sounds/9mm/9mm_3.ogg" id="5_345hn"]
+[ext_resource type="AudioStream" uid="uid://du1qajav57bqq" path="res://sounds/9mm/9mm_4.ogg" id="6_w3g0u"]
+[ext_resource type="AudioStream" uid="uid://c80q7sb3vwjvk" path="res://sounds/9mm/9mm_5.ogg" id="7_uklm8"]
+[ext_resource type="Texture2D" uid="uid://sb6a0kw03msc" path="res://images/normal.png" id="8_7tjj4"]
+
+[sub_resource type="Resource" id="Resource_20x4r"]
+script = ExtResource("2_tc4f4")
+sounds = Array[AudioStream]([ExtResource("3_8so2r"), ExtResource("4_tc4f4"), ExtResource("5_345hn"), ExtResource("6_w3g0u"), ExtResource("7_uklm8")])
+metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_preh3"]
+atlas = ExtResource("8_7tjj4")
+region = Rect2(256, 2784, 32, 32)
+
+[resource]
+script = ExtResource("1_8so2r")
+ammo_name = "_d902mm"
+bullet_extra_damage = 1.0
+num_bullets = 1
+bullet_volume_cm3 = 0.62
+bullet_mass_kg = 0.008
+cartridge_volume_cm3 = 2.29
+cartridge_mass_kg = 0.0125
+bullet_velocity_mps = 360.0
+bullet_hardness_bhn = 35.0
+ammo_type = 1
+texture = SubResource("AtlasTexture_preh3")
+sound_pool = SubResource("Resource_20x4r")
+metadata/_custom_type_script = "uid://bqnjiwvhba1oj"
