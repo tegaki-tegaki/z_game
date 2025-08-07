@@ -43,6 +43,9 @@ func equip_targeted():
     var item = reachable_item() as Item
     if item:
         if item is Weapon:
+            var _weapon = owner.body.wielding.get_child(0) as Weapon
+            if _weapon:
+                _weapon.drop(owner)
             item.wield(owner)
         elif item is Clothing:
             item.wear(owner)

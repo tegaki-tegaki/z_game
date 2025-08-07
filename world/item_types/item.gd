@@ -55,8 +55,9 @@ func _set_sprite_state(state: State):
 func drop(wielder: Character):
     _set_sprite_state(State.WORLD)
     collision.disabled = false
-    reparent(get_tree().root.get_node("%items"))
-    owner = null
+    var items = get_tree().root.get_node("main/%items")
+    reparent(items, false)
+    owner_ = null
     position = wielder.position
 
 
