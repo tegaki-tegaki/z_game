@@ -189,7 +189,7 @@ func handle_fire():
             mode = Mode.MOVING
             return true
         if mode == Mode.AIMING or mode == Mode.MOVING:
-            var wielded = interact.get_wielded() as Weapon
+            var wielded = interact.get_wielded() as WieldedWeapon
             if !wielded:
                 return
             var weapon = wielded.get_weapon() as RangedWeaponResource
@@ -204,7 +204,7 @@ func handle_fire():
 func handle_reload():
     var attempt_reload = Input.is_action_just_pressed("reload_weapon")
     if attempt_reload:
-        var wielded = interact.get_wielded() as Weapon
+        var wielded = interact.get_wielded() as WieldedWeapon
         if !wielded:
             return
         var weapon = wielded.get_weapon() as RangedWeaponResource
@@ -284,4 +284,5 @@ func damage(raw_damage, impact_vector):
 
 func set_dead():
     super.set_dead()
+    mode = Mode.MOVING
     Utils.play_sound(%audio/damage, death_sounds.get_sound())

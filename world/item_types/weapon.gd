@@ -1,4 +1,4 @@
-class_name Weapon
+class_name WieldedWeapon
 extends Item
 
 @export var ranged: RangedWeaponResource = null

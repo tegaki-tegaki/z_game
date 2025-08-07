@@ -37,7 +37,7 @@ func _process(_delta: float):
 
 
 func get_mass() -> float:
-    var wielded_ = Utils.first(wielding) as Weapon
+    var wielded_ = Utils.first(wielding) as WieldedWeapon
     var wearing_ = wearing.get_children()
 
     var wielding_mass = 0.0
@@ -53,7 +53,7 @@ func get_mass() -> float:
 
 func get_storage() -> float:
     var wielding_storage = 0.0
-    var wielded_ = Utils.first(wielding) as Weapon
+    var wielded_ = Utils.first(wielding) as WieldedWeapon
     if wielded_:
         wielding_storage += wielded_.get_storage()
 

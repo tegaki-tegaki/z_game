@@ -36,7 +36,7 @@ func _process(_delta: float) -> void:
         )
         mass.text = "mass: %s kg" % [player.get_mass()]
         var interact = player.interact
-        var wielded = interact.get_wielded() as Weapon
+        var wielded = interact.get_wielded() as WieldedWeapon
         if wielded:
             var weapon = wielded.get_weapon()
 

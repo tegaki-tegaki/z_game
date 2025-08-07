@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dlf3panc7yjcq"]
+[gd_scene load_steps=24 format=3 uid="uid://dlf3panc7yjcq"]
 
 [ext_resource type="Script" uid="uid://cxp6dtrytels2" path="res://world/characters/player.gd" id="1_dnjla"]
 [ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="2_eb70n"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://cnreprajxvlv4" path="res://sounds/player_death/death_3.ogg" id="11_mtixg"]
 [ext_resource type="AudioStream" uid="uid://b5077o6shslh8" path="res://sounds/player_death/death_4.ogg" id="12_aq4ew"]
 [ext_resource type="AudioStream" uid="uid://bwulkeq44xsa" path="res://sounds/player_death/death_5.ogg" id="13_iq61g"]
+[ext_resource type="Script" uid="uid://cp63gntybvo8g" path="res://scripts/aim_indicator.gd" id="20_nx8ku"]
 
 [sub_resource type="Resource" id="Resource_mtixg"]
 script = ExtResource("2_eb70n")
@@ -195,3 +196,6 @@ aim = NodePath("../AimComponent")
 
 [node name="AimComponent" parent="." instance=ExtResource("9_avm01")]
 position = Vector2(0, -15)
+
+[node name="aim_indicator" type="Node2D" parent="."]
+script = ExtResource("20_nx8ku")

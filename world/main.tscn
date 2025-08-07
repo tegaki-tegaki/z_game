@@ -12,12 +12,12 @@ script = ExtResource("2_cmo1i")
 sounds = Array[AudioStream]([])
 metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmo1i"]
-bg_color = Color(0, 0, 0, 1)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_cmo1i"]
 atlas = ExtResource("4_spvjk")
 region = Rect2(0, 6176, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmo1i"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_gjxf3")
@@ -37,160 +37,6 @@ unique_name_in_owner = true
 [node name="raycasts" type="Node2D" parent="bullets"]
 
 [node name="decals" type="Node2D" parent="bullets"]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="debug" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-script = ExtResource("3_4f7fj")
-
-[node name="FPS" type="Label" parent="CanvasLayer/MarginContainer/debug"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="position" type="Label" parent="CanvasLayer/MarginContainer/debug"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="mode" type="Label" parent="CanvasLayer/MarginContainer/debug"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="storage" type="Label" parent="CanvasLayer/MarginContainer/debug"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="health" type="Label" parent="CanvasLayer/MarginContainer/debug"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="stamina" type="Label" parent="CanvasLayer/MarginContainer/debug"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="mass" type="Label" parent="CanvasLayer/MarginContainer/debug"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="weapon_stats" type="Label" parent="CanvasLayer/MarginContainer/debug"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "weapon (NONE)"
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/debug"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-
-[node name="indent" type="VBoxContainer" parent="CanvasLayer/MarginContainer/debug/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="aim_spread" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "aim_spread:"
-
-[node name="aim_time" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "aim_time:"
-
-[node name="fire_time" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "fire_time:"
-
-[node name="damage" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "damage estimate (per bullet):"
-
-[node name="ammo_compatible" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "ammo_compatible:"
-
-[node name="ammo_stats" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "ammo (NONE): "
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-
-[node name="indent" type="VBoxContainer" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="ammo_texture" type="TextureRect" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-stretch_mode = 2
-
-[node name="num_ammo" type="Label" parent="CanvasLayer/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "num_ammo:"
-
-[node name="help_menu" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 100
-script = ExtResource("5_i1eo7")
-
-[node name="Panel" type="Panel" parent="CanvasLayer/help_menu"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_cmo1i")
-
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/help_menu/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 80
-
-[node name="message" type="RichTextLabel" parent="CanvasLayer/help_menu/Panel/MarginContainer2"]
-layout_mode = 2
-text = "Controls:
-
-Time only passes when you do something
-
-- [wasd] to move
-- [f] to equip target
-- [g] to grab target (store in inventory)
-- [shift] to sprint (depletes stamina faster)
-
-- [mouse] to aim
-- [mouse 2] to steady aim
-- [mouse 1] to fire
-- [r] to reload weapon (debug: gives you a full clip for free)
-
-- [esc] to toggle this menu
-- [?] to see this menu again"
 
 [node name="audio" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -216,3 +62,158 @@ width = 1.0
 unique_name_in_owner = true
 visible = false
 texture = SubResource("AtlasTexture_cmo1i")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="debug" type="VBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("3_4f7fj")
+
+[node name="FPS" type="Label" parent="UI/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="position" type="Label" parent="UI/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="mode" type="Label" parent="UI/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="storage" type="Label" parent="UI/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="health" type="Label" parent="UI/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="stamina" type="Label" parent="UI/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="mass" type="Label" parent="UI/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="weapon_stats" type="Label" parent="UI/MarginContainer/debug"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "weapon (NONE)"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/debug"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="indent" type="VBoxContainer" parent="UI/MarginContainer/debug/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="aim_spread" type="Label" parent="UI/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "aim_spread:"
+
+[node name="aim_time" type="Label" parent="UI/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "aim_time:"
+
+[node name="fire_time" type="Label" parent="UI/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "fire_time:"
+
+[node name="damage" type="Label" parent="UI/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "damage estimate (per bullet):"
+
+[node name="ammo_compatible" type="Label" parent="UI/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ammo_compatible:"
+
+[node name="ammo_stats" type="Label" parent="UI/MarginContainer/debug/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ammo (NONE): "
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/debug/MarginContainer/indent"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="indent" type="VBoxContainer" parent="UI/MarginContainer/debug/MarginContainer/indent/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ammo_texture" type="TextureRect" parent="UI/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+stretch_mode = 2
+
+[node name="num_ammo" type="Label" parent="UI/MarginContainer/debug/MarginContainer/indent/MarginContainer/indent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "num_ammo:"
+
+[node name="help_menu" type="MarginContainer" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+script = ExtResource("5_i1eo7")
+
+[node name="Panel" type="Panel" parent="UI/help_menu"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cmo1i")
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/help_menu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 80
+
+[node name="message" type="RichTextLabel" parent="UI/help_menu/Panel/MarginContainer2"]
+layout_mode = 2
+text = "Controls:
+
+Time only passes when you do something
+
+- [wasd] to move
+- [f] to equip target
+- [g] to grab target (store in inventory)
+- [shift] to sprint (depletes stamina faster)
+
+- [mouse] to aim
+- [mouse 2] to steady aim
+- [mouse 1] to fire
+- [r] to reload weapon (debug: gives you a full clip for free)
+
+- [esc] to toggle this menu
+- [?] to see this menu again"

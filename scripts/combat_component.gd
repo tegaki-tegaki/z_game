@@ -23,7 +23,7 @@ func get_aim_ray() -> RayCast2D:
     return aim
 
 
-func get_wielded() -> Weapon:
+func get_wielded() -> WieldedWeapon:
     var weapon = Utils.first(
         owner.get_meta(BodyComponent.N).get_node("wielding")
     )
@@ -42,8 +42,8 @@ func store_targeted():
 func equip_targeted():
     var item = reachable_item() as Item
     if item:
-        if item is Weapon:
-            var _weapon = owner.body.wielding.get_child(0) as Weapon
+        if item is WieldedWeapon:
+            var _weapon = owner.body.wielding.get_child(0) as WieldedWeapon
             if _weapon:
                 _weapon.drop(owner)
             item.wield(owner)

@@ -5,7 +5,7 @@ extends Node
 var bullet_decals = get_tree().root.get_node("main/%bullets/decals")
 
 
-## Attempt to trigger [param shooter]'s wielded Weapon
+## Attempt to trigger [param shooter]'s wielded WieldedWeapon
 ##
 ## this is the "main combat entrypoint":
 ## Combat -> InteractionComponent(injected) -> other...
@@ -65,7 +65,7 @@ func fire_ammo(shooter: Character, ammo: AmmoResource, aim_ray: RayCast2D):
 
 func calculate_bullet_hits(shooter: Character):
     var interact = shooter.interact as InteractionComponent
-    var wielded = interact.get_wielded() as Weapon
+    var wielded = interact.get_wielded() as WieldedWeapon
     var ammo = wielded.loaded_ammo
 
     for bullet_ray: RayCast2D in bullets.get_children():
@@ -89,7 +89,7 @@ func calculate_bullet_hits(shooter: Character):
 
 
 func calc_damage(data: DamageCalcData):
-    var wielded = data.wielded as Weapon
+    var wielded = data.wielded as WieldedWeapon
     # TODO: assumes ranged weapon... check both
     var weapon = wielded.get_weapon() as RangedWeaponResource
     var ammo = wielded.loaded_ammo as AmmoResource
@@ -136,10 +136,10 @@ func render_bullet(
 # convention: *Data for data bundles
 # better than Dictionary (it kinda sucky in gdscript)
 class DamageCalcData:
-    var wielded: Weapon
+    var wielded: WieldedWeapon
     var bullet_speed
 
-    func _init(_wielded: Weapon, _bullet_speed = null):
+    func _init(_wielded: WieldedWeapon, _bullet_speed = null):
         wielded = _wielded
         bullet_speed = _bullet_speed
 
