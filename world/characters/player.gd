@@ -113,12 +113,38 @@ func handle_move():
         mode = Mode.MOVING
         set_aim_spread()
 
-        var total_delta_mod = 1.0
-        var str_mod = total_delta_mod - inverse_lerp(0, 20, strength)
-        var mass_mod = get_mass()
+        var str_mod = inverse_lerp(0, 20, strength)
+
+        var sprint_timestep_mod = 1.0
+        var stamina_depletion_mod = lerpf(0.5, 1, 1 - str_mod)
         if run_mode:
-            total_delta_mod = clamp(str_mod * mass_mod, 0.1, 1)
-        stamina -= velocity.length() * total_delta_mod
+            sprint_timestep_mod = lerpf(0.2, 1, 1 - str_mod)
+            stamina_depletion_mod *= 2
+
+        # max for a human ~ 500kg, should be at max strength (20)
+        # min around 10kg + own (75kg) you can always carry 10kg if healthy
+        var max_mass_carry = lerpf(85, 500, str_mod)
+        # a really strong & athletic person is roughly 50% faster than average (usain bolt 10m/s, normal is 6.6m/s)
+
+        # str_speed_mod: 0 -> 1.5 # stronger == reduce timestep
+        var str_speed_mod = 1.5 - lerpf(0, 0.85, str_mod)
+        # weight will only slow you down, above 75kg ideal (+10kg)
+        # imagine carrying your absolute max, you're probably 1/5th as fast as normal
+        # mass_carried_mod: 1.0 -> 5.0 # more weight = increase timestep
+        var mass_carried_mod = clamp(
+            inverse_lerp(1.0, max_mass_carry, min(0, get_mass() - 85)) * 5,
+            1.0,
+            5.0
+        )
+
+        # str_stamina_mod: 0 -> 1.0 # reduce stamina lost
+        var total_delta_mod = clamp(
+            str_speed_mod * mass_carried_mod * sprint_timestep_mod, 0.1, 5
+        )
+
+        stamina -= (
+            velocity.length() * total_delta_mod * stamina_depletion_mod
+        )
 
         act(1.0 * total_delta_mod, PlayerState.ActionType.MOVE)
         move_and_slide()
@@ -156,9 +182,11 @@ func handle_fire():
     if attempt_fire:
         if mode == Mode.INTERACT_STORE:
             interact.store_targeted()
+            mode = Mode.MOVING
             return true
         if mode == Mode.INTERACT_EQUIP:
             interact.equip_targeted()
+            mode = Mode.MOVING
             return true
         if mode == Mode.AIMING or mode == Mode.MOVING:
             var wielded = interact.get_wielded() as Weapon
@@ -184,7 +212,7 @@ func handle_reload():
         Utils.play_sound(%audio/reload, weapon.sound_pool.get_sound())
         act(1.0, PlayerState.ActionType.RELOAD)
         disable_act(1 * weapon.reload_time_modifier, 3.0)
-        
+
         match weapon.compatible_ammo:
             AmmoResource.AmmoType.SHELLS:
                 const ammo = preload("res://resources/ammo/00_shot.tres")
