@@ -1,11 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://br67pb7jflr3h"]
+[gd_scene load_steps=14 format=3 uid="uid://br67pb7jflr3h"]
 
 [ext_resource type="Script" uid="uid://l0g83fpfov3a" path="res://world/characters/enemy.gd" id="1_nhupr"]
+[ext_resource type="Script" uid="uid://dxcarwrlyhg8v" path="res://models/sound_pool.gd" id="2_2jywy"]
 [ext_resource type="PackedScene" uid="uid://t3phjnfkxvs3" path="res://components/body_component.tscn" id="2_rcv5e"]
+[ext_resource type="AudioStream" uid="uid://dv0ixeqwl7qx2" path="res://sounds/monster_death/zombie_death_1.ogg" id="3_fb5k4"]
 [ext_resource type="PackedScene" uid="uid://tccw1axb2hga" path="res://components/health_component.tscn" id="3_ggbst"]
 [ext_resource type="PackedScene" uid="uid://ghoxid7434om" path="res://components/health_bar_component.tscn" id="3_rcv5e"]
+[ext_resource type="AudioStream" uid="uid://do5gu45lj4kb" path="res://sounds/monster_death/zombie_death_2.ogg" id="4_0d5ef"]
+[ext_resource type="AudioStream" uid="uid://bbkurs7gkpihy" path="res://sounds/monster_death/zombie_death_3.ogg" id="5_5551t"]
 [ext_resource type="PackedScene" uid="uid://d0frg0q2eo7oi" path="res://components/interaction_component.tscn" id="5_rcv5e"]
 [ext_resource type="PackedScene" uid="uid://bari3duy8xdsa" path="res://components/aim_component.tscn" id="6_8hm70"]
+[ext_resource type="AudioStream" uid="uid://tu415fucabsa" path="res://sounds/monster_death/zombie_death_4.ogg" id="6_rm20k"]
+
+[sub_resource type="Resource" id="Resource_efiwg"]
+script = ExtResource("2_2jywy")
+sounds = Array[AudioStream]([ExtResource("3_fb5k4"), ExtResource("4_0d5ef"), ExtResource("5_5551t"), ExtResource("6_rm20k")])
+metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhupr"]
 radius = 6.5
@@ -15,6 +25,7 @@ collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_nhupr")
+death_sounds = SubResource("Resource_efiwg")
 body = NodePath("BodyComponent")
 hitbox_component = NodePath("HitboxComponent")
 health_component = NodePath("HealthComponent")

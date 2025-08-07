@@ -166,7 +166,7 @@ func handle_fire():
                 return
             var weapon = wielded.get_weapon() as RangedWeaponResource
             if weapon:
-                disable_act(1.0 - weapon.weapon_data.attack_time_modifier)
+                disable_act(weapon.weapon_data.attack_time_modifier)
                 act(1.0, PlayerState.ActionType.FIRE)
                 C.trigger_weapon(self)
                 return true

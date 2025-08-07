@@ -6,8 +6,9 @@
 script = ExtResource("1_p3c65")
 size = 14.0
 speed = 75.0
-health = 10000.0
+health = 20000.0
 name = "mon_zombie_hulk"
+corpse_name = ""
 y_offset = -6.0
 corpse_y_offset = 10.0
 mass_kg = 1500.0

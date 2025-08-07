@@ -3,6 +3,8 @@ extends Character
 
 @onready var timers: Node2D = %timers
 
+@export var death_sounds: SoundPool
+
 var aim_component: RayCast2D
 
 var has_target = false
@@ -115,7 +117,7 @@ func update_ai(player_state: PlayerState):
         return
 
     var to_player = position - player.position
-    if to_player.length() < 400:
+    if to_player.length() < 800:
         target = player.position
         has_target = true
         _attention_timer.start(10.0)
@@ -141,4 +143,5 @@ func set_dead():
     _disable_attack()
     _attention_timer.queue_free()
     _attack_timer.queue_free()
+    Utils.play_sound(get_tree().root.get_node("main/%audio/ambience"), death_sounds.get_sound())
     # TODO: respawn timer?

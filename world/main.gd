@@ -16,16 +16,16 @@ func _ready() -> void:
     var cluster = Vector2(100, 100)
     debug_spawn_enemy_rect(Rect2(Vector2(-1000, -250), cluster), 1)
     debug_spawn_enemy_rect(Rect2(Vector2(300, -2000), cluster), 1)
-    debug_spawn_enemy_rect(Rect2(Vector2(0, 500), cluster), 1)
-    #debug_spawn_enemy_rect(
-    #Rect2(Vector2(-8000, -8000), Vector2(16000, 16000)), 0.001
-    #)
+    debug_spawn_enemy_rect(Rect2(Vector2(0, 1000), cluster), 1)
+    debug_spawn_enemy_rect(
+        Rect2(Vector2(-8000, -8000), Vector2(16000, 16000)), 0.001
+    )
     #debug_spawn_enemy_rect(
     #Rect2(Vector2(8000, 0), Vector2(1000, 1000)), 0.2
     #)
 
     var hulk = preload("res://resources/creatures/mon_zombie_hulk.tres")
-    spawn_enemy(Vector2(100, -400), hulk)
+    spawn_enemy(Vector2(100, -800), hulk)
 
     var sweater = preload("res://resources/clothing/sweater.tres")
     spawn_item(Vector2(-70, 50), sweater)

@@ -17,7 +17,7 @@ metadata/_custom_type_script = "uid://dxcarwrlyhg8v"
 [sub_resource type="Resource" id="Resource_ok5mh"]
 script = ExtResource("3_eea6l")
 weapon_extra_damage = 1.0
-attack_time_modifier = 0.2
+attack_time_modifier = 0.8
 metadata/_custom_type_script = "uid://ceavvqpiw2r8r"
 
 [resource]
